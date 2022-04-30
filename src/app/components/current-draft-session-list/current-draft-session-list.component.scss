@@ -1,0 +1,28 @@
+.container {
+    width: 100%;
+}
+
+
+.table-headers {
+    display: flex;
+    justify-content: space-between;
+    th {
+        width: 9%;
+        color: #00000099;
+        text-align: left;
+        font: normal normal normal 16px/21px Roboto;
+        letter-spacing: 0px;
+        opacity: 1;
+    }
+}
+
+.info-row {
+    td {
+        white-space: pre-wrap;
+        border-bottom-width: 0;
+    }
+}
+
+.clicked-row{
+    background-color: hotpink;
+}
