@@ -36,7 +36,7 @@
         <td mat-cell *matCellDef="let element"
             class="session-list-trips"
         >
-            {{ element.tripCount }}
+            {{ element.tripCount }} Trips
         </td>
     </ng-container>
 
@@ -46,6 +46,7 @@
         <th mat-header-cell *matHeaderCellDef>START DATE/TIME</th>
         <td mat-cell *matCellDef="let element"
             class="session-list-start-time"
+            style="text-transform: uppercase;"
         >
             {{ element.startTime }}
         </td>
@@ -115,14 +116,20 @@
         <td mat-cell *matCellDef="let element"
             class="session-list-est-time"
         >
-            {{ element.estTime * 1000 | date : 'mm:ss' }}
+            {{ element.estTime * 1000 | date : 'mm:ss' }} Left
         </td>
     </ng-container>
 
     <ng-container
         matColumnDef="viewBtn"
     >
-        <th mat-header-cell *matHeaderCellDef></th>
+        <th mat-header-cell *matHeaderCellDef
+            class="session-list-add-btn"
+        >
+            <button mat-mini-fab color="primary">
+                <mat-icon>add</mat-icon>
+            </button>
+        </th>
         <td mat-cell *matCellDef="let element"
             class="session-list-view-btn"
         >
@@ -137,31 +144,71 @@
             mat-cell
             *matCellDef="let element"
             [attr.colspan]="columnsToDisplay.length"
+            class="dropdown-list-row"
         >
             <div class="dropdown-list-container">
+                <!-- View Trips -->
                 <div class="dropdown-list">
                     <div>
-                        <button mat-icon-button (click)="onTripListExtendClick(element)">
-                            <mat-icon>expand_less</mat-icon>
-                        </button>
-                        <label>VIEW TRIPS</label> 
+                        <a  
+                            class="dropdown-list-btn" 
+                            [ngClass]="element.isViewTripExtended ? 'dropdown-list-btn-clicked' : ''"
+                            (click)="onTripListExtendClick(element)">
+                            <mat-icon>arrow_drop_up</mat-icon>
+                        </a>
+                        <a class="dropdown-label" (click)="onTripListExtendClick(element)">VIEW TRIPS</a> 
                     </div>
                     <table mat-table class="dropdown-table" [dataSource]="element.trips" *ngIf="element.isViewTripExtended">
                         <ng-container matColumnDef="id">
-                            <td mat-cell *matCellDef="let element"> 
-                                <a (click)="onTripIdClick(element.id)">{{element.id}}</a> / {{element.date}}
+                            <td mat-cell *matCellDef="let element" class="dropdown-table-id"> 
+                                <a (click)="onTripIdClick(element)">{{element.id}}</a>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="date">
+                            <td mat-cell *matCellDef="let element" style="text-transform: uppercase;"> 
+                                / {{element.date}}
                             </td>
                         </ng-container>
                         <ng-container matColumnDef="status">
                             <td mat-cell *matCellDef="let element"> {{element.status}} </td>
                         </ng-container>
                         <ng-container matColumnDef="info">
-                            <td mat-cell *matCellDef="let element">- {{element.info}} </td>
+                            <td mat-cell *matCellDef="let element">- <a (click)="onTripInfoClick(element)">{{element.info}}</a></td>
                         </ng-container>
-                        <tr mat-row class="dropdown-list-row" *matRowDef="let row; columns: ['id', 'status', 'info'];"></tr>
+                        <tr mat-row class="dropdown-list-row" *matRowDef="let row; columns: ['id', 'date', 'status', 'info'];"></tr>
+                    </table>
+                </div><!-- View Trip -->
+                <!--Pilot/Trip Legality Outcomes-->
+                <div class="dropdown-list">
+                    <div>
+                        <a 
+                            class="dropdown-list-btn" 
+                            [ngClass]="element.isLegalityOutcomesExtended ? 'dropdown-list-btn-clicked' : ''"
+                            (click)="onLegalityOutcomesClick(element)">
+                            <mat-icon>arrow_drop_up</mat-icon>
+                        </a>
+                        <a class="dropdown-label" (click)="onLegalityOutcomesClick(element)">PILOT/TRIP LEGALITY OUTCOMES</a> 
+                    </div>
+                    <table mat-table class="dropdown-table" [dataSource]="element.legalities" *ngIf="element.isLegalityOutcomesExtended">
+                        <ng-container matColumnDef="percentage">
+                            <td mat-cell *matCellDef="let element" class="dropdown-table-legality-percentage"> 
+                                {{ element.percentage === 0 ? '-' : element.percentage + '%' }}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="amount">
+                            <td mat-cell *matCellDef="let element" class="dropdown-table-legality-amount">
+                                {{ element.amount }}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="info">
+                            <td mat-cell *matCellDef="let element">
+                                {{ element.info }}
+                            </td>
+                        </ng-container>
+                        <tr mat-row class="dropdown-list-row" *matRowDef="let row; columns: ['percentage', 'amount', 'info'];"></tr>
                     </table>
                 </div>
-            </div>
+            </div><!--Pilot/Trip Legality Outcomes-->
         </td>
     </ng-container>
 

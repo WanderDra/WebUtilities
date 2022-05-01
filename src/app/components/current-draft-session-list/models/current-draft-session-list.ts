@@ -14,7 +14,7 @@ export class SessionDataResponse {
     pilotAllMatch: number;
     estTime: number;
     trips: TripResponse[];
-    legalities: LegalityResponse[];
+    legalities: LegalityOutcomeResponse[];
 }
 
 export class SessionItem {
@@ -32,11 +32,12 @@ export class SessionItem {
     pilotAllMatch: number;
     pilotAttemptedPercentage: string;
     estTime: number;
-    trips: TripResponse[];
-    legalities: LegalityResponse[];
+    trips: TripItem[];
+    legalities: LegalityOutcomeItem[];
     selected: boolean;
     class: string;
     isViewTripExtended: boolean;
+    isLegalityOutcomesExtended: boolean;
 }
 
 export class TripResponse {
@@ -47,10 +48,20 @@ export class TripResponse {
 }
 
 export class TripItem {
-    
+    id: string;
+    date: string;
+    status: string;
+    info: string;
 }
 
-export class LegalityResponse {
+export class LegalityOutcomeResponse {
+    id: string;
+    percentage: number;
+    amount: number;
+    info: string;
+}
+
+export class LegalityOutcomeItem {
     id: string;
     percentage: number;
     amount: number;

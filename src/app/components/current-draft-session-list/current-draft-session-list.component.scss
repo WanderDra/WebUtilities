@@ -3,6 +3,8 @@ $primary-color: $primary-color-light;
 
 .session-list {
     width: 100%;
+    min-width: 580px;
+    scroll-behavior: auto;
     .session-list-status-icon {
         width: 50px;
         vertical-align: top;
@@ -12,69 +14,84 @@ $primary-color: $primary-color-light;
     .session-list-session {
         width: 10%;
         padding-top: 23px;
+        padding-right: 5px;
         vertical-align: top;
         text-align: left;
         font: normal normal normal 16px/21px Roboto;
         letter-spacing: 0px;
         color: #000000DE;
         opacity: 1;
+        white-space: nowrap;
     }
     .session-list-trips {
         width: 10%;
         padding-top: 23px;
+        padding-left: 5px;
+        padding-right: 5px;
         vertical-align: top;
         text-align: left;
         font: normal normal normal 16px/21px Roboto;
         letter-spacing: 0px;
         color: #000000DE;
         opacity: 1;
+        white-space: nowrap;
     }
     .session-list-start-time {
         width: 10%;
         padding-top: 23px;
+        padding-right: 5px;
         vertical-align: top;
         text-align: left;
         font: normal normal normal 16px/21px Roboto;
         letter-spacing: 0px;
         color: #000000DE;
         opacity: 1;
+        white-space: pre-line;
     }
     .session-list-base {
         width: 6%;
         padding-top: 23px;
+        padding-right: 5px;
         vertical-align: top;
         text-align: left;
         font: normal normal bold 16px/21px Roboto;
         letter-spacing: 0px;
         color: #000000DE;
         opacity: 1;
+        white-space: nowrap;
     }
     .session-list-eqNbr {
         width: 6%;
         padding-top: 23px;
+        padding-right: 5px;
         vertical-align: top;
         text-align: left;
-        font: normal normal normal 16px/21px Roboto;
+        font: normal normal bold 16px/21px Roboto;
         letter-spacing: 0px;
         color: #000000DE;
         opacity: 1;
+        white-space: nowrap;
     }
     .session-list-seat {
         width: 6%;
         padding-top: 23px;
+        padding-right: 5px;
         vertical-align: top;
         text-align: left;
-        font: normal normal normal 16px/21px Roboto;
+        font: normal normal bold 16px/21px Roboto;
         letter-spacing: 0px;
         color: #000000DE;
         opacity: 1;
+        white-space: nowrap;
     }
     .session-list-trip-progress {
         width: 12%;
-        padding-top: 23px;
+        padding-top: 26px;
+        padding-right: 5px;
         vertical-align: top;
         .progress {
             text-align: left;
+            white-space: nowrap;
             font: normal normal bold 24px/19px Roboto;
             letter-spacing: 0px;
             color: #000000DE;
@@ -82,6 +99,7 @@ $primary-color: $primary-color-light;
         }
         .amount {
             text-align: left;
+            white-space: nowrap;
             font: normal normal normal 14px/19px Roboto;
             letter-spacing: 0px;
             color: #000000DE;
@@ -90,10 +108,12 @@ $primary-color: $primary-color-light;
     }
     .session-list-pilot-progress {
         width: 12%;
-        padding-top: 23px;
+        padding-top: 26px;
+        padding-right: 5px;
         vertical-align: top;
         .progress {
             text-align: left;
+            white-space: nowrap;
             font: normal normal bold 24px/19px Roboto;
             letter-spacing: 0px;
             color: #000000DE;
@@ -101,6 +121,7 @@ $primary-color: $primary-color-light;
         }
         .amount {
             text-align: left;
+            white-space: nowrap;
             font: normal normal normal 14px/19px Roboto;
             letter-spacing: 0px;
             color: #000000DE;
@@ -110,12 +131,17 @@ $primary-color: $primary-color-light;
     .session-list-est-time {
         width: 10%;
         padding-top: 23px;
+        padding-right: 5px;
         vertical-align: top;
         text-align: left;
         font: normal normal bold 16px/21px Roboto;
         letter-spacing: 0px;
         color: #000000DE;
         opacity: 1;
+        white-space: nowrap;
+    }
+    .session-list-add-btn {
+        text-align: right;
     }
     .session-list-view-btn {
         padding-top: 10px;
@@ -151,23 +177,71 @@ $primary-color: $primary-color-light;
 
 .dropdown-list-container {
     display: flex;
-}
-
-.dropdown-list {
-    display: flex;
-    flex-direction: column;
-    label {
-        color: $primary-color;
-    }
-    .dropdown-table {
-        padding-left: 10px;
-        border-left: 1px solid #00000061;
-        z-index: 10;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-top: 10px;
+    margin-bottom: 14px;
+    .dropdown-list {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        margin-left: 30px;
         a {
-            text-decoration: underline;
-            cursor: pointer;
             color: $primary-color;
+            cursor: pointer;
+            user-select: none;
+        }
+        .dropdown-label {
+            color: $primary-color;
+            cursor: pointer;
+            user-select: none;
+            font: normal normal bold 13px/24px Roboto;
+            letter-spacing: 0.78px;
+            white-space: nowrap;
+        }
+        .dropdown-list-btn {
+            mat-icon {
+                vertical-align: top;
+                transition: transform 0.3s;
+            }
+        }
+        .dropdown-list-btn-clicked {
+            mat-icon {
+                transform: rotate(180deg);
+            }
+        }
+        .dropdown-table {
+            width: fit-content;
+            padding-left: 7px;
+            margin-left: 11px;
+            margin-bottom: 10px;
+            border-left: 2px solid #00000061;
+            background-color: rgba($color: #000000, $alpha: 0.0);
+            a {
+                text-decoration: underline;
+                cursor: pointer;
+                color: $primary-color;
+                white-space: nowrap;
+            }
+            td {
+                padding-right: 5px;
+                white-space: nowrap;
+            }
+            tr {
+                height: 39px;
+            }
+            .dropdown-table-id {
+                text-align: right;
+            }
+            .dropdown-table-legality-percentage {
+                text-align: right;
+            }
+            .dropdown-table-legality-amount {
+                text-align: right;
+            }
         }
     }
 }
+
+
 

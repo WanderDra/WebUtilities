@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { Observable, of } from 'rxjs';
-import { LegalityResponse, SessionItem, SessionDataResponse, TripResponse } from '../models/current-draft-session-list';
+import { LegalityOutcomeResponse, SessionItem, SessionDataResponse, TripResponse } from '../models/current-draft-session-list';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +30,7 @@ export class CDSService {
       {id: '209', date: moment(), status: 'Open', info: undefined},
       {id: '1222', date: moment(), status: 'Assigned', info: '1234567890'}
     ];
-    const testLegalities: LegalityResponse[] = [
+    const testLegalities: LegalityOutcomeResponse[] = [
       {id: '0', percentage: 0, amount: 1, info: 'Available for Draft / Accept'},
       {id: '1', percentage: 7, amount: 659, info: 'Available for Draft / Decline'},
       {id: '2', percentage: 0, amount: 1, info: 'Bypass Due to Proximitily'},

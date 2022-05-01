@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { SessionItem, SessionDataResponse, TripItem } from './models/current-draft-session-list';
+import { SessionItem, SessionDataResponse, TripItem, TripResponse, LegalityOutcomeResponse, LegalityOutcomeItem } from './models/current-draft-session-list';
 import { CDSService } from './services/cds.service';
 
 @Component({
@@ -59,12 +59,35 @@ export class CurrentDraftSessionListComponent implements OnInit, OnDestroy {
       item.pilotAllMatch = res.pilotAllMatch;
       item.pilotAttemptedPercentage = (res.pilotAttempted / res.pilotAllMatch * 100).toFixed(0);
       item.estTime = res.estTime;
-      item.trips = res.trips;
-      item.legalities = res.legalities;
+      item.trips = this.generateTripItem(res.trips);
+      item.legalities = this.generateLegalityOutcomeItem(res.legalities);
       item.selected = false;
       item.class = '';
       item.isViewTripExtended = false;
+      item.isLegalityOutcomesExtended = false;
       return item;
+    });
+  }
+
+  generateTripItem(tripResponse: TripResponse[]): TripItem[] {
+    return tripResponse.map(res => {
+      const tripItem = new TripItem();
+      tripItem.id = res.id;
+      tripItem.date = res.date.format('DDMMM');
+      tripItem.info = res.info;
+      tripItem.status = res.status;
+      return tripItem;
+    });
+  }
+
+  generateLegalityOutcomeItem(legalityResponse: LegalityOutcomeResponse[]): LegalityOutcomeItem[] {
+    return legalityResponse.map(res => {
+      const legalityOutcomeItem = new LegalityOutcomeResponse();
+      legalityOutcomeItem.id = res.id;
+      legalityOutcomeItem.percentage = res.percentage;
+      legalityOutcomeItem.amount = res.amount;
+      legalityOutcomeItem.info = res.info;
+      return legalityOutcomeItem;
     });
   }
 
@@ -94,8 +117,15 @@ export class CurrentDraftSessionListComponent implements OnInit, OnDestroy {
   onTripListExtendClick(session: SessionItem) {
     session.isViewTripExtended = !session.isViewTripExtended;
   }
+  
+  onLegalityOutcomesClick(session: SessionItem) {
+    session.isLegalityOutcomesExtended = !session.isLegalityOutcomesExtended;
+  }
 
-  onTripIdClick(tripId: string): void {
+  onTripIdClick(session: SessionItem): void {
+  }
+
+  onTripInfoClick(session: SessionItem): void {
   }
 
   ngOnDestroy(): void {
