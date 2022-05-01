@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { SessionData, SessionDataResponse } from './models/current-draft-session-list';
+import { SessionItem, SessionDataResponse, TripItem } from './models/current-draft-session-list';
 import { CDSService } from './services/cds.service';
 
 @Component({
@@ -10,8 +10,10 @@ import { CDSService } from './services/cds.service';
 })
 export class CurrentDraftSessionListComponent implements OnInit, OnDestroy {
 
-  sessionsData: SessionData[];
+  sessionsData: SessionItem[];
   sessionsDataSub: Subscription;
+
+  selectedSession: SessionItem | null = null;
 
   columnsToDisplay = [
     'status',
@@ -40,34 +42,60 @@ export class CurrentDraftSessionListComponent implements OnInit, OnDestroy {
     );
   }
 
-  generateSessionData(response: SessionDataResponse[]): SessionData[] {
+  generateSessionData(response: SessionDataResponse[]): SessionItem[] {
     return response.map(res => {
-      const data = new SessionData();
-      data.sessionId = res.sessionId;
-      data.status = res.status;
-      data.tripCount = res.tripCount;
-      data.startTime = res.startTime.format('DDMMMYY') + '\n' + res.startTime.format('HH:mm');
-      data.base = res.base;
-      data.eqNbr = res.eqNbr;
-      data.seat = res.seat;
-      data.tripAssigned = res.tripAssigned;
-      data.tripAllMatch = res.tripAllMatch;
-      data.tripAssignedPercentage = (res.tripAssigned / res.tripAllMatch).toFixed(1);
-      data.pilotAttempted = res.pilotAttempted;
-      data.pilotAllMatch = res.pilotAllMatch;
-      data.pilotAttemptedPercentage = (res.pilotAttempted / res.pilotAllMatch).toFixed(1);
-      data.estTime = res.estTime;
-      data.trips = res.trips;
-      data.legalities = res.legalities;
-      data.selected = false;
-      return data;
+      const item = new SessionItem();
+      item.sessionId = res.sessionId;
+      item.status = res.status;
+      item.tripCount = res.tripCount;
+      item.startTime = res.startTime.format('DDMMMYY') + '\n' + res.startTime.format('HH:mm');
+      item.base = res.base;
+      item.eqNbr = res.eqNbr;
+      item.seat = res.seat;
+      item.tripAssigned = res.tripAssigned;
+      item.tripAllMatch = res.tripAllMatch;
+      item.tripAssignedPercentage = (res.tripAssigned / res.tripAllMatch * 100).toFixed(0);
+      item.pilotAttempted = res.pilotAttempted;
+      item.pilotAllMatch = res.pilotAllMatch;
+      item.pilotAttemptedPercentage = (res.pilotAttempted / res.pilotAllMatch * 100).toFixed(0);
+      item.estTime = res.estTime;
+      item.trips = res.trips;
+      item.legalities = res.legalities;
+      item.selected = false;
+      item.class = '';
+      item.isViewTripExtended = false;
+      return item;
     });
   }
 
-  selectSession(session: SessionData): void {
+  sessionClicked(session: SessionItem): void {
+    if (!session.selected) {
+      this.selectSession(session);
+      if (this.selectedSession) {
+        this.deselectSession(this.selectedSession);
+      }
+      this.selectedSession = session;
+    } else {
+      this.deselectSession(session);
+      this.selectedSession = null;
+    }
+  }
+
+  selectSession(session: SessionItem): void {
     session.selected = true;
-    console.log(session.sessionId);
-    
+    session.class = 'clicked-row';
+  }
+
+  deselectSession(session: SessionItem): void {
+    session.selected = false;
+    session.class = '';
+  }
+
+  onTripListExtendClick(session: SessionItem) {
+    session.isViewTripExtended = !session.isViewTripExtended;
+  }
+
+  onTripIdClick(tripId: string): void {
   }
 
   ngOnDestroy(): void {

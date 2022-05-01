@@ -8,12 +8,14 @@ import { CurrentDraftSessionListComponent } from './components/current-draft-ses
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from './AddonModules/angular-material-module/angular-material.module';
 import { HttpClientModule } from '@angular/common/http';
+import { DropdownListComponent } from './components/dropdown-list/dropdown-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TestContainerComponent,
-    CurrentDraftSessionListComponent
+    CurrentDraftSessionListComponent,
+    DropdownListComponent
   ],
   imports: [
     BrowserModule,

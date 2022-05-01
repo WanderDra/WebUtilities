@@ -5,6 +5,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatLineModule } from '@angular/material/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTreeModule } from '@angular/material/tree';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatDividerModule,
     MatLineModule,
     MatTableModule,
-    MatButtonModule
+    MatButtonModule,
+    MatTreeModule
   ]
 })
 export class AngularMaterialModule { }

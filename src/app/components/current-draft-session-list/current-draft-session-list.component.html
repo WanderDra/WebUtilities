@@ -1,7 +1,7 @@
 <table 
     mat-table
     multiTemplateDataRows
-    class="container"
+    class="session-list"
     [dataSource]="sessionsData">
 
     <ng-container
@@ -12,6 +12,7 @@
             <mat-icon 
                 svgIcon="not_started" 
                 *ngIf="element.status === 1"
+                class="session-list-status-icon"
                 color="primary">
             </mat-icon>
         </td>
@@ -21,7 +22,9 @@
         matColumnDef="session"
     >
         <th mat-header-cell *matHeaderCellDef>SESSION</th>
-        <td mat-cell *matCellDef="let element">
+        <td mat-cell *matCellDef="let element"
+            class="session-list-session"
+        >
             {{ element.sessionId }}
         </td>
     </ng-container>
@@ -30,7 +33,9 @@
         matColumnDef="tripCount"
     >
         <th mat-header-cell *matHeaderCellDef>TRIPS</th>
-        <td mat-cell *matCellDef="let element">
+        <td mat-cell *matCellDef="let element"
+            class="session-list-trips"
+        >
             {{ element.tripCount }}
         </td>
     </ng-container>
@@ -39,7 +44,9 @@
         matColumnDef="startTime"
     >
         <th mat-header-cell *matHeaderCellDef>START DATE/TIME</th>
-        <td mat-cell *matCellDef="let element">
+        <td mat-cell *matCellDef="let element"
+            class="session-list-start-time"
+        >
             {{ element.startTime }}
         </td>
     </ng-container>
@@ -48,7 +55,9 @@
         matColumnDef="base"
     >
         <th mat-header-cell *matHeaderCellDef>BASE</th>
-        <td mat-cell *matCellDef="let element">
+        <td mat-cell *matCellDef="let element"
+            class="session-list-base"
+        >
             {{ element.base }}
         </td>
     </ng-container>
@@ -57,7 +66,9 @@
         matColumnDef="eqNbr"
     >
         <th mat-header-cell *matHeaderCellDef>EQ</th>
-        <td mat-cell *matCellDef="let element">
+        <td mat-cell *matCellDef="let element"
+            class="session-list-eqNbr"
+        >
             {{ element.eqNbr }}
         </td>
     </ng-container>
@@ -66,7 +77,9 @@
         matColumnDef="seat"
     >
         <th mat-header-cell *matHeaderCellDef>SEAT</th>
-        <td mat-cell *matCellDef="let element">
+        <td mat-cell *matCellDef="let element"
+            class="session-list-seat"
+        >
             {{ element.seat }}
         </td>
     </ng-container>
@@ -75,9 +88,11 @@
         matColumnDef="tripProgress"
     >
         <th mat-header-cell *matHeaderCellDef>TRIP ASSIGN PROGRESS</th>
-        <td mat-cell *matCellDef="let element">
-            <div>{{ element.tripAssignedPercentage }}%</div>
-            <div>{{ element.tripAssigned }} / {{ element.tripAllMatch }}</div>
+        <td mat-cell *matCellDef="let element"
+            class="session-list-trip-progress"
+        >
+            <div class="progress">{{ element.tripAssignedPercentage }}%</div>
+            <div class="amount">{{ element.tripAssigned }} / {{ element.tripAllMatch }}</div>
         </td>
     </ng-container>
 
@@ -85,9 +100,11 @@
         matColumnDef="pilotProgress"
     >
         <th mat-header-cell *matHeaderCellDef>PILOT PROGRESS</th>
-        <td mat-cell *matCellDef="let element">
-            <div>{{ element.pilotAttemptedPercentage }}%</div>
-            <div>{{ element.pilotAttempted }} / {{ element.pilotAllMatch }}</div>
+        <td mat-cell *matCellDef="let element"
+            class="session-list-pilot-progress"
+        >
+            <div class="progress">{{ element.pilotAttemptedPercentage }}%</div>
+            <div class="amount">{{ element.pilotAttempted }} / {{ element.pilotAllMatch }}</div>
         </td>
     </ng-container>
 
@@ -95,7 +112,9 @@
         matColumnDef="estTime"
     >
         <th mat-header-cell *matHeaderCellDef>EST MAX TIME LEFT</th>
-        <td mat-cell *matCellDef="let element">
+        <td mat-cell *matCellDef="let element"
+            class="session-list-est-time"
+        >
             {{ element.estTime * 1000 | date : 'mm:ss' }}
         </td>
     </ng-container>
@@ -104,8 +123,10 @@
         matColumnDef="viewBtn"
     >
         <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let element">
-            <button mat-icon-button (click)="selectSession(element)">
+        <td mat-cell *matCellDef="let element"
+            class="session-list-view-btn"
+        >
+            <button mat-icon-button (click)="sessionClicked(element)">
                 <mat-icon color="primary">visibility</mat-icon>
             </button>
         </td>
@@ -117,7 +138,30 @@
             *matCellDef="let element"
             [attr.colspan]="columnsToDisplay.length"
         >
-            testtesttesttesttesttesttesttesttesttesttesttesttesttesttest
+            <div class="dropdown-list-container">
+                <div class="dropdown-list">
+                    <div>
+                        <button mat-icon-button (click)="onTripListExtendClick(element)">
+                            <mat-icon>expand_less</mat-icon>
+                        </button>
+                        <label>VIEW TRIPS</label> 
+                    </div>
+                    <table mat-table class="dropdown-table" [dataSource]="element.trips" *ngIf="element.isViewTripExtended">
+                        <ng-container matColumnDef="id">
+                            <td mat-cell *matCellDef="let element"> 
+                                <a (click)="onTripIdClick(element.id)">{{element.id}}</a> / {{element.date}}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="status">
+                            <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="info">
+                            <td mat-cell *matCellDef="let element">- {{element.info}} </td>
+                        </ng-container>
+                        <tr mat-row class="dropdown-list-row" *matRowDef="let row; columns: ['id', 'status', 'info'];"></tr>
+                    </table>
+                </div>
+            </div>
         </td>
     </ng-container>
 
@@ -126,11 +170,13 @@
         mat-row
         *matRowDef="let element; columns: columnsToDisplay;"
         class="info-row"
+        [ngClass]="element.class"
     ></tr>
     <tr
         mat-row
-        *matRowDef="let row; columns: ['drowdownLists']"
+        *matRowDef="let element; columns: ['drowdownLists']"
         class="detail-row"
+        [ngClass]="element.class"
     ></tr>
 
 </table>

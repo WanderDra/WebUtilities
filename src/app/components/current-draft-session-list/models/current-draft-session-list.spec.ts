@@ -1,7 +1,7 @@
-import { SessionData } from './current-draft-session-list';
+import { SessionItem } from './current-draft-session-list';
 
 describe('SessionData', () => {
   it('should create an instance', () => {
-    expect(new SessionData()).toBeTruthy();
+    expect(new SessionItem()).toBeTruthy();
   });
 });

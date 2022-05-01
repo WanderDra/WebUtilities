@@ -1,5 +1,127 @@
-.container {
+$primary-color-light: #4D148C;
+$primary-color: $primary-color-light;
+
+.session-list {
     width: 100%;
+    .session-list-status-icon {
+        width: 50px;
+        vertical-align: top;
+        height: 50px;
+        transform: scale(0.8);
+    }
+    .session-list-session {
+        width: 10%;
+        padding-top: 23px;
+        vertical-align: top;
+        text-align: left;
+        font: normal normal normal 16px/21px Roboto;
+        letter-spacing: 0px;
+        color: #000000DE;
+        opacity: 1;
+    }
+    .session-list-trips {
+        width: 10%;
+        padding-top: 23px;
+        vertical-align: top;
+        text-align: left;
+        font: normal normal normal 16px/21px Roboto;
+        letter-spacing: 0px;
+        color: #000000DE;
+        opacity: 1;
+    }
+    .session-list-start-time {
+        width: 10%;
+        padding-top: 23px;
+        vertical-align: top;
+        text-align: left;
+        font: normal normal normal 16px/21px Roboto;
+        letter-spacing: 0px;
+        color: #000000DE;
+        opacity: 1;
+    }
+    .session-list-base {
+        width: 6%;
+        padding-top: 23px;
+        vertical-align: top;
+        text-align: left;
+        font: normal normal bold 16px/21px Roboto;
+        letter-spacing: 0px;
+        color: #000000DE;
+        opacity: 1;
+    }
+    .session-list-eqNbr {
+        width: 6%;
+        padding-top: 23px;
+        vertical-align: top;
+        text-align: left;
+        font: normal normal normal 16px/21px Roboto;
+        letter-spacing: 0px;
+        color: #000000DE;
+        opacity: 1;
+    }
+    .session-list-seat {
+        width: 6%;
+        padding-top: 23px;
+        vertical-align: top;
+        text-align: left;
+        font: normal normal normal 16px/21px Roboto;
+        letter-spacing: 0px;
+        color: #000000DE;
+        opacity: 1;
+    }
+    .session-list-trip-progress {
+        width: 12%;
+        padding-top: 23px;
+        vertical-align: top;
+        .progress {
+            text-align: left;
+            font: normal normal bold 24px/19px Roboto;
+            letter-spacing: 0px;
+            color: #000000DE;
+            opacity: 1;
+        }
+        .amount {
+            text-align: left;
+            font: normal normal normal 14px/19px Roboto;
+            letter-spacing: 0px;
+            color: #000000DE;
+            opacity: 1;
+        }
+    }
+    .session-list-pilot-progress {
+        width: 12%;
+        padding-top: 23px;
+        vertical-align: top;
+        .progress {
+            text-align: left;
+            font: normal normal bold 24px/19px Roboto;
+            letter-spacing: 0px;
+            color: #000000DE;
+            opacity: 1;
+        }
+        .amount {
+            text-align: left;
+            font: normal normal normal 14px/19px Roboto;
+            letter-spacing: 0px;
+            color: #000000DE;
+            opacity: 1;
+        }
+    }
+    .session-list-est-time {
+        width: 10%;
+        padding-top: 23px;
+        vertical-align: top;
+        text-align: left;
+        font: normal normal bold 16px/21px Roboto;
+        letter-spacing: 0px;
+        color: #000000DE;
+        opacity: 1;
+    }
+    .session-list-view-btn {
+        padding-top: 10px;
+        vertical-align: top;
+        padding-top: -23px;
+    }
 }
 
 
@@ -24,5 +146,28 @@
 }
 
 .clicked-row{
-    background-color: hotpink;
+    background: #4D148C14 0% 0% no-repeat padding-box;
 }
+
+.dropdown-list-container {
+    display: flex;
+}
+
+.dropdown-list {
+    display: flex;
+    flex-direction: column;
+    label {
+        color: $primary-color;
+    }
+    .dropdown-table {
+        padding-left: 10px;
+        border-left: 1px solid #00000061;
+        z-index: 10;
+        a {
+            text-decoration: underline;
+            cursor: pointer;
+            color: $primary-color;
+        }
+    }
+}
+
