@@ -6,4 +6,7 @@
 
 .sub-window {
     margin: 10px;
+    height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }

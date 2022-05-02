@@ -213,11 +213,11 @@
     </ng-container>
 
     <!-- Header -->
-    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></tr>
     <!-- Row -->
     <tr
         mat-row
-        *matRowDef="let element; columns: columnsToDisplay;"
+        *matRowDef="let element; columns: columnsToDisplay"
         class="info-row"
         [ngClass]="element.class"
     ></tr>
