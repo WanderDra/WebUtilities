@@ -2,10 +2,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatLineModule } from '@angular/material/core';
+import { MatLineModule, MatNativeDateModule } from '@angular/material/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTreeModule } from '@angular/material/tree';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 
 @NgModule({
@@ -19,7 +24,13 @@ import { MatTreeModule } from '@angular/material/tree';
     MatLineModule,
     MatTableModule,
     MatButtonModule,
-    MatTreeModule
+    MatTreeModule,
+    MatCardModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ]
 })
 export class AngularMaterialModule { }
