@@ -1,0 +1,196 @@
+<table 
+    mat-table
+    multiTemplateDataRows
+    class="session-result-list"
+    [dataSource]="sessionResults">
+
+    <ng-container
+        matColumnDef="callMark"
+    >
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element"
+            class="session-list-callmark"
+        >
+            <mat-icon *ngIf="element.isCallAttempting"
+                svgIcon="phone_in_talk_black"
+            >
+            </mat-icon>
+        </td>
+    </ng-container>
+
+    <ng-container
+        matColumnDef="seniorityNbr"
+    >
+        <th mat-header-cell *matHeaderCellDef>SENIORITY</th>
+        <td mat-cell *matCellDef="let element"
+            class="session-list-seniority"
+        >
+            {{ element.seniorityNbr }}
+        </td>
+    </ng-container>
+
+    <ng-container
+        matColumnDef="pilotName"
+    >
+        <th mat-header-cell *matHeaderCellDef>PILOT</th>
+        <td mat-cell *matCellDef="let element"
+            class="session-list-pilot"
+        >
+        <div class="dropdown-list">
+            <a  
+                class="dropdown-list-btn" 
+                [ngClass]="element.isTripLegalityExtended ? 'dropdown-list-btn-clicked' : ''"
+                (click)="onTripLegalityExtendClick(element)">
+                <mat-icon>arrow_drop_up</mat-icon>
+            </a>
+            <a class="dropdown-label-pilot" (click)="onTripLegalityExtendClick(element)">{{ element.pilotName }}</a> 
+        </div>
+        </td>
+    </ng-container>
+
+    <ng-container
+        matColumnDef="empId"
+    >
+        <th mat-header-cell *matHeaderCellDef>EMPLOYEE#</th>
+        <td mat-cell *matCellDef="let element"
+            class="session-list-empid"
+        >
+            {{ element.empId }}
+        </td>
+    </ng-container>
+
+    <ng-container
+        matColumnDef="tripsOffered"
+    >
+        <th mat-header-cell *matHeaderCellDef>TRIPS OFFERED</th>
+        <td mat-cell *matCellDef="let element"
+            class="session-list-tripsoffered"
+        >
+            {{ element.tripsOffered }}
+        </td>
+    </ng-container>
+
+    <ng-container
+        matColumnDef="contactOutcomes"
+    >
+        <th mat-header-cell *matHeaderCellDef>CONTACT OUTCOMES</th>
+        <td mat-cell *matCellDef="let element"
+            class="session-list-contactoutcomes"
+        >
+        <div class="dropdown-list">
+            <a  
+                class="dropdown-list-btn" 
+                [ngClass]="element.isContactOutcomesExtended ? 'dropdown-list-btn-clicked' : ''"
+                (click)="onLegalityOutcomeExtendClick(element)">
+                <mat-icon>arrow_drop_up</mat-icon>
+            </a>
+            <a class="dropdown-label-outcome" (click)="onLegalityOutcomeExtendClick(element)">{{ element.contactOutcome }}</a> 
+        </div>
+        </td>
+    </ng-container>
+
+    <ng-container
+        matColumnDef="responseBtn"
+    >
+        <th mat-header-cell *matHeaderCellDef class="session-list-stopbtn">
+            <button mat-icon-button>
+                <mat-icon 
+                    svgIcon="stop_circle" 
+                    color="accent">
+                </mat-icon>
+            </button>
+        </th>
+        <td mat-cell *matCellDef="let element">
+            <button mat-stroked-button color="primary"
+                class="session-list-responsebtn"
+                [disabled]="element.isRecordResponseAvailable"
+            >
+                RECORD RESPONSE
+            </button>
+        </td>
+    </ng-container>
+
+    <ng-container
+        matColumnDef="blank"
+    >
+        <td mat-cell *matCellDef="let element" [attr.colspan]="2"></td>
+    </ng-container>
+
+    <ng-container
+        matColumnDef="tripLegalityDropdown"
+    >
+        <td mat-cell *matCellDef="let element" [attr.colspan]="3">
+            <div class="dropdown-list">
+                <table mat-table class="dropdown-table" [dataSource]="element.tripLegalities" *ngIf="element.isTripLegalityExtended">
+                    <ng-container matColumnDef="id">
+                        <td mat-cell *matCellDef="let element" class="dropdown-table-id"> 
+                            <a (click)="onTripNbrClick(element)">{{element.tripNbr}}</a>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="legalityCheckOutcome">
+                        <td mat-cell *matCellDef="let element">
+                            <div *ngIf="!element.isLegalityDetailsAvailable">
+                                {{element.legalityCheckOutcome}}
+                            </div> 
+                            <a *ngIf="element.isLegalityDetailsAvailable">
+                                {{element.legalityCheckOutcome}}
+                            </a>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="pilotSelection">
+                        <td mat-cell *matCellDef="let element" 
+                        [ngClass]="element.pilotSelection==='Trip Accepted' ?
+                        'dropdown-table-pilot-selection-accept' : 
+                        'dropdown-table-pilot-selection'">
+                            {{element.pilotSelection}}
+                        </td>
+                    </ng-container>
+                    <tr mat-row class="dropdown-list-row" *matRowDef="let row; columns: ['id', 'legalityCheckOutcome', 'pilotSelection'];"></tr>
+                </table>
+            </div>
+        </td>
+    </ng-container>
+
+    <ng-container
+        matColumnDef="contactOutDropdown"
+    >
+        <td mat-cell *matCellDef="let element" [attr.colspan]="2">
+            <div class="dropdown-list">
+                <table mat-table class="dropdown-table" [dataSource]="element.outcomes" *ngIf="element.isContactOutcomesExtended">
+                    <ng-container matColumnDef="phoneNbr">
+                        <td mat-cell *matCellDef="let element"
+                            class="dropdown-table-phonenbr"
+                        > 
+                            {{element.phoneNbr}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="contactOutcome">
+                        <td mat-cell *matCellDef="let element"
+                            class="dropdown-table-outcomes"
+                        > 
+                            {{element.contactOutcome}}
+                        </td>
+                    </ng-container>
+                    <tr mat-row class="dropdown-list-row" *matRowDef="let row; columns: ['phoneNbr', 'contactOutcome'];"></tr>
+                </table>
+            </div>
+        </td>
+    </ng-container>
+
+    <!-- Header -->
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <!-- Row -->
+    <tr
+        mat-row
+        *matRowDef="let element; columns: columnsToDisplay;"
+        class="info-row"
+        [ngClass]="element.isCallAttempting ? 'calling-row' : ''"
+    ></tr>
+    <tr
+        mat-row
+        *matRowDef="let element; columns: ['blank', 'tripLegalityDropdown', 'contactOutDropdown']"
+        class="detail-row"
+        [ngClass]="element.isCallAttempting ? 'calling-row' : ''"
+    ></tr>
+
+</table>

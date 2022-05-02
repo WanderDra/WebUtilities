@@ -1,4 +1,12 @@
 <div class="window">
-    <app-current-draft-session-list>
+    <app-current-draft-session-list
+        class="sub-window"
+        [data]="sessionsData"
+    >
     </app-current-draft-session-list>
+    <app-session-result-list
+        class="sub-window"
+        [data]="sessionResultData"
+    >
+    </app-session-result-list>
 </div>

@@ -33,7 +33,7 @@ export class CDSService {
     const testLegalities: LegalityOutcomeResponse[] = [
       {id: '0', percentage: 0, amount: 1, info: 'Available for Draft / Accept'},
       {id: '1', percentage: 7, amount: 659, info: 'Available for Draft / Decline'},
-      {id: '2', percentage: 0, amount: 1, info: 'Bypass Due to Proximitily'},
+      {id: '2', percentage: 0, amount: 0, info: 'Bypass Due to Proximitily'},
       {id: '3', percentage: 4, amount: 345, info: 'No Open Seat'},
       {id: '4', percentage: 88, amount: 7805, info: 'Legality Issues'}
     ];
