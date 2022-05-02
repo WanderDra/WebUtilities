@@ -35,11 +35,25 @@ export class CurrentDraftSessionListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.sessionsDataSub = this.cdsService.getSessionData().subscribe(
       (response: SessionDataResponse[]) => {
-        this.sessionsData = this.generateSessionData(response);
+        this.sessionsData = this.generateSessionData(this.sortSessionDataResponse(response));
       },
       (error: any) => {
       }
     );
+  }
+
+  sortSessionDataResponse(response: SessionDataResponse[]): SessionDataResponse[] {
+    return response.sort((r1, r2) => {
+      if (!r1.startTime) {
+        return -1;
+      }
+      if (r1.startTime.isBefore(r2.startTime)) {
+        return 1;
+      }
+      else {
+        return -1;
+      }
+    })
   }
 
   generateSessionData(response: SessionDataResponse[]): SessionItem[] {
@@ -48,7 +62,11 @@ export class CurrentDraftSessionListComponent implements OnInit, OnDestroy {
       item.sessionId = res.sessionId;
       item.status = res.status;
       item.tripCount = res.tripCount;
-      item.startTime = res.startTime.format('DDMMMYY') + '\n' + res.startTime.format('HH:mm');
+      if (res.startTime) {
+        item.startTime = res.startTime.format('DDMMMYY') + '\n' + res.startTime.format('HH:mm');
+      } else {
+        item.startTime = '-';
+      }
       item.base = res.base;
       item.eqNbr = res.eqNbr;
       item.seat = res.seat;

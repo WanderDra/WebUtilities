@@ -39,7 +39,12 @@ export class CDSService {
     ];
     testData.trips = testTrips;
     testData.legalities = testLegalities;
-    return of([testData, testData]);
+    const testData1 = testData;
+    const testData2 = { ...testData };
+    const testData3 = { ...testData };
+    testData2.startTime = moment().add(5, 'm')
+    testData3.startTime = undefined;
+    return of([testData1, testData2, testData3]);
   }
 
 }
