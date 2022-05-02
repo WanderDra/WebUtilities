@@ -1,4 +1,18 @@
 <div class="window">
-    <app-current-draft-session-list>
-    </app-current-draft-session-list>
+    <div>
+        <app-session-list-filter></app-session-list-filter>
+    </div>
+    <div class="table-container">
+        <div class="sub-table">
+            <app-current-draft-session-list
+                [data]="sessionsData"
+            ></app-current-draft-session-list>
+        </div>
+        <div class="sub-table">
+            <app-session-result-list
+            [data]="sessionResultData"
+            ></app-session-result-list>
+        </div>
+    </div>
+    
 </div>

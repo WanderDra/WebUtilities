@@ -1,0 +1,64 @@
+<div class="filter-container">
+    <div class="filter-toolbar">
+        <div class="filter-switch" [ngClass]="isFilterExpanded ? 'filter-switch-expand' : ''">
+            <a (click)="onExpandFilterClick()">
+                FILTER SESSION LIST
+            </a>
+            <mat-icon>expand_less</mat-icon>
+        </div>
+        <button mat-stroked-button>CLEAR ALL FILTERS</button>
+    </div>
+    <mat-card *ngIf="isFilterExpanded" class="filter-panel">
+        <form [formGroup]="filterForm">
+            <!-- Base -->
+            <mat-form-field>
+                <mat-label>Base</mat-label>
+                <mat-select formControlName="base">
+                    <mat-option 
+                        *ngFor="let element of searchCriteria.base" 
+                        [value]="element">
+                        {{ element }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <!-- Equipment -->
+            <mat-form-field>
+                <mat-label>Equipment</mat-label>
+                <mat-select formControlName="eqNbr">
+                    <mat-option 
+                        *ngFor="let element of searchCriteria.eqNbr" 
+                        [value]="element">
+                        {{ element }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <!-- Seat -->
+            <mat-form-field>
+                <mat-label>Seat</mat-label>
+                <mat-select formControlName="seat">
+                    <mat-option 
+                        *ngFor="let element of searchCriteria.seat" 
+                        [value]="element">
+                        {{ element }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <!-- Trip Number -->
+            <mat-form-field>
+                <mat-label>Trip Number</mat-label>
+                <input matInput formControlName="tripNbr">
+            </mat-form-field>
+
+            <!-- Trip Date -->
+            <mat-form-field>
+                <mat-label>Trip Date</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="tripDate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </form>
+    </mat-card>
+</div>

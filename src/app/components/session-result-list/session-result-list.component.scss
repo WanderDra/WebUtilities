@@ -1,0 +1,147 @@
+$primary-color-light: #4D148C;
+$primary-color: $primary-color-light;
+$accent-color: #FF6200;
+
+.session-result-list {
+    width: 100%;
+    min-width: 580px;
+    scroll-behavior: auto;
+    td {
+        padding-right: 10px;
+    }
+    .session-list-seniority {
+        text-align: left;
+        font: normal normal normal 16px/21px Roboto;
+        letter-spacing: 0px;
+        white-space: nowrap;
+    }
+    .session-list-empid {
+        text-align: left;
+        font: normal normal normal 16px/21px Roboto;
+        letter-spacing: 0px;
+        white-space: nowrap;
+    }
+    .session-list-tripsoffered {
+        text-align: left;
+        font: normal normal medium 16px/21px Roboto;
+        letter-spacing: 0px;
+        white-space: nowrap;
+    }
+    .session-list-responsebtn {
+        text-align: left;
+        font: normal normal medium 14px/16px Roboto;
+        letter-spacing: 1.25px;
+        text-transform: uppercase;
+        white-space: nowrap;
+    }
+    .session-list-stopbtn {
+        text-align: right;
+        button {
+            height: 48px;
+            width: 48px;
+        }
+        mat-icon {
+            height: 50px;
+            width: 50px;
+            transform: scale(0.8);
+        }
+    }
+}
+
+.info-row {
+    td {
+        white-space: pre-wrap;
+        border-bottom-width: 0;
+    }
+}
+
+.detail-row {
+    vertical-align: top;    
+}
+
+.calling-row {
+    background: #4D148C14 0% 0% no-repeat padding-box;
+}
+
+.dropdown-list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    a {
+        color: $primary-color;
+        cursor: pointer;
+        user-select: none;
+    }
+    .dropdown-label-pilot {
+        color: #000000;
+        cursor: pointer;
+        user-select: none;
+        font: normal normal medium 16px/21px Roboto;
+        white-space: nowrap;
+    }
+    .dropdown-label-outcome {
+        color: #000000;
+        cursor: pointer;
+        user-select: none;
+        font: normal normal normal 16px/21px Roboto;
+        white-space: nowrap;
+    }
+    .dropdown-list-btn {
+        mat-icon {
+            vertical-align: top;
+            transition: transform 0.3s;
+        }
+    }
+    .dropdown-list-btn-clicked {
+        mat-icon {
+            transform: rotate(180deg);
+        }
+    }
+    .dropdown-table {
+        width: fit-content;
+        padding-left: 17px;
+        margin-left: 11px;
+        margin-bottom: 10px;
+        border-left: 2px solid #00000061;
+        background-color: rgba($color: #000000, $alpha: 0.0);
+        a {
+            text-decoration: underline;
+            cursor: pointer;
+            color: $primary-color;
+            white-space: nowrap;
+        }
+        td {
+            padding-right: 20px;
+            white-space: nowrap;
+            font: normal normal normal 16px/21px Roboto;
+        }
+        tr:last-child {
+            td {
+                border-bottom: 0;
+            }
+        }
+        tr {
+            height: 39px;
+        }
+        .dropdown-table-id {
+            padding-left: 8px;
+            text-align: left;
+        }
+        .dropdown-table-pilot-selection-accept {
+            color: $accent-color;
+        }
+        .dropdown-table-phonenbr {
+            color: #00000099;
+            text-align: left;
+            font: italic normal normal 16px/21px Roboto;
+            letter-spacing: 0;
+            padding-left: 8px;
+        }
+        .dropdown-table-outcomes {
+            color: #00000099;
+            text-align: left;
+            font: italic normal normal 16px/21px Roboto;
+            letter-spacing: 0;
+        }
+    }
+}

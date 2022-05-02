@@ -6,17 +6,27 @@ import { AppComponent } from './app.component';
 import { TestContainerComponent } from './containers/test-container/test-container.component';
 import { CurrentDraftSessionListComponent } from './components/current-draft-session-list/current-draft-session-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AngularMaterialModule } from './AddonModules/angular-material-module/angular-material.module';
+import { HttpClientModule } from '@angular/common/http';
+import { SessionResultListComponent } from './components/session-result-list/session-result-list.component';
+import { SessionListFilterComponent } from './components/session-list-filter/session-list-filter.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     TestContainerComponent,
-    CurrentDraftSessionListComponent
+    CurrentDraftSessionListComponent,
+    SessionResultListComponent,
+    SessionListFilterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AngularMaterialModule,
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
