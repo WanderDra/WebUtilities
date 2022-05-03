@@ -1,0 +1,80 @@
+<form 
+    [formGroup]="queryForm" 
+    class="form-panel"
+    (ngSubmit)="onSubmit()">
+    <div>
+        <ng-template #multiSelectBox 
+            let-controlLabel="controlLabel"
+            let-controlName="controlName" 
+            let-controlValue="selections">
+            <mat-form-field [ngClass]="'form-control-' + controlName">
+                <mat-label>{{ controlLabel }}</mat-label>
+                <mat-select 
+                    [formControlName]="controlName"
+                    multiple
+                    disableOptionCentering>
+                    <mat-option 
+                        value='All'
+                        (click)="onSelectAllChange(controlName, controlValue)">
+                        Select All
+                    </mat-option>
+                    <mat-option 
+                        *ngFor="let element of controlValue"
+                        [value]="element"
+                        (click)="onSelectionChange(controlName, controlValue, element)">
+                        {{ element }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </ng-template>
+
+        <ng-template #stringInput
+            let-controlLabel="controlLabel"
+            let-controlName="controlName">
+            <mat-form-field [ngClass]="'form-control-' + controlName">
+                <mat-label>{{ controlLabel }}</mat-label>
+                <input matInput [formControlName]="controlName">
+            </mat-form-field>
+        </ng-template>
+
+        <ng-template #datePicker
+            let-controlLabel="controlLabel"
+            let-controlName="controlName">
+            <mat-form-field [ngClass]="'form-control-' + controlName">
+                <mat-label>{{ controlLabel }}</mat-label>
+                <input matInput [matDatepicker]="picker" [formControlName]="controlName">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </ng-template>
+
+        <ng-template #searchInput
+            let-controlLabel="controlLabel"
+            let-controlName="controlName">
+            <mat-form-field [ngClass]="'form-control-' + controlName">
+                <mat-label>{{ controlLabel }}</mat-label>
+                <input matInput [formControlName]="controlName">
+            </mat-form-field>
+        </ng-template>
+
+        <ng-container *ngFor="let inputField of inputForm.filterInputFields">
+            <ng-template [ngIf]="inputField.type === 'stringInput'">
+                <ng-container *ngTemplateOutlet="stringInput;context:inputField">
+                </ng-container>
+            </ng-template>
+            <ng-template [ngIf]="inputField.type === 'multiSelectBox'">
+                <ng-container *ngTemplateOutlet="multiSelectBox;context:inputField">
+                </ng-container>
+            </ng-template>
+            <ng-template [ngIf]="inputField.type === 'datePicker'">
+                <ng-container *ngTemplateOutlet="datePicker;context:inputField">
+                </ng-container>
+            </ng-template>
+            <ng-template [ngIf]="inputField.type === 'searchInput'">
+                <ng-container *ngTemplateOutlet="searchInput;context:inputField">
+                </ng-container>
+            </ng-template>
+        </ng-container>
+
+    </div>
+</form>

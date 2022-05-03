@@ -1,6 +1,19 @@
 <div class="window">
-    <div>
-        <app-session-list-filter></app-session-list-filter>
+    <div class='toolbar-test'>
+        <div class='filter-left'>
+            <app-session-list-filter
+                [expandLabel]="'FILTER SESSION LIST'"
+                [inputForm]="sessionFilterForm"
+                (output)="setSessionFilterOutput($event)"
+            ></app-session-list-filter>
+        </div>
+        <div class='filter-right'>
+            <app-session-list-filter
+                [expandLabel]="filterResultLabel"
+                [inputForm]="sessionResultFilterForm"
+                (output)="setSessionResultFilterOutput($event)"
+            ></app-session-list-filter>
+        </div>
     </div>
     <div class="table-container">
         <div class="sub-table">

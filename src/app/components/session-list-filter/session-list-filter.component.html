@@ -2,63 +2,34 @@
     <div class="filter-toolbar">
         <div class="filter-switch" [ngClass]="isFilterExpanded ? 'filter-switch-expand' : ''">
             <a (click)="onExpandFilterClick()">
-                FILTER SESSION LIST
+                {{ expandLabel }}
             </a>
-            <mat-icon>expand_less</mat-icon>
+            <button mat-icon-button (click)="onExpandFilterClick()">
+                <mat-icon>expand_less</mat-icon>
+            </button>
         </div>
-        <button mat-stroked-button>CLEAR ALL FILTERS</button>
+        <button 
+            mat-stroked-button (click)="onCleanAllFilterClick()"
+            class="filter-button"
+            [disabled]="!isQueryFormDirty"
+            color="primary">
+            CLEAR ALL FILTERS
+        </button>
     </div>
-    <mat-card *ngIf="isFilterExpanded" class="filter-panel">
-        <form [formGroup]="filterForm">
-            <!-- Base -->
-            <mat-form-field>
-                <mat-label>Base</mat-label>
-                <mat-select formControlName="base">
-                    <mat-option 
-                        *ngFor="let element of searchCriteria.base" 
-                        [value]="element">
-                        {{ element }}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-
-            <!-- Equipment -->
-            <mat-form-field>
-                <mat-label>Equipment</mat-label>
-                <mat-select formControlName="eqNbr">
-                    <mat-option 
-                        *ngFor="let element of searchCriteria.eqNbr" 
-                        [value]="element">
-                        {{ element }}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-
-            <!-- Seat -->
-            <mat-form-field>
-                <mat-label>Seat</mat-label>
-                <mat-select formControlName="seat">
-                    <mat-option 
-                        *ngFor="let element of searchCriteria.seat" 
-                        [value]="element">
-                        {{ element }}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-
-            <!-- Trip Number -->
-            <mat-form-field>
-                <mat-label>Trip Number</mat-label>
-                <input matInput formControlName="tripNbr">
-            </mat-form-field>
-
-            <!-- Trip Date -->
-            <mat-form-field>
-                <mat-label>Trip Date</mat-label>
-                <input matInput [matDatepicker]="picker" formControlName="tripDate">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-        </form>
+    <mat-card *ngIf="isFilterExpanded" class="filter-outline">
+        <app-dynamic-query-form
+            #queryForm
+            [inputForm]="inputForm"
+            (output)="formSubmit($event)"
+            (dirty)="checkQueryFormDirty($event)"
+            class="query-form"
+        ></app-dynamic-query-form>
+        <div>
+            <button mat-raised-button type="submit" color="primary"
+                class="filter-button" (click)="queryForm.onSubmit()"
+            >
+                Filter
+            </button>
+        </div>
     </mat-card>
 </div>

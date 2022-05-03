@@ -2,6 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { LegalityOutcomeItem, LegalityOutcomeResponse, SessionDataResponse, SessionItem, TripItem, TripResponse } from 'src/app/components/current-draft-session-list/models/current-draft-session-list';
 import { CDSService } from 'src/app/components/current-draft-session-list/services/cds.service';
+import { QueryForm, QueryInputFieldType, SearchCriteria } from 'src/app/components/dynamic-query-form/dynamic-query-form.component';
+import { SessionListFilterSearchCriteria } from 'src/app/components/session-list-filter/models/session-list-filter';
+import { SessionListFilterService } from 'src/app/components/session-list-filter/services/session-list-filter.service';
 import { ContactOutcome, ContactOutcomeResponse, SessionResultItem, SessionResultResponse, TripLegality, TripLegalityResponse } from 'src/app/components/session-result-list/models/session-result';
 import { SessionResultService } from 'src/app/components/session-result-list/services/session-result.service';
 
@@ -16,10 +19,20 @@ export class TestContainerComponent implements OnInit, OnDestroy {
   sessionResultDataSub: Subscription;
   sessionsData: SessionItem[];
   sessionResultData: SessionResultItem[];
+  sessionFilterForm: QueryForm = new QueryForm();
+  sessionResultFilterForm: QueryForm = new QueryForm();
+  getSessionFilterCriteriaSub: Subscription;
+
+  SessionResultId: string = '0123456';
+  filterResultLabel = 'FILTER SESSION ' + this.SessionResultId + ' RESULTS';
+
+  sessionFilterOutput: unknown;
+  sessionFilterResultOutput: unknown;
 
   constructor(
     private cdsService: CDSService,
-    private sessionResultService: SessionResultService
+    private sessionResultService: SessionResultService,
+    private sessionListFilterService: SessionListFilterService
   ) { }
 
 
@@ -30,11 +43,14 @@ export class TestContainerComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.sessionsDataSub.unsubscribe();
     this.sessionResultDataSub.unsubscribe();
+    this.getSessionFilterCriteriaSub.unsubscribe();
   }
 
   initData(): void {
     this.loadSessionListData();
     this.loadSessionResultData();
+    this.createSessionFilterForm();
+    this.createSessionResultFilterForm();
   }
 
   loadSessionListData(): void {
@@ -55,6 +71,62 @@ export class TestContainerComponent implements OnInit, OnDestroy {
     )
   }
 
+  createSessionFilterForm(): void {
+    this.sessionFilterForm.filterInputFields = [
+      { 
+        controlName: "base", 
+        controlLabel: "Base", 
+        type: QueryInputFieldType.MULTI_SELECT_BOX,
+        selections: []
+      },
+      { 
+        controlName: "eqNbr", 
+        controlLabel: "Equipment", 
+        type: QueryInputFieldType.MULTI_SELECT_BOX,
+        selections: []
+      },
+      { 
+        controlName: "seat", 
+        controlLabel: "Seat", 
+        type: QueryInputFieldType.MULTI_SELECT_BOX,
+        selections: []
+      },
+      { 
+        controlName: "tripNbr", 
+        controlLabel: "Trip Number", 
+        type: QueryInputFieldType.STRING_INPUT
+      },
+      { 
+        controlName: "tripDate", 
+        controlLabel: "Trip Date", 
+        type: QueryInputFieldType.DATE_PICKER,
+      }
+    ]
+    this.getSessionFilterCriteriaSub = this.sessionListFilterService.getSessionListFilterSearchCriteria().subscribe(
+      (response: SessionListFilterSearchCriteria) => {
+        const criteria: Array<SearchCriteria> = [];
+        Object.keys(response).forEach(resKey => {
+          criteria.push({
+            controlName: resKey,
+            selections: response[resKey]
+          });
+        })
+        this.sessionFilterForm.loadSearchCriteria(criteria);
+      }
+    )
+  }
+
+  createSessionResultFilterForm(): void {
+    this.sessionResultFilterForm.filterInputFields = [
+      {
+        controlName: "empId",
+        controlLabel: "Employee Number or ID",
+        type: QueryInputFieldType.SEARCH_INPUT
+      }
+    ]
+  }
+
+
   sortSessionDataResponse(response: SessionDataResponse[]): SessionDataResponse[] {
     return response.sort((r1, r2) => {
       if (!r1.startTime) {
@@ -71,6 +143,17 @@ export class TestContainerComponent implements OnInit, OnDestroy {
 
   sortSessionResultResponse(response: SessionResultResponse[]): SessionResultResponse[] {
     return response;
+  }
+
+  setSessionFilterOutput(output: unknown): void {
+    this.sessionFilterOutput = output;
+    console.log(this.sessionFilterOutput);
+  }
+
+  setSessionResultFilterOutput(output: unknown): void {
+    this.sessionFilterResultOutput = output;
+    console.log(this.sessionFilterResultOutput);
+    
   }
 
   generateSessionDataItem(response: SessionDataResponse[]): SessionItem[] {

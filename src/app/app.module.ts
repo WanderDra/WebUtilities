@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SessionResultListComponent } from './components/session-result-list/session-result-list.component';
 import { SessionListFilterComponent } from './components/session-list-filter/session-list-filter.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DynamicQueryFormComponent } from './components/dynamic-query-form/dynamic-query-form.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     TestContainerComponent,
     CurrentDraftSessionListComponent,
     SessionResultListComponent,
-    SessionListFilterComponent
+    SessionListFilterComponent,
+    DynamicQueryFormComponent
   ],
   imports: [
     BrowserModule,
