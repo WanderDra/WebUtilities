@@ -50,14 +50,16 @@ export enum QueryInputFieldType {
   styleUrls: ['./dynamic-query-form.component.scss']
 })
 export class DynamicQueryFormComponent implements OnInit {
-  queryForm: FormGroup;
 
   @Input('inputForm') inputForm: QueryForm = new QueryForm();
-
   @Output('dirty') isFormDirty = new EventEmitter<boolean>();
-
   @Output('output')
+
   formOutput = new EventEmitter<unknown>();
+
+  queryForm: FormGroup;
+  formValueChangeSub: Subscription;
+
 
   constructor(
     private fb: FormBuilder
@@ -69,6 +71,7 @@ export class DynamicQueryFormComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
+    this.formValueChangeSub.unsubscribe();
   }
 
   initData(): void {
@@ -83,7 +86,7 @@ export class DynamicQueryFormComponent implements OnInit {
       return form;
     }, {});
     this.queryForm = this.fb.group(controllers);
-    this.queryForm.valueChanges.subscribe(
+    this.formValueChangeSub = this.queryForm.valueChanges.subscribe(
       () => {
         this.onFormChange();
       }

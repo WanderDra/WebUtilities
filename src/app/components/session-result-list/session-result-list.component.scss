@@ -10,6 +10,9 @@ $accent-color: #FF6200;
     td {
         padding-right: 10px;
     }
+    .session-result-list-header {
+        background-color: rgba($color: #FFFFFF, $alpha: 1.0);
+    }
     .session-list-seniority {
         text-align: left;
         font: normal normal normal 16px/21px Roboto;

@@ -12,6 +12,7 @@ import { SessionResultListComponent } from './components/session-result-list/ses
 import { SessionListFilterComponent } from './components/session-list-filter/session-list-filter.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DynamicQueryFormComponent } from './components/dynamic-query-form/dynamic-query-form.component';
+import { AutoDraftPanelComponent } from './containers/auto-draft-panel/auto-draft-panel.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { DynamicQueryFormComponent } from './components/dynamic-query-form/dynam
     CurrentDraftSessionListComponent,
     SessionResultListComponent,
     SessionListFilterComponent,
-    DynamicQueryFormComponent
+    DynamicQueryFormComponent,
+    AutoDraftPanelComponent
   ],
   imports: [
     BrowserModule,

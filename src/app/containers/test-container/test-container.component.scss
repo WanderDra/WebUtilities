@@ -1,32 +1,7 @@
 .window {
     display: flex;
     flex-direction: column;
+    height: 100%;
     width: 100%;
     background-color: #F7F7F7;
-}
-
-.sub-table {
-    margin: 10px;
-    height: 400px;
-    overflow-y: auto;
-    overflow-x: hidden;
-}
-
-.table-container {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-}
-
-.toolbar-test {
-    display: flex;
-    width: 100%;
-}
-
-.filter-left {
-    width: 50%;
-}
-
-.filter-right {
-    width: 50%;
 }
