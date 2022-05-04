@@ -1,19 +1,19 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { LegalityOutcomeItem, LegalityOutcomeResponse, SessionDataResponse, SessionItem, TripItem, TripResponse } from 'src/app/components/current-draft-session-list/models/current-draft-session-list';
+import { SessionItem, SessionDataResponse, TripResponse, TripItem, LegalityOutcomeResponse, LegalityOutcomeItem } from 'src/app/components/current-draft-session-list/models/current-draft-session-list';
 import { CDSService } from 'src/app/components/current-draft-session-list/services/cds.service';
 import { QueryForm, QueryInputFieldType, SearchCriteria } from 'src/app/components/dynamic-query-form/dynamic-query-form.component';
 import { SessionListFilterSearchCriteria } from 'src/app/components/session-list-filter/models/session-list-filter';
 import { SessionListFilterService } from 'src/app/components/session-list-filter/services/session-list-filter.service';
-import { ContactOutcome, ContactOutcomeResponse, SessionResultItem, SessionResultResponse, TripLegality, TripLegalityResponse } from 'src/app/components/session-result-list/models/session-result';
+import { SessionResultItem, SessionResultResponse, TripLegalityResponse, TripLegality, ContactOutcomeResponse, ContactOutcome } from 'src/app/components/session-result-list/models/session-result';
 import { SessionResultService } from 'src/app/components/session-result-list/services/session-result.service';
 
 @Component({
-  selector: 'app-test-container',
-  templateUrl: './test-container.component.html',
-  styleUrls: ['./test-container.component.scss']
+  selector: 'app-auto-draft-panel',
+  templateUrl: './auto-draft-panel.component.html',
+  styleUrls: ['./auto-draft-panel.component.scss']
 })
-export class TestContainerComponent implements OnInit, OnDestroy {
+export class AutoDraftPanelComponent implements OnInit {
 
   sessionsDataSub: Subscription;
   sessionResultDataSub: Subscription;

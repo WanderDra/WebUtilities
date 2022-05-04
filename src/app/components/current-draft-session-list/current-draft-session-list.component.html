@@ -213,7 +213,9 @@
     </ng-container>
 
     <!-- Header -->
-    <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></tr>
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"
+        class="session-list-header"    
+    ></tr>
     <!-- Row -->
     <tr
         mat-row
@@ -227,5 +229,4 @@
         class="detail-row"
         [ngClass]="element.class"
     ></tr>
-
 </table>

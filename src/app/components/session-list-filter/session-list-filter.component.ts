@@ -1,8 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { SessionListFilterSearchCriteria } from './models/session-list-filter';
-import { SessionListFilterService } from './services/session-list-filter.service';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import {  FormGroup } from '@angular/forms';
+import { DynamicQueryFormComponent, QueryForm } from '../dynamic-query-form/dynamic-query-form.component';
 
 @Component({
   selector: 'app-session-list-filter',
@@ -11,48 +9,40 @@ import { SessionListFilterService } from './services/session-list-filter.service
 })
 export class SessionListFilterComponent implements OnInit, OnDestroy {
 
-  isFilterExpanded = false;
-  
-  searchCriteria: SessionListFilterSearchCriteria = new SessionListFilterSearchCriteria();
-  getFilterSearchCriteriaSub: Subscription;
+  isFilterExpanded: boolean = false;
+  isQueryFormDirty: boolean = false;
 
-  filterForm: FormGroup;
+  @Input('inputForm') inputForm: QueryForm = new QueryForm();
+  @Input('expandLabel') expandLabel: string = '';
 
-  constructor(
-    private sessionListFilterService: SessionListFilterService,
-    private fb: FormBuilder
-  ) { 
-    this.filterForm = this.fb.group({
-      base: [''],
-      eqNbr: [''],
-      seat: [''],
-      tripNbr: [''],
-      tripDate: ['']
-    });
+  @Output('output')
+  filterOutput = new EventEmitter<unknown>();
+
+  @ViewChild('queryForm') queryForm: DynamicQueryFormComponent;
+
+  constructor() { 
   }
 
   ngOnInit(): void {
-    this.initData();
   }
 
   ngOnDestroy(): void {
-    this.getFilterSearchCriteriaSub.unsubscribe();
-  }
-
-  initData(): void {
-    this.loadSearchCriteria();
-  }
-
-  loadSearchCriteria(): void {
-    this.getFilterSearchCriteriaSub = this.sessionListFilterService.getSessionListFilterSearchCriteria().subscribe(
-      (response: SessionListFilterSearchCriteria) => {
-        this.searchCriteria = response;
-      }
-    )
   }
 
   onExpandFilterClick(): void {
     this.isFilterExpanded = !this.isFilterExpanded;
+  }
+
+  onCleanAllFilterClick(): void{
+    this.queryForm.clearForm();
+  }
+
+  checkQueryFormDirty(isFormDirty: boolean) {
+    this.isQueryFormDirty = isFormDirty;
+  }
+
+  formSubmit(output: unknown) {
+    this.filterOutput.emit(output);
   }
 
 }

@@ -1,7 +1,11 @@
+$primary-color-light: #4D148C;
+$primary-color: $primary-color-light;
+
 .filter-toolbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 15px;
     a {
         user-select: none;
         cursor: pointer;
@@ -9,6 +13,12 @@
     .filter-switch {
         display: flex;
         align-items: center;
+        a {
+            color: $primary-color;
+            text-align: left;
+            font: normal normal bold 13px/24px Roboto;
+            letter-spacing: 0.78px;
+        }
         mat-icon {
             transition: transform 0.3s;
         }
@@ -20,11 +30,23 @@
     }
 }
 
-.filter-panel {
+.filter-outline {
     display: flex;
     flex-direction: row;
-    mat-form-field {
-        width: 100px;
-        margin-right: 20px;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 0 10px 0px rgba($color: #000000, $alpha: 0.1);
+    margin-bottom: 30px;
+}
+
+.filter-button {
+    font: normal normal medium 14px/16px Roboto;
+    letter-spacing: 1.25px;
+    text-transform: uppercase;
+}
+
+:host ::ng-deep .query-form {
+    .form-control-empId {
+        width: 300px !important;
     }
 }

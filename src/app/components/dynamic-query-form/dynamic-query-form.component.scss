@@ -1,0 +1,10 @@
+.form-panel {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    mat-form-field {
+        width: 100px;
+        margin-right: 20px;
+    }
+}
