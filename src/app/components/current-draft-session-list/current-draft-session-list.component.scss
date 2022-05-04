@@ -4,8 +4,11 @@ $primary-color: $primary-color-light;
 .session-list {
     width: 100%;
     min-width: 580px;
-    scroll-behavior: auto;
+    overflow-x: hidden;
     background-color: rgba($color: #000000, $alpha: 0.0);
+    th {
+        font: normal normal normal 12px/12px Roboto;
+    }
     .session-list-header {
         background-color: rgba($color: #F7F7F7, $alpha: 1.0);
     }
@@ -21,7 +24,7 @@ $primary-color: $primary-color-light;
         padding-right: 5px;
         vertical-align: top;
         text-align: left;
-        font: normal normal normal 16px/21px Roboto;
+        font: normal normal normal 12px/16px Roboto;
         letter-spacing: 0px;
         opacity: 1;
         white-space: nowrap;
@@ -33,7 +36,7 @@ $primary-color: $primary-color-light;
         padding-right: 5px;
         vertical-align: top;
         text-align: left;
-        font: normal normal normal 16px/21px Roboto;
+        font: normal normal normal 12px/16px Roboto;
         letter-spacing: 0px;
         opacity: 1;
         white-space: nowrap;
@@ -44,7 +47,7 @@ $primary-color: $primary-color-light;
         padding-right: 5px;
         vertical-align: top;
         text-align: left;
-        font: normal normal normal 16px/21px Roboto;
+        font: normal normal normal 12px/16px Roboto;
         letter-spacing: 0px;
         opacity: 1;
         white-space: pre-line;
@@ -55,7 +58,7 @@ $primary-color: $primary-color-light;
         padding-right: 5px;
         vertical-align: top;
         text-align: left;
-        font: normal normal bold 16px/21px Roboto;
+        font: normal normal bold 12px/16px Roboto;
         letter-spacing: 0px;
         opacity: 1;
         white-space: nowrap;
@@ -66,7 +69,7 @@ $primary-color: $primary-color-light;
         padding-right: 5px;
         vertical-align: top;
         text-align: left;
-        font: normal normal bold 16px/21px Roboto;
+        font: normal normal bold 12px/16px Roboto;
         letter-spacing: 0px;
         opacity: 1;
         white-space: nowrap;
@@ -77,7 +80,7 @@ $primary-color: $primary-color-light;
         padding-right: 5px;
         vertical-align: top;
         text-align: left;
-        font: normal normal bold 16px/21px Roboto;
+        font: normal normal bold 12px/16px Roboto;
         letter-spacing: 0px;
         opacity: 1;
         white-space: nowrap;
@@ -90,14 +93,14 @@ $primary-color: $primary-color-light;
         .progress {
             text-align: left;
             white-space: nowrap;
-            font: normal normal bold 24px/19px Roboto;
+            font: normal normal bold 18px/14px Roboto;
             letter-spacing: 0px;
             opacity: 1;
         }
         .amount {
             text-align: left;
             white-space: nowrap;
-            font: normal normal normal 14px/19px Roboto;
+            font: normal normal normal 10px/14px Roboto;
             letter-spacing: 0px;
             opacity: 1;
         }
@@ -110,14 +113,14 @@ $primary-color: $primary-color-light;
         .progress {
             text-align: left;
             white-space: nowrap;
-            font: normal normal bold 24px/19px Roboto;
+            font: normal normal bold 18px/14px Roboto;
             letter-spacing: 0px;
             opacity: 1;
         }
         .amount {
             text-align: left;
             white-space: nowrap;
-            font: normal normal normal 14px/19px Roboto;
+            font: normal normal normal 10px/14px Roboto;
             letter-spacing: 0px;
             opacity: 1;
         }
@@ -128,18 +131,24 @@ $primary-color: $primary-color-light;
         padding-right: 5px;
         vertical-align: top;
         text-align: left;
-        font: normal normal bold 16px/21px Roboto;
+        font: normal normal bold 12px/16px Roboto;
         letter-spacing: 0px;
         opacity: 1;
         white-space: nowrap;
     }
     .session-list-add-btn {
-        text-align: right;
+        text-align: center;
+        button {
+            margin-left: 10px;
+        }
     }
     .session-list-view-btn {
         padding-top: 10px;
         vertical-align: top;
-        padding-top: -23px;
+        button {
+            margin-left: 20px;
+        }
+        margin-left: 20px;
     }
 }
 
@@ -150,7 +159,7 @@ $primary-color: $primary-color-light;
     th {
         width: 9%;
         text-align: left;
-        font: normal normal normal 16px/21px Roboto;
+        font: normal normal normal 12px/16px Roboto;
         letter-spacing: 0px;
         opacity: 1;
     }
@@ -181,7 +190,7 @@ $primary-color: $primary-color-light;
         display: flex;
         flex-direction: column;
         width: 50%;
-        margin-left: 30px;
+        margin-left: 10px;
         a {
             color: $primary-color;
             cursor: pointer;
@@ -191,8 +200,8 @@ $primary-color: $primary-color-light;
             color: $primary-color;
             cursor: pointer;
             user-select: none;
-            font: normal normal bold 13px/24px Roboto;
-            letter-spacing: 0.78px;
+            font: normal normal bold 10px/14px Roboto;
+            letter-spacing: 0.4px;
             white-space: nowrap;
         }
         .dropdown-list-btn {
@@ -220,12 +229,12 @@ $primary-color: $primary-color-light;
                 white-space: nowrap;
             }
             td {
-                padding-right: 10px;
+                padding-right: 4px;
                 white-space: nowrap;
-                font: normal normal normal 16px/21px Roboto;
+                font: normal normal normal 12px/16px Roboto;
             }
             tr {
-                height: 39px;
+                height: 27px;
             }
             tr:last-child {
                 td {
@@ -250,4 +259,18 @@ $primary-color: $primary-color-light;
     width: 100%;
 }
 
+:host ::ng-deep td.mat-cell:first-of-type {
+    padding-left: 5px;
+}
 
+:host ::ng-deep td.mat-cell:last-of-type {
+    padding-right: 5px;
+}
+
+:host ::ng-deep th.mat-header-cell:first-of-type {
+    padding-left: 5px;
+}
+
+:host ::ng-deep th.mat-header-cell:last-of-type {
+    padding-right: 5px;
+}
