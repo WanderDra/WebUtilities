@@ -71,6 +71,7 @@ export class DynamicQueryFormComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
+    this.clearForm();
     this.formValueChangeSub.unsubscribe();
   }
 
@@ -86,6 +87,7 @@ export class DynamicQueryFormComponent implements OnInit {
       return form;
     }, {});
     this.queryForm = this.fb.group(controllers);
+    this.onFormChange();
     this.formValueChangeSub = this.queryForm.valueChanges.subscribe(
       () => {
         this.onFormChange();

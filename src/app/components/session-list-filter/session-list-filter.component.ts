@@ -10,6 +10,7 @@ import { DynamicQueryFormComponent, QueryForm } from '../dynamic-query-form/dyna
 export class SessionListFilterComponent implements OnInit, OnDestroy {
 
   isFilterExpanded: boolean = false;
+  isClearable: boolean = false;
   isQueryFormDirty: boolean = false;
 
   @Input('inputForm') inputForm: QueryForm = new QueryForm();
@@ -31,6 +32,11 @@ export class SessionListFilterComponent implements OnInit, OnDestroy {
 
   onExpandFilterClick(): void {
     this.isFilterExpanded = !this.isFilterExpanded;
+    if (!this.isFilterExpanded) {
+      this.isClearable = false;
+    } else {
+      this.isClearable = true;
+    }
   }
 
   onCleanAllFilterClick(): void{

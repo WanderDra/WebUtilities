@@ -5,7 +5,7 @@ $primary-color: $primary-color-light;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 15px;
+    padding: 10px;
     a {
         user-select: none;
         cursor: pointer;
@@ -37,6 +37,9 @@ $primary-color: $primary-color-light;
     align-items: center;
     box-shadow: 0 0 10px 0px rgba($color: #000000, $alpha: 0.1);
     margin-bottom: 30px;
+    padding: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .filter-button {
@@ -45,8 +48,15 @@ $primary-color: $primary-color-light;
     text-transform: uppercase;
 }
 
+.query-form {
+    width: 80%;
+}
+
 :host ::ng-deep .query-form {
     .form-control-empId {
         width: 300px !important;
+    }
+    .form-control-tripDate {
+        width: 100px !important;
     }
 }

@@ -11,7 +11,7 @@
         <button 
             mat-stroked-button (click)="onCleanAllFilterClick()"
             class="filter-button"
-            [disabled]="!isQueryFormDirty"
+            [disabled]="!isQueryFormDirty || !isClearable"
             color="primary">
             CLEAR ALL FILTERS
         </button>
