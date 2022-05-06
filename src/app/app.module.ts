@@ -13,6 +13,10 @@ import { SessionListFilterComponent } from './components/session-list-filter/ses
 import { ReactiveFormsModule } from '@angular/forms';
 import { DynamicQueryFormComponent } from './components/dynamic-query-form/dynamic-query-form.component';
 import { AutoDraftPanelComponent } from './containers/auto-draft-panel/auto-draft-panel.component';
+import { DraggablePopupComponent } from './components/draggable-popup/draggable-popup.component';
+import { TripDetailPopupComponent } from './popups/trip-detail-popup/trip-detail-popup.component';
+import { PortalDirective } from './directives/portal.directive';
+import { PortalOutletDirective } from './directives/portal-outlet.directive';
 
 @NgModule({
   declarations: [
@@ -22,7 +26,11 @@ import { AutoDraftPanelComponent } from './containers/auto-draft-panel/auto-draf
     SessionResultListComponent,
     SessionListFilterComponent,
     DynamicQueryFormComponent,
-    AutoDraftPanelComponent
+    AutoDraftPanelComponent,
+    DraggablePopupComponent,
+    TripDetailPopupComponent,
+    PortalDirective,
+    PortalOutletDirective
   ],
   imports: [
     BrowserModule,

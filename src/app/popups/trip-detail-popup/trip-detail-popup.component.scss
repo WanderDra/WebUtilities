@@ -1,0 +1,15 @@
+.trip-detail-popup-container {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    height: 250px;
+    .trip-detail-popup-title {
+        margin-bottom: 3em;
+    }
+}
+
+.trip-detail-popup-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}

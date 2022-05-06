@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { Moment } from 'moment';
 import { Subscription } from 'rxjs';
 import { SessionListFilterSearchCriteria } from '../session-list-filter/models/session-list-filter';
 
@@ -34,7 +35,8 @@ export interface QueryInputField {
   controlName: string,
   controlLabel: string,
   type: QueryInputFieldType,
-  selections?: Array<string>
+  selections?: Array<string>,
+  value?: string | Array<string>
 }
 
 export enum QueryInputFieldType {
@@ -79,10 +81,10 @@ export class DynamicQueryFormComponent implements OnInit {
     const controllers = this.inputForm.filterInputFields.reduce((form, field) => {
       switch (field.type) {
         case QueryInputFieldType.MULTI_SELECT_BOX:
-          form[field.controlName] = [[]];
+          form[field.controlName] = [field.value ? field.value : []];
           break;
         default:
-          form[field.controlName] = [''];
+          form[field.controlName] = [field.value ? field.value : ''];
       }
       return form;
     }, {});

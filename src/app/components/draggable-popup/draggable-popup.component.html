@@ -1,0 +1,12 @@
+<div class="popup-overlay">
+    <div 
+        class="popup-box" 
+        cdkDragBoundary=".popup-overlay" 
+        cdkDrag 
+        [cdkDragFreeDragPosition]="element.position"
+        *ngFor="let element of popups">
+        <mat-card>
+            <ng-container *ngComponentOutlet="element.component; injector:element.injector"></ng-container> 
+        </mat-card>
+    </div>
+</div>

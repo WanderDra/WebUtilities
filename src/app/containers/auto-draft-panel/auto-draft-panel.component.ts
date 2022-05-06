@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import * as moment from 'moment';
 import { Subscription } from 'rxjs';
 import { SessionItem, SessionDataResponse, TripResponse, TripItem, LegalityOutcomeResponse, LegalityOutcomeItem } from 'src/app/components/current-draft-session-list/models/current-draft-session-list';
 import { CDSService } from 'src/app/components/current-draft-session-list/services/cds.service';
@@ -7,6 +8,9 @@ import { SessionListFilterSearchCriteria } from 'src/app/components/session-list
 import { SessionListFilterService } from 'src/app/components/session-list-filter/services/session-list-filter.service';
 import { SessionResultItem, SessionResultResponse, TripLegalityResponse, TripLegality, ContactOutcomeResponse, ContactOutcome } from 'src/app/components/session-result-list/models/session-result';
 import { SessionResultService } from 'src/app/components/session-result-list/services/session-result.service';
+import { SessionResultListComponent } from 'src/app/components/session-result-list/session-result-list.component';
+import { TripDetailData, TripDetailPopupComponent } from 'src/app/popups/trip-detail-popup/trip-detail-popup.component';
+import { PopupService } from 'src/app/services/popup.service';
 
 @Component({
   selector: 'app-auto-draft-panel',
@@ -29,10 +33,18 @@ export class AutoDraftPanelComponent implements OnInit {
   sessionFilterOutput: unknown;
   sessionFilterResultOutput: unknown;
 
+  popupOverlays: Map<number, Set<number>>;
+
+  rightPanelContent: TemplateRef<any> | null;
+  @ViewChild('sessionResult') sessionResultRef: TemplateRef<SessionResultListComponent>;
+  popupOverlaySub: Subscription;
+  popupEventSub: Subscription;
+
   constructor(
     private cdsService: CDSService,
     private sessionResultService: SessionResultService,
-    private sessionListFilterService: SessionListFilterService
+    private sessionListFilterService: SessionListFilterService,
+    private popupService: PopupService
   ) { }
 
 
@@ -44,6 +56,8 @@ export class AutoDraftPanelComponent implements OnInit {
     this.sessionsDataSub.unsubscribe();
     this.sessionResultDataSub.unsubscribe();
     this.getSessionFilterCriteriaSub.unsubscribe();
+    this.popupOverlaySub.unsubscribe();
+    this.popupEventSub.unsubscribe();
   }
 
   initData(): void {
@@ -51,6 +65,7 @@ export class AutoDraftPanelComponent implements OnInit {
     this.loadSessionResultData();
     this.createSessionFilterForm();
     this.createSessionResultFilterForm();
+    this.initPopupOverlay();
   }
 
   loadSessionListData(): void {
@@ -94,12 +109,13 @@ export class AutoDraftPanelComponent implements OnInit {
       { 
         controlName: "tripNbr", 
         controlLabel: "Trip Number", 
-        type: QueryInputFieldType.STRING_INPUT
+        type: QueryInputFieldType.STRING_INPUT,
       },
       { 
         controlName: "tripDate", 
         controlLabel: "Trip Date", 
         type: QueryInputFieldType.DATE_PICKER,
+        value: moment().format()
       }
     ]
     this.getSessionFilterCriteriaSub = this.sessionListFilterService.getSessionListFilterSearchCriteria().subscribe(
@@ -126,6 +142,23 @@ export class AutoDraftPanelComponent implements OnInit {
     ]
   }
 
+  initPopupOverlay(): void {
+    // Handle Event From Popups
+    this.popupEventSub = this.popupService.popupEvent$.subscribe((event) => {
+      switch (event.eventName) {
+        case 'trip_detail_applied':
+          // console.log(this.popupService.popupList$.value.get(popup2).data.value);
+          break;
+        case 'trip_detail_cancelled':
+          this.popupService.removePopup(event.context);
+          break;
+      }
+    })
+
+    this.popupOverlaySub = this.popupService.popupListStructure$.subscribe(overlays => {
+      this.popupOverlays = overlays;
+    })
+  }
 
   sortSessionDataResponse(response: SessionDataResponse[]): SessionDataResponse[] {
     return response.sort((r1, r2) => {
@@ -253,6 +286,20 @@ export class AutoDraftPanelComponent implements OnInit {
       contactOutcomeItem.contactOutcome = res.contactOutcome;
       return contactOutcomeItem;
     });
+  }
+
+  onSessionListTripIdClick(event: {event: MouseEvent, trip: TripItem}): void {
+    const position = { x: event.event.pageX, y: event.event.pageY }
+    this.popupService.createPopup(TripDetailPopupComponent, position, TripDetailData, {content: event.trip})
+  }
+
+  onSessionSelected(sessionSelected: SessionItem | null): void {
+    if (sessionSelected) {
+      this.rightPanelContent = this.sessionResultRef;
+    }
+    else {
+      this.rightPanelContent = null;
+    }
   }
 
 }

@@ -161,7 +161,7 @@
                     <table mat-table class="dropdown-table" [dataSource]="element.trips" *ngIf="element.isViewTripExtended">
                         <ng-container matColumnDef="id">
                             <td mat-cell *matCellDef="let element" class="dropdown-table-id"> 
-                                <a (click)="onTripIdClick(element)">{{element.id}}</a>
+                                <a (click)="onTripIdClick({event: $event, trip: element})">{{element.id}}</a>
                             </td>
                         </ng-container>
                         <ng-container matColumnDef="date">

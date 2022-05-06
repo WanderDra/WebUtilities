@@ -1,24 +1,24 @@
 <div class="container">
-    <div class="left-panel">
-        <mat-tab-group>
-            <mat-tab label="CURRENT DRAFT SESSIONS">
-                <div class="session-list-container">
-                    <app-session-list-filter
-                        [expandLabel]="'FILTER SESSION LIST'"
-                        [inputForm]="sessionFilterForm"
-                        (output)="setSessionFilterOutput($event)"
-                    ></app-session-list-filter>
-                    <div class="table-container">
-                        <app-current-draft-session-list
-                            [data]="sessionsData"
-                        ></app-current-draft-session-list>
-                    </div>
-                    
+    <mat-tab-group class="left-panel">
+        <mat-tab label="CURRENT DRAFT SESSIONS">
+            <div class="session-list-container">
+                <app-session-list-filter
+                    [expandLabel]="'FILTER SESSION LIST'"
+                    [inputForm]="sessionFilterForm"
+                    (output)="setSessionFilterOutput($event)"
+                ></app-session-list-filter>
+                <div class="table-container">
+                    <app-current-draft-session-list
+                        [data]="sessionsData"
+                        (onTripIdClicked)="onSessionListTripIdClick($event)"
+                        (sessionSelected)="onSessionSelected($event)"
+                    ></app-current-draft-session-list>
                 </div>
-            </mat-tab>
-            <mat-tab label="SESSION HISTORY"></mat-tab>
-        </mat-tab-group>
-    </div>
+                
+            </div>
+        </mat-tab>
+        <mat-tab label="SESSION HISTORY"></mat-tab>
+    </mat-tab-group>
     <div class="right-panel">
         <ng-template #sessionResult>
             <mat-card class="session-result-container right-panel-outline">
@@ -35,6 +35,10 @@
             </mat-card>
         </ng-template>
         
-        <ng-container *ngTemplateOutlet="sessionResult"></ng-container>
+        <ng-container *ngTemplateOutlet="rightPanelContent"></ng-container>
     </div>
 </div>
+
+<!-- Popups -->
+<app-draggable-popup *ngFor="let layer of popupOverlays | keyvalue" [layer]="layer.value">
+</app-draggable-popup>

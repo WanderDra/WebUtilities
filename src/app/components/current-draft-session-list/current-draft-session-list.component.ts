@@ -1,5 +1,5 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { SessionItem } from './models/current-draft-session-list';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { SessionItem, TripItem } from './models/current-draft-session-list';
 
 @Component({
   selector: 'app-current-draft-session-list',
@@ -9,6 +9,10 @@ import { SessionItem } from './models/current-draft-session-list';
 export class CurrentDraftSessionListComponent implements OnInit, OnDestroy {
 
   @Input('data') sessionsData: SessionItem[];
+
+  @Output('onTripIdClicked') tripIdClickedEvent = new EventEmitter<{event: MouseEvent, trip: TripItem}>();
+
+  @Output('sessionSelected') sessionSelectedEvent = new EventEmitter<SessionItem | null>();
 
   selectedSession: SessionItem | null = null;
 
@@ -26,7 +30,7 @@ export class CurrentDraftSessionListComponent implements OnInit, OnDestroy {
     'viewBtn'
   ];
 
-  constructor() { 
+  constructor(private elRef :ElementRef) { 
   }
 
   ngOnInit(): void {
@@ -43,6 +47,7 @@ export class CurrentDraftSessionListComponent implements OnInit, OnDestroy {
       this.deselectSession(session);
       this.selectedSession = null;
     }
+    this.sessionSelectedEvent.emit(this.selectedSession);
   }
 
   selectSession(session: SessionItem): void {
@@ -67,7 +72,8 @@ export class CurrentDraftSessionListComponent implements OnInit, OnDestroy {
     }
   }
 
-  onTripIdClick(session: SessionItem): void {
+  onTripIdClick(event: {event: MouseEvent, trip: TripItem}): void {
+    this.tripIdClickedEvent.emit(event);
   }
 
   onTripInfoClick(session: SessionItem): void {

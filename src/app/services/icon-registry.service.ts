@@ -23,7 +23,7 @@ export class IconRegistryService {
       this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/stop_circle_FILL0_wght400_GRAD0_opsz48.svg')
     )
     this.matIconRegistry.addSvgIcon(
-      'phone_in_talk_black',
+      'phone_in_talk',
       this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/phone_in_talk_FILL1_wght400_GRAD0_opsz24.svg')
     )
   }

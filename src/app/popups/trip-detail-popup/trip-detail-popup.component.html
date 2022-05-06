@@ -1,0 +1,20 @@
+<div class="trip-detail-popup-container">
+    <div class="trip-detail-popup-title">
+        Trip {{ tripId }}
+        <!-- <button (click)="onApply()">Test</button>
+        <button (click)="onCancel()">Cancel</button> -->
+    </div>
+    <div class="trip-detail-popup-content">
+        Trip Details...
+        <button mat-button
+            (click)="onApply($event)"
+        >
+            MultiLayerPopupTest
+        </button>
+    </div>
+    <button mat-icon-button class="trip-detail-popup-close-btn"
+        (click)="onCancel()"
+    >
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
