@@ -52,6 +52,12 @@ export class TripItem {
     date: string;
     status: string;
     info: string;
+    type: string;
+    isLocked: boolean;
+    countdown: number;
+    shift: string;
+    tafb: string;
+    creditHours: number;
 }
 
 export class LegalityOutcomeResponse {

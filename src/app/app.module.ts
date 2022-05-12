@@ -17,6 +17,8 @@ import { DraggablePopupComponent } from './components/draggable-popup/draggable-
 import { TripDetailPopupComponent } from './popups/trip-detail-popup/trip-detail-popup.component';
 import { PortalDirective } from './directives/portal.directive';
 import { PortalOutletDirective } from './directives/portal-outlet.directive';
+import { RecordPilotResponsePopupComponent } from './popups/record-pilot-response-popup/record-pilot-response-popup.component';
+import { AddNewDraftSessionComponent } from './components/add-new-draft-session/add-new-draft-session.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { PortalOutletDirective } from './directives/portal-outlet.directive';
     DraggablePopupComponent,
     TripDetailPopupComponent,
     PortalDirective,
-    PortalOutletDirective
+    PortalOutletDirective,
+    RecordPilotResponsePopupComponent,
+    AddNewDraftSessionComponent
   ],
   imports: [
     BrowserModule,

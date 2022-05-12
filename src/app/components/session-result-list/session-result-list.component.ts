@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SessionResultItem } from './models/session-result';
 
 @Component({
@@ -9,6 +9,8 @@ import { SessionResultItem } from './models/session-result';
 export class SessionResultListComponent implements OnInit {
 
   @Input('data') sessionResults: SessionResultItem[];
+
+  @Output('onRecordResponseClick') recordResponseClickEvent = new EventEmitter<{event: MouseEvent, sessionResult: SessionResultItem}>();
 
   columnsToDisplay = [
     'callMark',
@@ -39,6 +41,10 @@ export class SessionResultListComponent implements OnInit {
 
   onTripNbrClick(sessionResult: SessionResultItem): void {
 
+  }
+
+  onRecordResponseClick(event: {event: MouseEvent, sessionResult: SessionResultItem}): void {
+    this.recordResponseClickEvent.emit({event: event.event, sessionResult: event.sessionResult});
   }
 
 }

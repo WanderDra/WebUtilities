@@ -15,6 +15,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTabsModule } from '@angular/material/tabs';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { PortalModule } from '@angular/cdk/portal';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { PortalModule } from '@angular/cdk/portal';
     MatProgressSpinnerModule,
     MatTabsModule,
     DragDropModule,
-    PortalModule
+    PortalModule,
+    MatCheckboxModule
   ]
 })
 export class AngularMaterialModule { }

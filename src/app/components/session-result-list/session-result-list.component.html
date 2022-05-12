@@ -104,6 +104,7 @@
             <button mat-stroked-button color="primary"
                 class="session-list-responsebtn"
                 [disabled]="element.isRecordResponseAvailable"
+                (click)="onRecordResponseClick({event: $event, sessionResult: element})"
             >
                 RECORD RESPONSE
             </button>

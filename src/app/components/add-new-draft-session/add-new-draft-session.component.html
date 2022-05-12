@@ -1,0 +1,169 @@
+<div class="ands-container">
+    <!-- Add New Draft Session Section -->
+    <mat-card class="ands-build-session-container">
+        <mat-card-title class="ands-title">Add New Draft Session</mat-card-title>
+        <div class="ands-build-session-panel">
+            <table mat-table class="ands-trip-selected-table" [dataSource]="selectedTrips">
+                <ng-container matColumnDef="removeIcon">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-icon-button color="primary">
+                            <mat-icon>indeterminate_check_box</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="trip">
+                    <th mat-header-cell *matHeaderCellDef>Trip</th>
+                    <td mat-cell *matCellDef="let element">
+                        <a (click)="onTripNbrClick(element.id)">
+                            {{ element.id }}
+                        </a>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="tripDate">
+                    <th mat-header-cell *matHeaderCellDef>Trip Date</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{ element.date }}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="type">
+                    <th mat-header-cell *matHeaderCellDef>Type</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{ element.type }}
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="['removeIcon', 'trip', 'tripDate', 'type']"></tr>
+                <tr mat-row *matRowDef="let row; columns: ['removeIcon', 'trip', 'tripDate', 'type'];"></tr>
+            </table>
+            <div class="ands-build-session-right">
+                <div class="ands-build-session-options">
+                    <section [formGroup]="pilotForDraftOptions">
+                        <h4>PILOT FOR DRAFT</h4>
+                        <p><mat-checkbox formControlName="proximity_bypass" color="primary">Proximity Bypass</mat-checkbox></p>
+                        <p><mat-checkbox formControlName="siba" color="primary">SIBA</mat-checkbox></p>
+                        <p><mat-checkbox formControlName="auto_start_dialing" color="primary">Auto-start dialing</mat-checkbox></p>
+                    </section>
+                    <div>
+                        <h4>DRAFT SESSION SUMMARY</h4>
+                        <table>
+                            <tr>
+                                <td>B/E/S</td>
+                                <td>MEM/11/CAP</td>
+                            </tr>
+                            <tr>
+                                <td>Trips</td>
+                                <td>12</td>
+                            </tr>
+                            <tr>
+                                <td>Draft Pilots</td>
+                                <td>834</td>
+                            </tr>
+                            <tr>
+                                <td>Other Pilots</td>
+                                <td>312</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="ands-build-session-button-container">
+                    <button mat-flat-button>CANCEL</button>
+                    <button mat-raised-button color="primary">BUILD THIS SESSION</button>
+                </div>
+            </div>
+        </div>
+    </mat-card><!-- Add New Draft Session Section -->
+
+    <!-- Search Section -->
+    <div>
+        <div class="ands-search-bar">
+            <div class="ands-search-switch" [ngClass]="isSearchExpanded ? 'ands-search-switch-expand' : ''">
+                <a (click)="onExpandSearchClick()">
+                    SEARCH OPEN TRIPS
+                </a>
+                <button mat-icon-button (click)="onExpandSearchClick()">
+                    <mat-icon>expand_less</mat-icon>
+                </button>
+            </div>
+            <button 
+                mat-stroked-button (click)="onClearSearchClick()"
+                class="ands-clear-search-button"
+                [disabled]="!isQueryFormDirty"
+                color="primary">
+                CLEAR ALL
+            </button>
+        </div>
+        <mat-card *ngIf="isSearchExpanded" class="ands-search-outline">
+            <app-dynamic-query-form
+                #queryForm
+                [inputForm]="searchForm"
+                (output)="onFormSubmit($event)"
+                (dirty)="checkQueryFormDirty($event)"
+                class="ands-search-form"
+            ></app-dynamic-query-form>
+            <button mat-raised-button color="primary" class="ands-search-button">SEARCH</button>
+        </mat-card>
+    </div><!-- Search Section -->
+
+    <!-- Trips Section -->
+    <table mat-table class="ands-trips-table" [dataSource]="trips">
+        <ng-container matColumnDef="addIcon">
+            <th mat-header-cell *matHeaderCellDef [attr.colspan]="2">({{ trips.length }} Found)</th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-icon-button color="primary">
+                    <mat-icon>add_box</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="lockIcon">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+                <mat-icon *ngIf="element.isLocked">lock</mat-icon>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="trip">
+            <th mat-header-cell *matHeaderCellDef>Trip</th>
+            <td mat-cell *matCellDef="let element">
+                <a>{{ element.id }}</a>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="showTime">
+            <th mat-header-cell *matHeaderCellDef>Show Time</th>
+            <td mat-cell *matCellDef="let element">
+                {{ element.date }}
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="showTimeCountdown">
+            <th mat-header-cell *matHeaderCellDef>Showtime Countdown</th>
+            <td mat-cell *matCellDef="let element">
+                {{ element.countdown * 1000 | date : 'mm:ss' }}
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="shift">
+            <th mat-header-cell *matHeaderCellDef>Shift</th>
+            <td mat-cell *matCellDef="let element">
+                {{ element.shift }}
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="type">
+            <th mat-header-cell *matHeaderCellDef>Type</th>
+            <td mat-cell *matCellDef="let element">
+                {{ element.type }}
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="tafb">
+            <th mat-header-cell *matHeaderCellDef>TAFB</th>
+            <td mat-cell *matCellDef="let element">
+                {{ element.tafb }}
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="creditHours">
+            <th mat-header-cell *matHeaderCellDef>Credit Hours</th>
+            <td mat-cell *matCellDef="let element">
+                {{ element.creditHours }}
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="['addIcon', 'lockIcon', 'trip', 'showTime', 'showTimeCountdown', 'shift', 'type', 'tafb', 'creditHours']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['addIcon', 'lockIcon', 'trip', 'showTime', 'showTimeCountdown', 'shift', 'type', 'tafb', 'creditHours'];"></tr>
+    </table>
+
+</div>

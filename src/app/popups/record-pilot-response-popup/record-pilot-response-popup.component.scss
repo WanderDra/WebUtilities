@@ -1,0 +1,74 @@
+.record-response-popup-container {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    height: fit-content;
+    padding: 1em;
+    .record-response-popup-title {
+        text-align: left;
+        font: normal normal medium 20px/24px Roboto;
+        letter-spacing: 0.18px;
+        text-transform: capitalize;
+        margin-bottom: 1em;
+    }
+    .record-response-popup-info {
+        text-align: left;
+        font: normal normal normal 14px/24px Roboto;
+        letter-spacing: 0.13px;
+        text-transform: capitalize;
+        margin-bottom: 1em;
+    }
+}
+
+.record-response-popup-table {
+    width: 100%;
+    margin-bottom: 1em;
+    th {
+        text-align: left;
+        font: normal normal normal 14px/21px Roboto;
+        letter-spacing: 0;
+        border-bottom: 0;
+    }
+    tr {
+        text-align: left;
+        font: normal normal normal 14px/19px Roboto;
+        letter-spacing: 0;
+    }
+    td {
+        padding-right: 2em;
+        white-space: nowrap;
+        border-bottom: 0;
+    }
+}
+
+.record-response-popup-button-container {
+    position: relative;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    button {
+        text-align: left;
+        font: normal normal normal 14px/16px Roboto;
+        letter-spacing: 1.25px;
+        text-transform: uppercase;
+        padding-top: 0.5em;
+        padding-bottom: 0.5em;
+    }
+}
+
+:host ::ng-deep td.mat-cell:first-of-type {
+    padding-left: 0;
+}
+
+:host ::ng-deep td.mat-cell:last-of-type {
+    padding-right: 0;
+}
+
+:host ::ng-deep th.mat-header-cell:first-of-type {
+    padding-left: 0;
+}
+
+:host ::ng-deep th.mat-header-cell:last-of-type {
+    padding-right: 0;
+}

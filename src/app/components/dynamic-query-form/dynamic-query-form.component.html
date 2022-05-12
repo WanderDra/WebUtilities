@@ -56,7 +56,37 @@
             </mat-form-field>
         </ng-template>
 
-        <ng-container *ngFor="let inputField of inputForm.filterInputFields">
+        <ng-template #checkbox
+            let-controlLabel="controlLabel"
+            let-controlName="controlName">
+            <mat-checkbox 
+                color="primary"
+                [ngClass]="'form-control-' + controlName"
+                [formControlName]="controlName">
+                {{ controlLabel }}
+            </mat-checkbox>
+        </ng-template>
+
+        <ng-template #daterangePicker
+            let-controlLabel="controlLabel"
+            let-controlName="controlName">
+            <mat-form-field [ngClass]="'form-control-' + controlName">
+                <mat-label>{{ controlLabel }}</mat-label>
+                <mat-date-range-input [rangePicker]="rangePicker">
+                  <input matStartDate placeholder="Start date" [formControlName]="controlName + '-start'">
+                  <input matEndDate placeholder="End date" [formControlName]="controlName + '-end'">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="rangePicker"></mat-datepicker-toggle>
+                <mat-date-range-picker #rangePicker>
+                  <mat-date-range-picker-actions>
+                    <button mat-button matDateRangePickerCancel>Cancel</button>
+                    <button mat-raised-button color="primary" matDateRangePickerApply>Apply</button>
+                  </mat-date-range-picker-actions>
+                </mat-date-range-picker>
+              </mat-form-field>
+        </ng-template>
+
+        <ng-container *ngFor="let inputField of inputForm.inputFields">
             <ng-template [ngIf]="inputField.type === 'stringInput'">
                 <ng-container *ngTemplateOutlet="stringInput;context:inputField">
                 </ng-container>
@@ -73,6 +103,15 @@
                 <ng-container *ngTemplateOutlet="searchInput;context:inputField">
                 </ng-container>
             </ng-template>
+            <ng-template [ngIf]="inputField.type === 'checkbox'">
+                <ng-container *ngTemplateOutlet="checkbox;context:inputField">
+                </ng-container>
+            </ng-template>
+            <ng-template [ngIf]="inputField.type === 'daterangePicker'">
+                <ng-container *ngTemplateOutlet="daterangePicker;context:inputField">
+                </ng-container>
+            </ng-template>
+            
         </ng-container>
 
     </div>

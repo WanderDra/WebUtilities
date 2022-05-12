@@ -1,0 +1,55 @@
+<div class="record-response-popup-container">
+    <div class="record-response-popup-title">
+        Record Response
+    </div>
+    <div class="record-response-popup-info">
+        Draft Session {{ data.value.sessionId }} {{ data.value.base }}/{{ data.value.eqNbr }}/{{ data.value.seat }}
+        <br>
+        {{ data.value.crewName }} {{ data.value.empId }}
+    </div>
+    <table mat-table class="record-response-popup-table" [dataSource]="data.value.tripLegalities">
+        <ng-container matColumnDef="trip">
+            <th mat-header-cell *matHeaderCellDef>Trip</th>
+            <td mat-cell *matCellDef="let element" class="record-response-popup-table-id"> 
+                <a *ngIf="element.isAvailableForDraft else unClickableId" (click)="onTripNbrClick(element)">{{element.tripNbr}}</a>
+                <ng-template #unClickableId>{{ element.tripNbr}}</ng-template>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="legalityCheckOutcome">
+            <th mat-header-cell *matHeaderCellDef>Legality Outcome</th>
+            <td mat-cell *matCellDef="let element">
+                {{element.legalityCheckOutcome}}
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="response">
+            <th mat-header-cell *matHeaderCellDef>Response</th>
+            <td mat-cell *matCellDef="let element">
+                <mat-form-field appearance="standard" *ngIf="element.isAvailableForDraft">
+                    <mat-label>Select pilot's response</mat-label>
+                    <mat-select disableRipple>
+                      <mat-option *ngFor="let response of responses" [value]="response">
+                        {{ response }}
+                      </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="['trip', 'legalityCheckOutcome', 'response']; sticky: true"
+            class="session-list-header"    
+        ></tr>
+        <tr mat-row class="dropdown-list-row" *matRowDef="let row; columns: ['trip', 'legalityCheckOutcome', 'response'];"></tr>
+    </table>
+    <div class="record-response-popup-button-container">
+        <button mat-flat-button class="record-response-popup-btn"
+            (click)="onCancel()"
+        >
+            Cancel
+        </button>
+        <button mat-raised-button class="record-response-popup-btn" color="primary"
+            (click)="onApply()"
+        >
+            Save Response
+        </button>
+    </div>
+    
+</div>

@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
+import { AddNewDraftSessionComponent } from 'src/app/components/add-new-draft-session/add-new-draft-session.component';
 import { SessionItem, SessionDataResponse, TripResponse, TripItem, LegalityOutcomeResponse, LegalityOutcomeItem } from 'src/app/components/current-draft-session-list/models/current-draft-session-list';
 import { CDSService } from 'src/app/components/current-draft-session-list/services/cds.service';
 import { QueryForm, QueryInputFieldType, SearchCriteria } from 'src/app/components/dynamic-query-form/dynamic-query-form.component';
@@ -9,6 +10,7 @@ import { SessionListFilterService } from 'src/app/components/session-list-filter
 import { SessionResultItem, SessionResultResponse, TripLegalityResponse, TripLegality, ContactOutcomeResponse, ContactOutcome } from 'src/app/components/session-result-list/models/session-result';
 import { SessionResultService } from 'src/app/components/session-result-list/services/session-result.service';
 import { SessionResultListComponent } from 'src/app/components/session-result-list/session-result-list.component';
+import { RecordPilotResponsePopupComponent, RecordResponseInput } from 'src/app/popups/record-pilot-response-popup/record-pilot-response-popup.component';
 import { TripDetailData, TripDetailPopupComponent } from 'src/app/popups/trip-detail-popup/trip-detail-popup.component';
 import { PopupService } from 'src/app/services/popup.service';
 
@@ -39,6 +41,8 @@ export class AutoDraftPanelComponent implements OnInit {
   @ViewChild('sessionResult') sessionResultRef: TemplateRef<SessionResultListComponent>;
   popupOverlaySub: Subscription;
   popupEventSub: Subscription;
+
+  @ViewChild('addSession') addSessionRef: TemplateRef<AddNewDraftSessionComponent>;
 
   constructor(
     private cdsService: CDSService,
@@ -87,7 +91,7 @@ export class AutoDraftPanelComponent implements OnInit {
   }
 
   createSessionFilterForm(): void {
-    this.sessionFilterForm.filterInputFields = [
+    this.sessionFilterForm.inputFields = [
       { 
         controlName: "base", 
         controlLabel: "Base", 
@@ -133,7 +137,7 @@ export class AutoDraftPanelComponent implements OnInit {
   }
 
   createSessionResultFilterForm(): void {
-    this.sessionResultFilterForm.filterInputFields = [
+    this.sessionResultFilterForm.inputFields = [
       {
         controlName: "empId",
         controlLabel: "Employee Number or ID",
@@ -150,6 +154,9 @@ export class AutoDraftPanelComponent implements OnInit {
           // console.log(this.popupService.popupList$.value.get(popup2).data.value);
           break;
         case 'trip_detail_cancelled':
+          this.popupService.removePopup(event.context);
+          break;
+        case 'close_popup':
           this.popupService.removePopup(event.context);
           break;
       }
@@ -271,6 +278,11 @@ export class AutoDraftPanelComponent implements OnInit {
       } else {
         tripLegalityItem.isLegalityDetailsAvailable = false;
       }
+      if (res.legalityCheckOutcome === 'Available for Draft') {
+        tripLegalityItem.isAvailableForDraft = true;
+      } else {
+        tripLegalityItem.isAvailableForDraft = false;
+      }
       tripLegalityItem.pilotSelection = res.pilotSelection;
       return tripLegalityItem;
     });
@@ -290,7 +302,7 @@ export class AutoDraftPanelComponent implements OnInit {
 
   onSessionListTripIdClick(event: {event: MouseEvent, trip: TripItem}): void {
     const position = { x: event.event.pageX, y: event.event.pageY }
-    this.popupService.createPopup(TripDetailPopupComponent, position, TripDetailData, {content: event.trip})
+    this.popupService.createPopup(TripDetailPopupComponent, position, TripDetailData, {content: event.trip});
   }
 
   onSessionSelected(sessionSelected: SessionItem | null): void {
@@ -300,6 +312,15 @@ export class AutoDraftPanelComponent implements OnInit {
     else {
       this.rightPanelContent = null;
     }
+  }
+
+  onRecordResponseClick(event: {event: MouseEvent, sessionResult: SessionResultItem}): void{
+    const position = { x: event.event.pageX, y: event.event.pageY }
+    this.popupService.createPopup(RecordPilotResponsePopupComponent, position, RecordResponseInput, {content: event.sessionResult});
+  }
+
+  onAddSessionClick(): void {
+    this.rightPanelContent = this.addSessionRef;
   }
 
 }

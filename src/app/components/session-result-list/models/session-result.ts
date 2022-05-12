@@ -34,6 +34,7 @@ export class TripLegality {
     tripNbr: string;
     legalityCheckOutcome: string;
     isLegalityDetailsAvailable: boolean;
+    isAvailableForDraft: boolean;
     pilotSelection: string;
 }
 

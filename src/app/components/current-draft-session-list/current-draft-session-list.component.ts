@@ -14,6 +14,8 @@ export class CurrentDraftSessionListComponent implements OnInit, OnDestroy {
 
   @Output('sessionSelected') sessionSelectedEvent = new EventEmitter<SessionItem | null>();
 
+  @Output('onAddSessionClick') addSessionClickEvent = new EventEmitter();
+
   selectedSession: SessionItem | null = null;
 
   columnsToDisplay = [
@@ -77,6 +79,10 @@ export class CurrentDraftSessionListComponent implements OnInit, OnDestroy {
   }
 
   onTripInfoClick(session: SessionItem): void {
+  }
+
+  onAddSessionClick(): void {
+    this.addSessionClickEvent.emit();
   }
 
   ngOnDestroy(): void {

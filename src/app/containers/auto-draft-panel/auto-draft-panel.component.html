@@ -12,6 +12,7 @@
                         [data]="sessionsData"
                         (onTripIdClicked)="onSessionListTripIdClick($event)"
                         (sessionSelected)="onSessionSelected($event)"
+                        (onAddSessionClick)="onAddSessionClick()"
                     ></app-current-draft-session-list>
                 </div>
                 
@@ -30,8 +31,17 @@
                 <div class="table-container">
                     <app-session-result-list
                         [data]="sessionResultData"
+                        (onRecordResponseClick)="onRecordResponseClick($event)"
                     ></app-session-result-list>
                 </div>
+            </mat-card>
+        </ng-template>
+
+        <ng-template #addSession>
+            <mat-card class="session-result-container right-panel-outline">
+                <app-add-new-draft-session>
+
+                </app-add-new-draft-session>
             </mat-card>
         </ng-template>
         

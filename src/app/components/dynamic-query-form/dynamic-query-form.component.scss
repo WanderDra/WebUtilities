@@ -1,8 +1,9 @@
 .form-panel {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
+    flex-wrap: wrap;
     mat-form-field {
         transform: scale(0.9);
         width: 80px;

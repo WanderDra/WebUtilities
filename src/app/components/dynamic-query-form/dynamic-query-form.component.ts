@@ -7,14 +7,14 @@ import { SessionListFilterSearchCriteria } from '../session-list-filter/models/s
 
 export class QueryForm {
   constructor() {
-    this.filterInputFields = [];
+    this.inputFields = [];
   }
   createFilterForm(fields: QueryInputField[]): void {
-    this.filterInputFields = fields;
+    this.inputFields = fields;
   }
   loadSearchCriteria(criteria: SearchCriteria[]): void {
     criteria.forEach(control => {
-      this.filterInputFields.forEach(field => {
+      this.inputFields.forEach(field => {
         if (field.controlName === control.controlName) {
           if (control.selections) {
             field.selections = control.selections;
@@ -23,7 +23,7 @@ export class QueryForm {
       });
     });
   }
-  filterInputFields: QueryInputField[];
+  inputFields: QueryInputField[];
 }
 
 export interface SearchCriteria {
@@ -43,7 +43,9 @@ export enum QueryInputFieldType {
   STRING_INPUT = 'stringInput',
   MULTI_SELECT_BOX = 'multiSelectBox',
   DATE_PICKER = 'datePicker',
-  SEARCH_INPUT = 'searchInput'
+  SEARCH_INPUT = 'searchInput',
+  CHECKBOX = 'checkbox',
+  DATERANGE_PICKER = 'daterangePicker'
 }
 
 @Component({
@@ -56,7 +58,6 @@ export class DynamicQueryFormComponent implements OnInit {
   @Input('inputForm') inputForm: QueryForm = new QueryForm();
   @Output('dirty') isFormDirty = new EventEmitter<boolean>();
   @Output('output')
-
   formOutput = new EventEmitter<unknown>();
 
   queryForm: FormGroup;
@@ -78,10 +79,14 @@ export class DynamicQueryFormComponent implements OnInit {
   }
 
   initData(): void {
-    const controllers = this.inputForm.filterInputFields.reduce((form, field) => {
+    const controllers = this.inputForm.inputFields.reduce((form, field) => {
       switch (field.type) {
         case QueryInputFieldType.MULTI_SELECT_BOX:
           form[field.controlName] = [field.value ? field.value : []];
+          break;
+        case QueryInputFieldType.DATERANGE_PICKER:
+          form[field.controlName + '-start'] = [ field.value ? field.value[0] : ''];
+          form[field.controlName + '-end'] = [ field.value ? field.value[1] : ''];
           break;
         default:
           form[field.controlName] = [field.value ? field.value : ''];

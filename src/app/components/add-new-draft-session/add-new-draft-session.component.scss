@@ -1,0 +1,97 @@
+$primary-color-light: #4D148C;
+$primary-color: $primary-color-light;
+
+.ands-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.ands-title {
+    text-align: left;
+    color: #4D148C33;
+    letter-spacing: 0;
+    font: normal normal bold 24px/32px Roboto;
+}
+
+.ands-build-session-panel {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.ands-trip-selected-table {
+    width: 30%;
+}
+
+.ands-build-session-right {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    .ands-build-session-options {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    .ands-build-session-button-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+}
+
+.ands-search-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    a {
+        user-select: none;
+        cursor: pointer;
+    }
+    .ands-search-switch {
+        display: flex;
+        align-items: center;
+        a {
+            color: $primary-color;
+            text-align: left;
+            font: normal normal bold 13px/24px Roboto;
+            letter-spacing: 0.78px;
+        }
+        mat-icon {
+            transition: transform 0.3s;
+        }
+    }
+    .ands-search-switch-expand {
+        mat-icon {
+            transform: rotate(180deg);
+        }
+    }
+}
+
+.ands-search-outline {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    box-shadow: 0 0 10px 0px rgba($color: #000000, $alpha: 0.1);
+    margin-bottom: 30px;
+    padding: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    .ands-search-form {
+        width: 80%;
+        padding: 1em;
+    }
+    .ands-search-button {
+        margin: 1em;
+    }
+}
+
+:host ::ng-deep .ands-search-form {
+    .form-control-showtimeRange {
+        width: 200px !important;
+    }
+}
