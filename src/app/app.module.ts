@@ -19,6 +19,8 @@ import { PortalDirective } from './directives/portal.directive';
 import { PortalOutletDirective } from './directives/portal-outlet.directive';
 import { RecordPilotResponsePopupComponent } from './popups/record-pilot-response-popup/record-pilot-response-popup.component';
 import { AddNewDraftSessionComponent } from './components/add-new-draft-session/add-new-draft-session.component';
+import { TripboardComponent } from './tripboard/tripboard.component';
+import { TbBoardComponent } from './tripboard/components/tb-board/tb-board.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { AddNewDraftSessionComponent } from './components/add-new-draft-session/
     PortalDirective,
     PortalOutletDirective,
     RecordPilotResponsePopupComponent,
-    AddNewDraftSessionComponent
+    AddNewDraftSessionComponent,
+    TripboardComponent,
+    TbBoardComponent
   ],
   imports: [
     BrowserModule,

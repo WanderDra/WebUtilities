@@ -1,0 +1,17 @@
+.tb-board-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.tb-card-table {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.tb-trip-card {
+    width: 20em;
+    margin: 1em;
+}

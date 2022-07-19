@@ -1,0 +1,22 @@
+<div class="tb-board-container">
+    <div class="tb-info-container">
+        <p>Pilot Number 123456</p>
+        <p>Session Id 987654</p>
+    </div>
+    <div class="tb-card-table">
+        <mat-card class="tb-trip-card" *ngFor="let card of tripcards">
+            <mat-card-content>
+                <p>Trip ID</p>
+                <p>Base </p>
+                <p>Equipment </p>
+                <p>Seat </p>
+                <P>Status</P>
+            </mat-card-content>
+            <mat-divider></mat-divider>
+            <mat-card-actions>
+                <button mat-button color="primary">Accept</button>
+                <button mat-button color="warn">Decline</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>
