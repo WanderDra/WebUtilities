@@ -14,4 +14,30 @@
 .tb-trip-card {
     width: 20em;
     margin: 1em;
+    padding: 2em;
+    .tb-info-header {
+        padding-right: 3em;
+        line-height: 1.5em;
+        h3 {
+            margin: 0;
+        }
+    }
+    a {
+        text-decoration: underline;
+        cursor: pointer;
+        user-select: none;
+    }
+}
+
+.tb-action-container {
+    display: flex;
+    flex-direction: column;
+    button {
+        text-align: left;
+        line-height: 2em;
+    }
+}
+
+.tb-action-selected {
+    outline: 1px solid black;
 }

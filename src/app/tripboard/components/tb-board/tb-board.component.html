@@ -1,21 +1,67 @@
 <div class="tb-board-container">
     <div class="tb-info-container">
-        <p>Pilot Number 123456</p>
-        <p>Session Id 987654</p>
+        <p>Pilot Number {{ data.pilotNbr }}</p>
+        <p>Session Id {{ data.sessionRefNumber }}</p>
     </div>
     <div class="tb-card-table">
-        <mat-card class="tb-trip-card" *ngFor="let card of tripcards">
+        <mat-card class="tb-trip-card" *ngFor="let card of data.tripcards">
             <mat-card-content>
-                <p>Trip ID</p>
-                <p>Base </p>
-                <p>Equipment </p>
-                <p>Seat </p>
-                <P>Status</P>
+                <table>
+                    <tr>
+                        <td class="tb-info-header">
+                            <h3>Trip</h3>
+                        </td>
+                        <td>
+                            <a>{{ card.tripId }}</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tb-info-header">Showtime</td>
+                        <td>{{ card.showtime }}</td>
+                    </tr>
+                    <tr>
+                        <td class="tb-info-header">End Time</td>
+                        <td>{{ card.endtime }}</td>
+                    </tr>
+                    <tr>
+                        <td class="tb-info-header">Pay</td>
+                        <td>{{ card.pay }}</td>
+                    </tr>
+                    <tr>
+                        <td class="tb-info-header">Deadheads</td>
+                        <td>{{ card.deadheads }}</td>
+                    </tr>
+                    <tr>
+                        <td class="tb-info-header">Destinations</td>
+                        <td>{{ card.destinations }}</td>
+                    </tr>
+                </table>
             </mat-card-content>
             <mat-divider></mat-divider>
             <mat-card-actions>
-                <button mat-button color="primary">Accept</button>
-                <button mat-button color="warn">Decline</button>
+                <div class="tb-action-container">
+                    <p>Rank Choice*</p>
+                    <button mat-button color="primary" (click)="onActionClick(1, card)" 
+                        [ngClass]="card.rankchoice === 1 ? 'tb-action-selected' : ''">
+                        1st
+                    </button>
+                    <button mat-button color="primary" (click)="onActionClick(2, card)"
+                        [ngClass]="card.rankchoice === 2 ? 'tb-action-selected' : ''">
+                        2nd
+                    </button>
+                    <button mat-button color="primary" (click)="onActionClick(3, card)"
+                        [ngClass]="card.rankchoice === 3 ? 'tb-action-selected' : ''">
+                        3rd
+                    </button>
+                    <button mat-button color="primary" (click)="onActionClick(4, card)"
+                        [ngClass]="card.rankchoice === 4 ? 'tb-action-selected' : ''">
+                        4th
+                    </button>
+                    <button mat-button color="warn" (click)="onActionClick(0, card)"
+                        [ngClass]="card.rankchoice === 0 ? 'tb-action-selected' : ''">
+                        Not Insterested
+                    </button>
+                </div>
             </mat-card-actions>
         </mat-card>
     </div>
