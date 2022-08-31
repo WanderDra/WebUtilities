@@ -1,0 +1,21 @@
+<div class="pd-container">
+    <app-pd-session-status-panel 
+        class="pd-status-panel"
+        [sessionStatus]="sessionStatus">
+    </app-pd-session-status-panel>
+    <app-pd-trip-board></app-pd-trip-board>
+</div>
+<button mat-raised-button 
+    *ngIf="sessionStatus === SESSION_STATUS.LEVELING"
+    color="primary"
+    style="
+        position: fixed; 
+        bottom: 5%; right: 5%; 
+        border-radius: 18px;
+        font-size: normal;
+        font-weight: normal;
+        letter-spacing: 1.42px;
+    "
+>
+    SUBMIT CHOICE
+</button>

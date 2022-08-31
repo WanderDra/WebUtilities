@@ -1,0 +1,64 @@
+<mat-card class="pd-status-card">
+    <mat-card-content class="pd-card-content">
+        <div style="margin: 1em; font-weight: bold;">
+            3 Draft Trip(s) Offered to Folkwitha Longname
+        </div>
+        <div class="pd-status-container">
+            <ng-container [ngSwitch]="sessionStatus">
+                <ng-container *ngSwitchCase="status.LEVELING">
+                    <div class="primary-color" style="font-size: medium;">
+                        Response Collection Ends In:
+                    </div>
+                    <div class="pd-timer">
+                        <mat-icon [svgIcon]="'timer'" color="primary"
+                            class="timer-icon"
+                        ></mat-icon>
+                        <div class="pd-timer-time">
+                            <span 
+                                style="font-size: x-large; font-weight: bold; line-height: 33px;">
+                                12
+                            </span> mins
+                        </div>
+                    </div>
+                    <button mat-button color="primary" class="pd-button" style="align-self: flex-start;">
+                        <mat-icon>close</mat-icon> <span>RESET ALL</span>
+                    </button>
+                </ng-container>
+                <ng-container *ngSwitchCase="status.IMMEDIATE">
+                    <div class="pd-timer-container">
+                        <div class="pd-timer pd-timer-immediate">
+                            <mat-icon [svgIcon]="'timer'" color="accent"
+                                class="timer-icon"
+                            ></mat-icon>
+                            <div class="pd-timer-time-immediate">
+                                <span style="font-size: large; font-weight: bold;">Immediate Assignment!</span>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </ng-container>
+        </div>
+    </mat-card-content>
+</mat-card>
+<ng-container [ngSwitch]="sessionStatus">
+    <ng-container *ngSwitchCase="status.LEVELING">
+        <div class="pd-tips-container">
+            <div class="primary-color" style="font-weight:600; line-height: 16px;">
+                Please rank the Draft Trips that you want to accept
+            </div>
+            <div style="font-size: smaller; line-height: 16px;">
+                When the Response Collection period ends, trips will be assigned, and Crew Notifications will be posted.
+            </div>
+        </div>
+    </ng-container>
+    <ng-container *ngSwitchCase="status.IMMEDIATE">
+        <div class="pd-tips-container">
+            <div class="primary-color" style="font-weight:600; line-height: 16px;">
+                There are still Trips left in this Session.
+            </div>
+            <div style="font-size: smaller; line-height: 16px;">
+                Trip Assignment will occur immediately upon Acceptance.    
+            </div>
+        </div>
+    </ng-container>
+</ng-container>

@@ -1,0 +1,25 @@
+export enum PdSessionStatus {
+    LEVELING = 'leveling',
+    IMMEDIATE = 'immediate',
+    END = 'end'
+}
+
+export enum TripCardActionStatus {
+    RANKING = 'ranking',
+    MISSED = 'missed',
+    RESPONSED = 'responsed',
+    ASSIGNED = 'assigned',
+    ERROR = 'error'
+}
+
+export class DestinationInfo {
+    base: string;
+    isDeadhead: boolean;
+    isLayover: boolean;
+}
+
+export class TripCard {
+    tripId: number;
+    rankSelected: number;
+    status: TripCardActionStatus;
+}

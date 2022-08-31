@@ -1,0 +1,87 @@
+$accent: #FF5700;
+$primary: #4d148c;
+
+.mat-card {
+    box-shadow: none;
+}
+
+.pd-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pd-status-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pd-timer {
+    position: relative;
+    margin-top: 1.5em;
+    margin-bottom: 0;
+}
+
+.pd-timer-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pd-timer-immediate {
+    width: 190px;
+    margin-top: 1em;
+    margin-bottom: 1.5em;
+}
+
+.pd-timer-time {
+    position: absolute;
+    top: 11px;
+    left: 10px;
+    color: $accent;
+    background-color: white;
+    line-height: 20px;
+    white-space: nowrap;
+}
+
+.pd-timer-time-immediate {
+    position: absolute;
+    color: $primary;
+    top: 13px; 
+    left: 10px;
+    line-height: 30px;
+    background-color: white;
+    white-space: nowrap;
+}
+
+.timer-icon {
+    width: 60px;
+    height: 50px;
+    transform: scale(1.4);
+}
+
+.primary-color {
+    color: $primary;
+}
+
+.pd-button {
+    display: flex;
+    align-items: center;
+    vertical-align: middle;
+}
+
+.pd-tips-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5em;
+    text-align: center;
+    font-size: small;
+}
+
+.pd-status-card {
+    padding: 0;
+}

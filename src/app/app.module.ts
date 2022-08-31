@@ -21,6 +21,9 @@ import { RecordPilotResponsePopupComponent } from './popups/record-pilot-respons
 import { AddNewDraftSessionComponent } from './components/add-new-draft-session/add-new-draft-session.component';
 import { TripboardComponent } from './tripboard/tripboard.component';
 import { TbBoardComponent } from './tripboard/components/tb-board/tb-board.component';
+import { PilotDraftComponent } from './pilot-draft/pilot-draft.component';
+import { PdSessionStatusPanelComponent } from './pilot-draft/components/pd-session-status-panel/pd-session-status-panel.component';
+import { PdTripBoardComponent } from './pilot-draft/components/pd-trip-board/pd-trip-board.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +41,10 @@ import { TbBoardComponent } from './tripboard/components/tb-board/tb-board.compo
     RecordPilotResponsePopupComponent,
     AddNewDraftSessionComponent,
     TripboardComponent,
-    TbBoardComponent
+    TbBoardComponent,
+    PilotDraftComponent,
+    PdSessionStatusPanelComponent,
+    PdTripBoardComponent
   ],
   imports: [
     BrowserModule,

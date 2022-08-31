@@ -21,10 +21,14 @@ export class IconRegistryService {
     this.matIconRegistry.addSvgIcon(
       'stop_circle',
       this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/stop_circle_FILL0_wght400_GRAD0_opsz48.svg')
-    )
+    );
     this.matIconRegistry.addSvgIcon(
       'phone_in_talk',
       this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/phone_in_talk_FILL1_wght400_GRAD0_opsz24.svg')
-    )
+    );
+    this.matIconRegistry.addSvgIcon(
+      'timer',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/timer_FILL0_wght700_GRAD200_opsz48.svg')
+    );
   }
 }
