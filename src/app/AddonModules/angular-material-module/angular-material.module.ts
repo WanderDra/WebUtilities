@@ -16,6 +16,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { PortalModule } from '@angular/cdk/portal';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSortModule } from '@angular/material/sort';
 
 
 @NgModule({
@@ -40,7 +42,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatTabsModule,
     DragDropModule,
     PortalModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDialogModule,
+    MatSortModule
   ]
 })
 export class AngularMaterialModule { }

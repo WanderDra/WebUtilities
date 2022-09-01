@@ -1,5 +1,6 @@
 $accent: #FF5700;
 $primary: #4d148c;
+$grey: rgba(black, 0.54);
 
 .mat-card {
     box-shadow: none;
@@ -37,6 +38,12 @@ $primary: #4d148c;
     margin-bottom: 1.5em;
 }
 
+.pd-timer-end {
+    width: 110px;
+    margin-top: 1em;
+    margin-bottom: 1.5em;
+}
+
 .pd-timer-time {
     position: absolute;
     top: 11px;
@@ -56,6 +63,7 @@ $primary: #4d148c;
     background-color: white;
     white-space: nowrap;
 }
+
 
 .timer-icon {
     width: 60px;
@@ -84,4 +92,16 @@ $primary: #4d148c;
 
 .pd-status-card {
     padding: 0;
+}
+
+.svg-grey {
+    color: $grey;
+}
+
+.svg-grey svg {
+    fill: $grey;
+}
+
+.color-grey {
+    color: $grey;
 }

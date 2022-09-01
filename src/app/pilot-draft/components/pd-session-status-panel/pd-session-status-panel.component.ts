@@ -1,4 +1,5 @@
-import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import * as moment from 'moment';
 import { PdSessionStatus } from '../../models/pd-session-status-panel';
 
 @Component({
@@ -8,8 +9,11 @@ import { PdSessionStatus } from '../../models/pd-session-status-panel';
 })
 export class PdSessionStatusPanelComponent implements OnInit {
 
-  @Input("sessionStatus")
-  sessionStatus: PdSessionStatus;
+  @Input("sessionStatus") sessionStatus: PdSessionStatus;
+  @Input("isAssigned") isAssigned: boolean = false;
+  @Output("resetAll") resetAllEvent$ = new EventEmitter();
+  curTime = moment();
+  
   status = PdSessionStatus;
 
   constructor() { }
@@ -19,6 +23,10 @@ export class PdSessionStatusPanelComponent implements OnInit {
   }
 
   initData(): void {
+  }
+
+  onResetAllClick(): void {
+    this.resetAllEvent$.emit();
   }
 
 }

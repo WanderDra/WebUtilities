@@ -1,8 +1,10 @@
 <div class="tb-container">
-    <mat-card *ngFor="let trip of trips" class="tb-tripcard">
+    <mat-card *ngFor="let trip of trips" class="tb-tripcard"
+        [ngClass]="invalidTrips.has(trip.tripId) ? 'trip-invalid' : ''"
+    >
         <mat-card-title>
             <div style="font-size: medium; font-weight: bold; text-align: center;">
-                Trip <a class="tb-popup-link">1234</a>
+                Trip <a class="tb-popup-link">{{ trip.tripId }}</a>
             </div>
         </mat-card-title>
         <mat-card-content>
@@ -49,7 +51,7 @@
                     </div>
                 </div>
                 <div style="text-align: center;">
-                    <span *ngFor="let base of routes; let i = index">
+                    <span *ngFor="let base of trip.route; let i = index">
                         <span style="white-space: nowrap;">
                             <span 
                                 *ngIf="base.isDeadhead" 
@@ -67,7 +69,7 @@
                                 (lo)
                             </span>
                         </span>
-                        <span *ngIf="i !== routes.length - 1">
+                        <span *ngIf="i !== trip.route.length - 1">
                             -
                         </span>
                     </span>
@@ -79,12 +81,14 @@
                     <ng-container *ngSwitchCase="tripStatus.RANKING">
                         <div>
                             <div class="color-primary" style="font-size: medium; margin-bottom: 1em;">
-                                Offer to accept Trip 1234 by ranking it:
+                                Offer to accept Trip {{ trip.tripId }} by ranking it:
                             </div>
                             <div class="tb-rank-selection-panel">
                                 <button mat-stroked-button *ngFor="let rank of rankMap | keyvalue; let i = index"
                                     color="primary"
                                     class="tb-rank-number-button"
+                                    [disabled]="rankMap.get(i + 1) !== null && rankMap.get(i + 1)?.tripId !== trip.tripId"
+                                    [ngClass]="rankMap.get(i + 1)?.tripId === trip.tripId ? 'rank-selected' : ''"
                                     (click)="onRankClick(i + 1, trip)"
                                 >
                                     <ng-container [ngSwitch]="(i + 1) % 10">
@@ -104,6 +108,7 @@
                                 </button>
                                 <button mat-stroked-button 
                                     color="primary"
+                                    [ngClass]="tripRankMap.get(trip.tripId) === 0 ? 'rank-selected' : ''"
                                     (click)="onRankClick(0, trip)">NO INTEREST</button>
                             </div>
                         </div>

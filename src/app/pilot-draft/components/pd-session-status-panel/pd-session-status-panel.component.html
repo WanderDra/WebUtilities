@@ -1,8 +1,18 @@
 <mat-card class="pd-status-card">
     <mat-card-content class="pd-card-content">
-        <div style="margin: 1em; font-weight: bold;">
-            3 Draft Trip(s) Offered to Folkwitha Longname
-        </div>
+        <ng-container [ngSwitch]="sessionStatus">
+            <ng-container *ngSwitchCase="status.END">
+                <div style="margin: 1em; font-weight: bold;">
+                    Draft Offers For Folkwitha Longname
+                </div>
+            </ng-container>
+            <ng-container *ngSwitchDefault>
+                <div style="margin: 1em; font-weight: bold;">
+                    {{ 3 }} Draft Trip(s) Offered to Folkwitha Longname
+                </div>
+            </ng-container>
+        </ng-container>
+        
         <div class="pd-status-container">
             <ng-container [ngSwitch]="sessionStatus">
                 <ng-container *ngSwitchCase="status.LEVELING">
@@ -16,11 +26,13 @@
                         <div class="pd-timer-time">
                             <span 
                                 style="font-size: x-large; font-weight: bold; line-height: 33px;">
-                                12
+                                {{ 12 }}
                             </span> mins
                         </div>
                     </div>
-                    <button mat-button color="primary" class="pd-button" style="align-self: flex-start;">
+                    <button mat-button color="primary" class="pd-button" style="align-self: flex-start;"
+                        (click)="onResetAllClick()"
+                    >
                         <mat-icon>close</mat-icon> <span>RESET ALL</span>
                     </button>
                 </ng-container>
@@ -32,6 +44,18 @@
                             ></mat-icon>
                             <div class="pd-timer-time-immediate">
                                 <span style="font-size: large; font-weight: bold;">Immediate Assignment!</span>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngSwitchCase="status.END">
+                    <div class="pd-timer-container">
+                        <div class="pd-timer pd-timer-end">
+                            <mat-icon [svgIcon]="'timer'"
+                                class="timer-icon svg-grey"
+                            ></mat-icon>
+                            <div class="pd-timer-time-immediate">
+                                <span style="font-size: large; font-weight: bold;" class="color-grey">Session Over</span>
                             </div>
                         </div>
                     </div>
@@ -52,13 +76,21 @@
         </div>
     </ng-container>
     <ng-container *ngSwitchCase="status.IMMEDIATE">
-        <div class="pd-tips-container">
+        <div *ngIf="isAssigned" class="pd-tips-container primary-color" style="font-weight:600; line-height: 16px;">
+            Updates Below!
+        </div>
+        <div *ngIf="!isAssigned" class="pd-tips-container">
             <div class="primary-color" style="font-weight:600; line-height: 16px;">
                 There are still Trips left in this Session.
             </div>
             <div style="font-size: smaller; line-height: 16px;">
                 Trip Assignment will occur immediately upon Acceptance.    
             </div>
+        </div>
+    </ng-container>
+    <ng-container *ngSwitchCase="status.END">
+        <div class="pd-tips-container primary-color" style="font-weight:600; line-height: 16px;">
+            Draft Session {{ 123456 }} ended at {{ curTime.toISOString() | date : 'hh:mm ddMMMyy'}}
         </div>
     </ng-container>
 </ng-container>

@@ -1,0 +1,10 @@
+<div style="display: flex; gap: 1em;">
+    <mat-icon color="warn" style="scale: 1.2">error</mat-icon>
+    <div class="title">Missing Rank Choice Selection on {{ invalidAmount }} Trip(s)</div>
+</div>
+<p>If you choose to continue, these trips will be marked with "NO INTEREST".</p>
+<p>Proceed with submission?</p>
+<div style="display: flex; justify-content: flex-end; gap: 0.5em;">
+    <button mat-button color="primary" [mat-dialog-close]="false">CANCEL</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="true">PROCEED</button>
+</div>

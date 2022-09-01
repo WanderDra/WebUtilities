@@ -1,3 +1,5 @@
+import { Moment } from "moment";
+
 export enum PdSessionStatus {
     LEVELING = 'leveling',
     IMMEDIATE = 'immediate',
@@ -22,4 +24,7 @@ export class TripCard {
     tripId: number;
     rankSelected: number;
     status: TripCardActionStatus;
+    route: DestinationInfo[];
+    showtime: Moment;
+    countdown: number;
 }

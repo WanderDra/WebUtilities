@@ -18,7 +18,8 @@ $primary: #4d148c;
 }
 
 .tb-content {
-    width: 350px;
+    min-width: 300px;
+    max-width: 330px;
 }
 
 .tb-tripcard {
@@ -74,7 +75,7 @@ $primary: #4d148c;
 }
 
 .color-primary {
-    color: $primary
+    color: $primary;
 }
 
 .tb-rank-selection-panel{
@@ -85,14 +86,32 @@ $primary: #4d148c;
     }
 }
 
+.rank-selected {
+    outline: 1px solid $primary;
+    background-color: rgba($primary, 0.4);
+}
+
+.trip-invalid {
+    outline: 2px solid $accent;
+}
+
 @media screen and (max-width: 600px){
     .mat-card {
+        min-width: 300px;
+        max-width: 330px;
         width: 80%;
     }
     .tb-content {
+        max-width: 330px;
         width: 100%;
     }
     .tb-container {
-        justify-content: space-around;
+        justify-content: space-evenly;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .tb-container {
+        justify-content: space-evenly;
     }
 }

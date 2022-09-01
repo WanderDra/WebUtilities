@@ -1,0 +1,22 @@
+.table-container {
+    max-height: 240px;
+    overflow-y: auto;
+}
+.trip-table {
+    width: 100%;
+    th {
+        font-weight: bold;
+        font-size: small;
+        padding-left: 0.3em;
+        padding-right: 0.3em;
+        border: 0;
+    }
+    td {
+        border: 0;
+        padding-left: 0.3em;
+        padding-right: 0.3em;
+    }
+    tr {
+        height: 1.5em;
+    }
+}
