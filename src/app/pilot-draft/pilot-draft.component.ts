@@ -26,6 +26,7 @@ export class PilotDraftComponent implements OnInit, OnDestroy {
   testSessionStatus = this.sessionStatusCode.LEVELING;
   testTripsStatus = this.tripStatusCode.RANKING;
   testIsPilotAssigned = false;
+  testCountdown = 1000;
   //
 
   constructor(
@@ -65,7 +66,7 @@ export class PilotDraftComponent implements OnInit, OnDestroy {
         mocktrip.status = this.testTripsStatus;
         mocktrip.route = testroute;
         mocktrip.showtime = moment();
-        mocktrip.countdown = 1000;
+        mocktrip.countdown = this.testCountdown;
         this.trips.push(mocktrip);
         this.pdService.tripsUpdateEvent$.emit();
       }
