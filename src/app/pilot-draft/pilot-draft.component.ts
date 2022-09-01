@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import * as moment from 'moment';
 import { PdConfirmSubmissionDialogComponent } from './dialogs/pd-confirm-submission-dialog/pd-confirm-submission-dialog.component';
+import { PdConfirmTripAcceptanceDialogComponent } from './dialogs/pd-confirm-trip-acceptance-dialog/pd-confirm-trip-acceptance-dialog.component';
 import { PdSessionStatus, TripCard, TripCardActionStatus } from './models/pd-session-status-panel';
 import { PilotDraftService } from './services/pilot-draft.service';
 
@@ -10,13 +11,14 @@ import { PilotDraftService } from './services/pilot-draft.service';
   templateUrl: './pilot-draft.component.html',
   styleUrls: ['./pilot-draft.component.scss']
 })
-export class PilotDraftComponent implements OnInit {
+export class PilotDraftComponent implements OnInit, OnDestroy {
 
   sessionStatus: PdSessionStatus;
   sessionStatusCode = PdSessionStatus;
   tripStatusCode = TripCardActionStatus;
   trips: TripCard[] = [];
   updatedTrips: TripCard[] = [];
+  counterInterval: any;
 
   isPilotAssigned: boolean = false;
 
@@ -29,8 +31,12 @@ export class PilotDraftComponent implements OnInit {
     this.initData();
   }
 
+  ngOnDestroy(): void {
+    clearInterval(this.counterInterval);
+  }
+
   initData(): void {
-    this.sessionStatus = PdSessionStatus.LEVELING;
+    this.sessionStatus = this.sessionStatusCode.LEVELING;
     this.loadTestData();
   }
 
@@ -56,6 +62,8 @@ export class PilotDraftComponent implements OnInit {
         this.trips.push(mocktrip);
         this.pdService.tripsUpdateEvent$.emit();
       }
+
+      this.startCounter(this.trips);
     });
   }
 
@@ -77,6 +85,10 @@ export class PilotDraftComponent implements OnInit {
     this.openConfirmSubmissionDialog(this.updatedTrips);
   }
 
+  onTripAccepted(trip: TripCard): void {
+    this.openTripAcceptanceDialog(trip);
+  }
+
   onResetAll(): void {
     this.pdService.tripsUpdateEvent$.emit();
   }
@@ -84,17 +96,31 @@ export class PilotDraftComponent implements OnInit {
   openConfirmSubmissionDialog(trips: TripCard[]): void {
     const dialogRef = this.dialog.open(PdConfirmSubmissionDialogComponent, {
       width: '80%',
+      maxWidth: '600px',
       maxHeight: '90%',
       data: {trips: trips},
     });
     dialogRef.afterClosed().subscribe((submit: boolean) => {
       if (submit) {
-        this.trips = this.updatedTrips;
+        this.trips = this.updateTrips(this.updatedTrips);
         // Send Submit Request
         setTimeout(() => {
           this.pdService.tripsUpdateEvent$.emit();
         });
-        console.log(trips);
+      }
+    });
+  }
+
+  openTripAcceptanceDialog(trip: TripCard): void {
+    const dialogRef = this.dialog.open(PdConfirmTripAcceptanceDialogComponent, {
+      width: '80%',
+      maxWidth: '600px',
+      maxHeight: '90%',
+      data: {trips: [trip]},
+    });
+    dialogRef.afterClosed().subscribe(isAccepted => {
+      if (isAccepted) {
+      // Send Accept Trip Request
       }
     });
   }
@@ -109,6 +135,19 @@ export class PilotDraftComponent implements OnInit {
       }
     });
     return trips;
+  }
+
+  updateTrips(newTrips: TripCard[]): TripCard[] {
+    const updatedTrips = newTrips;
+    clearInterval(this.counterInterval);
+    this.counterInterval = this.startCounter(updatedTrips);
+    return updatedTrips;
+  }
+
+  startCounter(trips: TripCard[]): void {
+    this.counterInterval = setInterval(() => {
+      trips.forEach(trip => --trip.countdown);
+    }, 1000);
   }
 
 }

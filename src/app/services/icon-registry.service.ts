@@ -30,5 +30,9 @@ export class IconRegistryService {
       'timer',
       this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/timer_FILL0_wght700_GRAD200_opsz48.svg')
     );
+    this.matIconRegistry.addSvgIcon(
+      'smartphone',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/smartphone_FILL0_wght500_GRAD0_opsz48.svg')
+    );
   }
 }

@@ -26,6 +26,8 @@ import { PdSessionStatusPanelComponent } from './pilot-draft/components/pd-sessi
 import { PdTripBoardComponent } from './pilot-draft/components/pd-trip-board/pd-trip-board.component';
 import { PdMissingRankChoiceDialogComponent } from './pilot-draft/dialogs/pd-missing-rank-choice-dialog/pd-missing-rank-choice-dialog.component';
 import { PdConfirmSubmissionDialogComponent } from './pilot-draft/dialogs/pd-confirm-submission-dialog/pd-confirm-submission-dialog.component';
+import { PdConfirmTripAcceptanceDialogComponent } from './pilot-draft/dialogs/pd-confirm-trip-acceptance-dialog/pd-confirm-trip-acceptance-dialog.component';
+import { PdCountdownPipe } from './pilot-draft/pipes/pd-countdown.pipe';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,9 @@ import { PdConfirmSubmissionDialogComponent } from './pilot-draft/dialogs/pd-con
     PdSessionStatusPanelComponent,
     PdTripBoardComponent,
     PdMissingRankChoiceDialogComponent,
-    PdConfirmSubmissionDialogComponent
+    PdConfirmSubmissionDialogComponent,
+    PdConfirmTripAcceptanceDialogComponent,
+    PdCountdownPipe
   ],
   imports: [
     BrowserModule,

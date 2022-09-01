@@ -1,6 +1,7 @@
 import { Moment } from "moment";
 
 export enum PdSessionStatus {
+    EMPTY = 'empty',
     LEVELING = 'leveling',
     IMMEDIATE = 'immediate',
     END = 'end'
@@ -8,6 +9,7 @@ export enum PdSessionStatus {
 
 export enum TripCardActionStatus {
     RANKING = 'ranking',
+    IMMEDIATE = 'immediate',
     MISSED = 'missed',
     RESPONSED = 'responsed',
     ASSIGNED = 'assigned',

@@ -2,6 +2,7 @@ $blue: #007AB7;
 $grey: rgba(black, 0.54);
 $accent: #FF5700;
 $primary: #4d148c;
+$error: #B00020;
 
 .tb-container {
     width: 100%;
@@ -17,6 +18,12 @@ $primary: #4d148c;
     text-decoration: underline;
 }
 
+.tb-outside-link {
+    color: $primary;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
 .tb-content {
     min-width: 300px;
     max-width: 330px;
@@ -24,6 +31,7 @@ $primary: #4d148c;
 
 .tb-tripcard {
     margin: 0.5em;
+    box-shadow: 0px 3px 6px #00000029;
 }
 
 .tb-time-table {
@@ -78,6 +86,10 @@ $primary: #4d148c;
     color: $primary;
 }
 
+.color-error {
+    color: $error;
+}
+
 .tb-rank-selection-panel{
     .mat-stroked-button {
         min-width: 30px;
@@ -93,6 +105,11 @@ $primary: #4d148c;
 
 .trip-invalid {
     outline: 2px solid $accent;
+}
+
+.mat-card {
+    min-width: 300px;
+    max-width: 330px;
 }
 
 @media screen and (max-width: 600px){
@@ -111,6 +128,10 @@ $primary: #4d148c;
 }
 
 @media screen and (max-width: 900px) {
+    .mat-card {
+        min-width: 300px;
+        max-width: 330px;
+    }
     .tb-container {
         justify-content: space-evenly;
     }

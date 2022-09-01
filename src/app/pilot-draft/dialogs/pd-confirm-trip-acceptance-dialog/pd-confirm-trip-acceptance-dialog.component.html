@@ -1,19 +1,6 @@
-<div>Confirm Submission</div>
+<div>Confirm Trip Acceptance</div>
 <div class="table-container">
     <table mat-table [dataSource]="tripTable" class="trip-table">
-        
-        <ng-container matColumnDef="rank">
-            <th mat-header-cell *matHeaderCellDef> Rank </th>
-            <td mat-cell *matCellDef="let element"> 
-                <ng-container [ngSwitch]="element.rankSelected % 10">
-                    <ng-container *ngSwitchCase="0">No Int</ng-container>
-                    <ng-container *ngSwitchCase="1">{{element.rankSelected}}st</ng-container>
-                    <ng-container *ngSwitchCase="2">{{element.rankSelected}}nd</ng-container>
-                    <ng-container *ngSwitchCase="3">{{element.rankSelected}}rd</ng-container>
-                    <ng-container *ngSwitchDefault>{{element.rankSelected}}th</ng-container>
-                </ng-container>
-            </td>
-        </ng-container>
 
         <ng-container matColumnDef="tripId">
             <th mat-header-cell *matHeaderCellDef> Trip </th>
@@ -34,7 +21,7 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 </div>
-<div style="display: flex; justify-content: flex-end; gap: 0.5em;">
+<div class="action-button-container" style="display: flex; justify-content: flex-end; gap: 0.5em;">
     <button mat-button color="primary" [mat-dialog-close]="false">CANCEL</button>
     <button mat-raised-button color="primary" [mat-dialog-close]="true">SUBMIT</button>
 </div>

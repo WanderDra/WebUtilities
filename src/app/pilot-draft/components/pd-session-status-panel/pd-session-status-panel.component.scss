@@ -105,3 +105,13 @@ $grey: rgba(black, 0.54);
 .color-grey {
     color: $grey;
 }
+
+.pd-outside-link {
+    cursor: pointer;
+    color: $primary;
+    text-decoration: underline;
+}
+
+.full-screen {
+    height: 100%;
+}

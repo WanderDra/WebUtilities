@@ -1,14 +1,31 @@
 <div class="pd-container">
     <app-pd-session-status-panel 
         class="pd-status-panel"
+        [ngClass]="sessionStatus === sessionStatusCode.EMPTY ? 'full-screen' : ''"
         [sessionStatus]="sessionStatus"
         [isAssigned]="isPilotAssigned"
         (resetAll)="onResetAll()">
     </app-pd-session-status-panel>
     <app-pd-trip-board
+        *ngIf="sessionStatus !== sessionStatusCode.EMPTY"
         [trips]="trips"
-        (rankChoice)="onRankSubmit($event)">
+        (rankChoice)="onRankSubmit($event)"
+        (tripAccept)="onTripAccepted($event)">
     </app-pd-trip-board>
+    <button *ngIf="sessionStatus === sessionStatusCode.LEVELING" 
+        mat-button color="primary" 
+        class="pd-button" 
+        style="align-self: flex-start; letter-spacing: 1.25px; margin-left: 1em;"
+        (click)="onResetAll()">
+        <mat-icon>close</mat-icon> <span>RESET ALL</span>
+    </button>
+    <div
+        *ngIf="sessionStatus !== sessionStatusCode.EMPTY"
+        style="text-align: center; font-size: smaller; padding: 2em;">
+        This is Draft Session {{12345}}<br>
+        If you have questions, contact Crew Resource Scheduling at 
+        <a class="pd-popup-link">{{'(800)555-1212'}}</a>
+    </div>
 </div>
 <button mat-raised-button 
     *ngIf="sessionStatus === sessionStatusCode.LEVELING"

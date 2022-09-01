@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import * as moment from 'moment';
 import { Subscription } from 'rxjs';
 import { PdMissingRankChoiceDialogComponent } from '../../dialogs/pd-missing-rank-choice-dialog/pd-missing-rank-choice-dialog.component';
 import { DestinationInfo, TripCard, TripCardActionStatus } from '../../models/pd-session-status-panel';
@@ -14,6 +15,7 @@ export class PdTripBoardComponent implements OnInit, OnDestroy {
 
   @Input('trips') trips: TripCard[];
   @Output('rankChoice') rankChoiceEvent$ = new EventEmitter<Map<number, number>>();
+  @Output('tripAccept') tripAcceptEvent$ = new EventEmitter<TripCard>();
   
   // routes: DestinationInfo[];
   rankMap = new Map<number, TripCard>();    // rank: TripInfos
@@ -21,6 +23,7 @@ export class PdTripBoardComponent implements OnInit, OnDestroy {
   tripStatus = TripCardActionStatus;
   invalidTrips = new Set<number>();
   subscriptions: Subscription[] = [];
+  curTime = moment();
 
   constructor(
     private pdService: PilotDraftService,
@@ -48,7 +51,7 @@ export class PdTripBoardComponent implements OnInit, OnDestroy {
     );
   }
 
-  loadRankMaps(trips: TripCard[]) {
+  loadRankMaps(trips: TripCard[]): void {
     this.rankMap.clear();
     this.tripRankMap.clear();
     let tripsCopy: TripCard[] = [];
@@ -77,13 +80,17 @@ export class PdTripBoardComponent implements OnInit, OnDestroy {
     }
   }
 
-  onSubmit() {
+  onSubmit(): void {
     const isValid = this.checkRankValidation(this.tripRankMap);
     if (isValid) {
       this.rankChoiceEvent$.emit(this.tripRankMap);
     } else {
       this.openMissingChoiceDialog();
     }
+  }
+
+  onTripAcceptClick(trip: TripCard): void {
+    this.tripAcceptEvent$.emit(trip);
   }
 
   checkRankValidation(tripRankMap: Map<number, number>): boolean {
@@ -106,6 +113,7 @@ export class PdTripBoardComponent implements OnInit, OnDestroy {
   openMissingChoiceDialog(): void {
     const dialogRef = this.dialog.open(PdMissingRankChoiceDialogComponent, {
       width: '80%',
+      maxWidth: '600px',
       data: {invalidAmount: this.invalidTrips.size},
     });
     dialogRef.afterClosed().subscribe(proceed => {

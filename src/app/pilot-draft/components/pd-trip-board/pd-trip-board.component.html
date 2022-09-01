@@ -14,14 +14,14 @@
                         <div>
                             <div class="tb-title">Showtime</div>
                             <div class="tb-table-item">
-                                <div>16AUG22</div>
-                                <div>08:14 L</div>
+                                <div>{{ curTime.toISOString() | date : 'ddMMMyy'}}</div>
+                                <div>{{ curTime.toISOString() | date : 'hh:mm'}} L</div>
                             </div>
                         </div>
                         <div style="position: relative">
                             <mat-icon [svgIcon]="'timer'" class="tb-timer-icon"></mat-icon>
                             <div style="margin-left: 25px;" class="color-accent">
-                                <div style="font-weight: bold;">03:45:06</div>
+                                <div style="font-weight: bold;">{{trip.countdown | pdCountdown}}</div>
                                 <div style="font-size: smaller;">hh:mm:ss</div>
                             </div>
                         </div>
@@ -31,8 +31,8 @@
                         <div>
                             <div class="tb-title">End Time</div>
                             <div class="tb-table-item">
-                                <div>18AUG22</div>
-                                <div>10:12 L</div>
+                                <div>{{ curTime.toISOString() | date : 'ddMMMyy'}}</div>
+                                <div>{{ curTime.toISOString() | date : 'hh:mm'}} L</div>
                             </div>
                         </div>
                     </div>
@@ -42,11 +42,15 @@
                             <div class="tb-title">Credit Hours</div>
                             <div class="tb-table-item"
                                 style="font-size: large; font-weight: bold;"
-                            >19:25</div>
+                            >
+                                {{'19:25'}}
+                            </div>
                         </div>
                         <div>
                             <div class="tb-title">TAFB</div>
-                            <div style="font-size: medium;">74:02</div>
+                            <div style="font-size: medium;">
+                                {{'74:02'}}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -77,57 +81,173 @@
                 <div style="padding-top: 1.5em; padding-bottom: 1.5em;">
                     <mat-divider></mat-divider>
                 </div>
-                <ng-container [ngSwitch]="trip.status">
-                    <ng-container *ngSwitchCase="tripStatus.RANKING">
-                        <div>
-                            <div class="color-primary" style="font-size: medium; margin-bottom: 1em;">
-                                Offer to accept Trip {{ trip.tripId }} by ranking it:
-                            </div>
-                            <div class="tb-rank-selection-panel">
-                                <button mat-stroked-button *ngFor="let rank of rankMap | keyvalue; let i = index"
-                                    color="primary"
-                                    class="tb-rank-number-button"
-                                    [disabled]="rankMap.get(i + 1) !== null && rankMap.get(i + 1)?.tripId !== trip.tripId"
-                                    [ngClass]="rankMap.get(i + 1)?.tripId === trip.tripId ? 'rank-selected' : ''"
-                                    (click)="onRankClick(i + 1, trip)"
-                                >
-                                    <ng-container [ngSwitch]="(i + 1) % 10">
-                                        <ng-container *ngSwitchCase="1">
-                                            {{i + 1}}st
-                                        </ng-container>
-                                        <ng-container *ngSwitchCase="2">
-                                            {{i + 1}}nd
-                                        </ng-container>
-                                        <ng-container *ngSwitchCase="3">
-                                            {{i + 1}}rd
-                                        </ng-container>
-                                        <ng-container *ngSwitchDefault>
-                                            {{i + 1}}th
-                                        </ng-container>
-                                    </ng-container>
-                                </button>
-                                <button mat-stroked-button 
-                                    color="primary"
-                                    [ngClass]="tripRankMap.get(trip.tripId) === 0 ? 'rank-selected' : ''"
-                                    (click)="onRankClick(0, trip)">NO INTEREST</button>
-                            </div>
-                        </div>
-                    </ng-container>
-                    <ng-container *ngSwitchCase="tripStatus.MISSED">
-
-                    </ng-container>
-                    <ng-container *ngSwitchCase="tripStatus.RESPONSED">
-
-                    </ng-container>
-                    <ng-container *ngSwitchCase="tripStatus.ASSIGNED">
-
-                    </ng-container>
-                    <ng-container *ngSwitchCase="tripStatus.ERROR">
-
-                    </ng-container>
-                </ng-container>
-                
             </div>
+            <ng-container [ngSwitch]="trip.status">
+                <ng-container *ngSwitchCase="tripStatus.RANKING">
+                    <div>
+                        <div class="color-primary" style="font-size: medium; margin-bottom: 1em;">
+                            Offer to accept Trip {{ trip.tripId }} by ranking it:
+                        </div>
+                        <div class="tb-rank-selection-panel">
+                            <button mat-stroked-button *ngFor="let rank of rankMap | keyvalue; let i = index"
+                                color="primary"
+                                class="tb-rank-number-button"
+                                [disabled]="rankMap.get(i + 1) !== null && rankMap.get(i + 1)?.tripId !== trip.tripId"
+                                [ngClass]="rankMap.get(i + 1)?.tripId === trip.tripId ? 'rank-selected' : ''"
+                                (click)="onRankClick(i + 1, trip)"
+                            >
+                                <ng-container [ngSwitch]="(i + 1) % 10">
+                                    <ng-container *ngSwitchCase="1">
+                                        {{i + 1}}st
+                                    </ng-container>
+                                    <ng-container *ngSwitchCase="2">
+                                        {{i + 1}}nd
+                                    </ng-container>
+                                    <ng-container *ngSwitchCase="3">
+                                        {{i + 1}}rd
+                                    </ng-container>
+                                    <ng-container *ngSwitchDefault>
+                                        {{i + 1}}th
+                                    </ng-container>
+                                </ng-container>
+                            </button>
+                            <button mat-stroked-button 
+                                color="primary"
+                                [ngClass]="tripRankMap.get(trip.tripId) === 0 ? 'rank-selected' : ''"
+                                (click)="onRankClick(0, trip)">NO INTEREST
+                            </button>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngSwitchCase="tripStatus.IMMEDIATE">
+                    <div style="display: flex; justify-content: flex-end;">
+                        <button mat-raised-button 
+                            color="primary"
+                            style="font-weight: 500; letter-spacing: 1.25px;"
+                            (click)="onTripAcceptClick(trip)">
+                            ACCEPT TRIP
+                        </button>
+                    </div>
+                </ng-container>
+                <ng-container *ngSwitchCase="tripStatus.MISSED">
+                    <div style="
+                        background-color: #4D148C0F;
+                        font-size: medium;
+                        letter-spacing: 0.29px;
+                        line-height: 21px;
+                        width: 100%;
+                        padding: 0.5em 16px 0.5em 16px;
+                        position: relative;
+                        right: 16px;
+                        ">
+                        <div>
+                            Your Response: 
+                            <span style="font-weight: bold;">
+                                {{'Accept Trip'}}
+                            </span>
+                        </div>
+                        <div>
+                            Trip: 
+                            <span style="font-weight: bold;">
+                                {{'No Open Seats'}}
+                            </span>
+                        </div>
+                        <div style="font-weight: bold; margin-top: 1em;">
+                            Sorry! You just missed it!
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngSwitchCase="tripStatus.RESPONSED">
+                    <div style="
+                        font-size: medium;
+                        letter-spacing: 0.29px;
+                        line-height: 21px;
+                        width: 100%;
+                        padding: 0.5em 16px 0.5em 16px;
+                        position: relative;
+                        right: 16px;
+                        ">
+                        <div *ngIf="true">
+                            Your Response: 
+                            <span style="font-weight: bold;">
+                                {{'Accept Trip'}}
+                            </span>
+                        </div>
+                        <div>
+                            Trip: 
+                            <span style="font-weight: bold;">
+                                {{'No Open Seats'}}
+                            </span>
+                        </div>
+                    </div>
+                    <div style="display: flex; justify-content: flex-end;">
+                        <button mat-raised-button 
+                            color="primary"
+                            style="font-weight: 500; letter-spacing: 1.25px;"
+                            [disabled]="true"
+                            (click)="onTripAcceptClick(trip)">
+                            ACCEPT TRIP
+                        </button>
+                    </div>
+                </ng-container>
+                <ng-container *ngSwitchCase="tripStatus.ASSIGNED">
+                    <div style="
+                        background-color: #FF62001F;
+                        font-size: medium;
+                        letter-spacing: 0.29px;
+                        line-height: 25px;
+                        width: 100%;
+                        padding: 0.5em 16px 0.5em 16px;
+                        position: relative;
+                        right: 16px;
+                        ">
+                        <div>
+                            Your Response: 
+                            <span style="font-weight: bold;">
+                                {{'Accept Trip'}}
+                            </span>
+                        </div>
+                        <div style="font-weight: bold; font-size: large;">
+                            You're assigned Trip 1234!
+                        </div>
+                        <div>
+                            Please acknowledge the trip in your 
+                            <a class="tb-outside-link">Crew Notifications</a>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngSwitchCase="tripStatus.ERROR">
+                    <div style="
+                        background-color: #B000200F;
+                        font-size: medium;
+                        letter-spacing: 0.29px;
+                        line-height: 21px;
+                        width: 100%;
+                        padding: 0.5em 16px 0.5em 16px;
+                        position: relative;
+                        right: 16px;
+                        ">
+                        <div>
+                            Your Response: 
+                            <span style="font-weight: bold;">
+                                {{'Accept Trip'}}
+                            </span>
+                        </div>
+                        <div class="color-error" style="font-weight: bold;">
+                            An error occured assigning Trip {{1234}}!
+                        </div>
+                        <div>
+                            You can try to accept a differen trip instead, 
+                            or contact Crew Resource Scheduling at 
+                            <a class="tb-popup-link">{{'(800)555-1212'}}</a>
+                        </div>
+                    </div>
+                </ng-container>
+            </ng-container>
         </mat-card-content>
     </mat-card>
+</div>
+<div *ngIf="trips.length === 0" class="color-primary"
+    style="display: flex; justify-content: center; font-weight: 500; font-size: small;">
+    <div>No trips were assigned to you.</div>
 </div>

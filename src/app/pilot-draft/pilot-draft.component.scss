@@ -1,3 +1,5 @@
+$blue: #007AB7;
+
 .pd-container {
     width: 100%;
     height: fit-content;
@@ -19,4 +21,14 @@
     font-size: normal;
     font-weight: normal;
     letter-spacing: 1.42px;
+}
+
+.pd-popup-link {
+    color: $blue;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.full-screen {
+    height: 100%;
 }

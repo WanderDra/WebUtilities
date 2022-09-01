@@ -9,7 +9,7 @@ import { TripCard } from '../../models/pd-session-status-panel';
   templateUrl: './pd-confirm-submission-dialog.component.html',
   styleUrls: ['./pd-confirm-submission-dialog.component.scss']
 })
-export class PdConfirmSubmissionDialogComponent implements OnInit, AfterViewInit {
+export class PdConfirmSubmissionDialogComponent implements OnInit {
 
   tripTable = new MatTableDataSource<TripCard>();
   displayedColumns = [
@@ -18,7 +18,6 @@ export class PdConfirmSubmissionDialogComponent implements OnInit, AfterViewInit
     'showtime',
     'countdown'
   ];
-  @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: {trips: TripCard[]},
@@ -29,10 +28,6 @@ export class PdConfirmSubmissionDialogComponent implements OnInit, AfterViewInit
 
   ngOnInit(): void {
     this.tripTable.data = this.sortByRank(this.data.trips);
-  }
-
-  ngAfterViewInit(): void {
-    this.tripTable.sort = this.sort;
   }
 
   sortByRank(trips: TripCard[]): TripCard[] {
