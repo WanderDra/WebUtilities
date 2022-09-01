@@ -21,6 +21,12 @@ export class PilotDraftComponent implements OnInit, OnDestroy {
   counterInterval: any;
 
   isPilotAssigned: boolean = false;
+  
+  //Test
+  testSessionStatus = this.sessionStatusCode.LEVELING;
+  testTripsStatus = this.tripStatusCode.RANKING;
+  testIsPilotAssigned = false;
+  //
 
   constructor(
     private dialog: MatDialog,
@@ -36,11 +42,12 @@ export class PilotDraftComponent implements OnInit, OnDestroy {
   }
 
   initData(): void {
-    this.sessionStatus = this.sessionStatusCode.LEVELING;
     this.loadTestData();
   }
 
   loadTestData(): void {
+    this.sessionStatus = this.testSessionStatus;
+    this.isPilotAssigned = this.testIsPilotAssigned;
     const testroute = [
       {base: 'MEM', isDeadhead: false, isLayover: false},
       {base: 'IND', isDeadhead: true, isLayover: false},
@@ -55,7 +62,7 @@ export class PilotDraftComponent implements OnInit, OnDestroy {
         let mocktrip = new TripCard();
         mocktrip.tripId = i;
         mocktrip.rankSelected = null;
-        mocktrip.status = this.tripStatusCode.RANKING;
+        mocktrip.status = this.testTripsStatus;
         mocktrip.route = testroute;
         mocktrip.showtime = moment();
         mocktrip.countdown = 1000;
