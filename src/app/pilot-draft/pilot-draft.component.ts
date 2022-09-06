@@ -21,11 +21,16 @@ export class PilotDraftComponent implements OnInit, OnDestroy {
   counterInterval: any;
 
   isPilotAssigned: boolean = false;
+  isRankSubmitted: boolean = false;
+  isTripLeft: boolean = false;
+  isRankTouched: boolean = false;
   
   //Test
   testSessionStatus = this.sessionStatusCode.LEVELING;
   testTripsStatus = this.tripStatusCode.RANKING;
   testIsPilotAssigned = false;
+  testIsRankSubmitted = false;
+  testIsTripLeft = true;
   testCountdown = 1000;
   //
 
@@ -49,6 +54,8 @@ export class PilotDraftComponent implements OnInit, OnDestroy {
   loadTestData(): void {
     this.sessionStatus = this.testSessionStatus;
     this.isPilotAssigned = this.testIsPilotAssigned;
+    this.isRankSubmitted = this.testIsRankSubmitted;
+    this.isTripLeft = this.testIsTripLeft;
     const testroute = [
       {base: 'MEM', isDeadhead: false, isLayover: false},
       {base: 'IND', isDeadhead: true, isLayover: false},
@@ -93,11 +100,16 @@ export class PilotDraftComponent implements OnInit, OnDestroy {
     this.openConfirmSubmissionDialog(this.updatedTrips);
   }
 
+  onRankSelect(trip: TripCard): void {
+    this.isRankTouched = true;
+  }
+
   onTripAccepted(trip: TripCard): void {
     this.openTripAcceptanceDialog(trip);
   }
 
   onResetAll(): void {
+    this.isRankTouched = false;
     this.pdService.tripsUpdateEvent$.emit();
   }
 
@@ -114,6 +126,7 @@ export class PilotDraftComponent implements OnInit, OnDestroy {
         // Send Submit Request
         setTimeout(() => {
           this.pdService.tripsUpdateEvent$.emit();
+          this.isRankTouched = false;
         });
       }
     });

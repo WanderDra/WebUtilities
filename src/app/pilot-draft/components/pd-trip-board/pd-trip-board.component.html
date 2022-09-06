@@ -86,7 +86,7 @@
                 <ng-container *ngSwitchCase="tripStatus.RANKING">
                     <div>
                         <div class="color-primary" style="font-size: medium; margin-bottom: 1em;">
-                            Offer to accept Trip {{ trip.tripId }} by ranking it:
+                            Rank your preference for Trip {{ trip.tripId }}:
                         </div>
                         <div class="tb-rank-selection-panel">
                             <button mat-stroked-button *ngFor="let rank of rankMap | keyvalue; let i = index"
@@ -207,12 +207,12 @@
                                 {{'Accept Trip'}}
                             </span>
                         </div>
-                        <div style="font-weight: bold; font-size: large;">
-                            You're assigned Trip 1234!
-                        </div>
                         <div>
-                            Please acknowledge the trip in your 
-                            <a class="tb-outside-link">Crew Notifications</a>
+                            Trip:
+                            <span class="color-accent" 
+                                style="font-weight: bold;">
+                                Assigned To You!
+                            </span>
                         </div>
                     </div>
                 </ng-container>
@@ -237,8 +237,7 @@
                             An error occured assigning Trip {{1234}}!
                         </div>
                         <div>
-                            You can try to accept a differen trip instead, 
-                            or contact Crew Resource Scheduling at 
+                            Please Contact Crew Resource Scheduling at 
                             <a class="tb-popup-link">{{'(800)555-1212'}}</a>
                         </div>
                     </div>
@@ -247,7 +246,7 @@
         </mat-card-content>
     </mat-card>
 </div>
-<div *ngIf="trips.length === 0" class="color-primary"
+<!-- <div *ngIf="trips.length === 0" class="color-primary"
     style="display: flex; justify-content: center; font-weight: 500; font-size: small;">
     <div>No trips were assigned to you.</div>
-</div>
+</div> -->

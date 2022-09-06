@@ -4,13 +4,17 @@
         [ngClass]="sessionStatus === sessionStatusCode.EMPTY ? 'full-screen' : ''"
         [sessionStatus]="sessionStatus"
         [isAssigned]="isPilotAssigned"
+        [isSubmitted]="isRankSubmitted"
+        [isTripLeft]="isTripLeft"
+        [isRankTouched]="isRankTouched"
         (resetAll)="onResetAll()">
     </app-pd-session-status-panel>
     <app-pd-trip-board
         *ngIf="sessionStatus !== sessionStatusCode.EMPTY"
         [trips]="trips"
         (rankChoice)="onRankSubmit($event)"
-        (tripAccept)="onTripAccepted($event)">
+        (tripAccept)="onTripAccepted($event)"
+        (onRankSelect)="onRankSelect($event)">
     </app-pd-trip-board>
     <button *ngIf="sessionStatus === sessionStatusCode.LEVELING" 
         mat-button color="primary" 
@@ -32,6 +36,7 @@
     color="primary"
     class="pd-submit-button"
     (click)="onSubmitChoiceClick()"
+    [disabled]="!isRankTouched"
 >
-    SUBMIT CHOICE
+    SUBMIT
 </button>

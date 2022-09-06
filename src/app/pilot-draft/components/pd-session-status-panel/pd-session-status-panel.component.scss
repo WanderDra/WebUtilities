@@ -75,6 +75,10 @@ $grey: rgba(black, 0.54);
     color: $primary;
 }
 
+.accent-color {
+    color: $accent;
+}
+
 .pd-button {
     display: flex;
     align-items: center;
@@ -85,9 +89,10 @@ $grey: rgba(black, 0.54);
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 1.5em;
+    padding: 1em 1.2em 0.5em;
     text-align: center;
     font-size: small;
+    line-height: 19px;
 }
 
 .pd-status-card {
@@ -114,4 +119,5 @@ $grey: rgba(black, 0.54);
 
 .full-screen {
     height: 100%;
+    background-color: rgba($color: #000000, $alpha: 0);
 }

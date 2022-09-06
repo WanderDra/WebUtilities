@@ -32,7 +32,11 @@ export class IconRegistryService {
     );
     this.matIconRegistry.addSvgIcon(
       'smartphone',
-      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/smartphone_FILL0_wght500_GRAD0_opsz48.svg')
+      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/smartphone_FILL1_wght700_GRAD0_opsz48.svg')
+    );
+    this.matIconRegistry.addSvgIcon(
+      'texting',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/texting_logo.svg')
     );
   }
 }

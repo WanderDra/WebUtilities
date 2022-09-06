@@ -16,6 +16,7 @@ export class PdTripBoardComponent implements OnInit, OnDestroy {
   @Input('trips') trips: TripCard[];
   @Output('rankChoice') rankChoiceEvent$ = new EventEmitter<Map<number, number>>();
   @Output('tripAccept') tripAcceptEvent$ = new EventEmitter<TripCard>();
+  @Output('onRankSelect') rankSelectEvent$ = new EventEmitter<TripCard>();
   
   // routes: DestinationInfo[];
   rankMap = new Map<number, TripCard>();    // rank: TripInfos
@@ -78,6 +79,7 @@ export class PdTripBoardComponent implements OnInit, OnDestroy {
     if (rankSelected !== 0) {
       this.rankMap.set(rankSelected, trip);
     }
+    this.rankSelectEvent$.emit(trip);
   }
 
   onSubmit(): void {

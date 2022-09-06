@@ -11,6 +11,9 @@ export class PdSessionStatusPanelComponent implements OnInit {
 
   @Input("sessionStatus") sessionStatus: PdSessionStatus;
   @Input("isAssigned") isAssigned: boolean = false;
+  @Input("isSubmitted") isSubmitted: boolean = false;
+  @Input("isTripLeft") isTripLeft: boolean = false;
+  @Input("isRankTouched") isRankTouched: boolean = false;
   @Output("resetAll") resetAllEvent$ = new EventEmitter();
   curTime = moment();
   

@@ -37,8 +37,9 @@
                         </div>
                     </div>
                     <button mat-button color="primary" class="pd-button" style="align-self: flex-start; letter-spacing: 1.25px;"
+                        [disabled]="!isRankTouched"
                         (click)="onResetAllClick()">
-                        <mat-icon>close</mat-icon> <span>RESET ALL</span>
+                        <mat-icon>close</mat-icon> <span>RESET PREFERENCES</span>
                     </button>
                 </ng-container>
                 <ng-container *ngSwitchCase="status.IMMEDIATE">
@@ -71,6 +72,8 @@
                         padding: 1.5em;
                         display: flex;
                         flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
                         gap: 1.5em;">
                         <div 
                             style="text-align: center; 
@@ -79,29 +82,26 @@
                             class="primary-color">
                             Have you signed up for Draft Offers?
                         </div>
-                        <div>
-                            <mat-icon [svgIcon]="'smartphone'" 
-                                style="scale: 1.0;
+                        <div style="width: 300px;">
+                            <mat-icon [svgIcon]="'texting'" 
+                                style="scale: 1.2;
                                 height: 50px;
                                 width: 50px;
-                                rotate: -10deg;
+                                margin-right: 1em;
                                 float: left;"
                                 class="color-grey"
                                 >
                             </mat-icon>
                             <div>
-                                FedEx can now send text message when looking for
-                                last-minute pilots to cover open seats!
+                                FedEx can now send you a text message!
                             </div>
                         </div>
                         <div style="font-weight: 600;">
                             Update your <a class="pd-outside-link">profile</a> with a text number
-                            to get notified when a new draft session is in 
-                            progress for your Base/Equipment/Seat!
+                            to get notified when you are legal for a draft trip!
                         </div>
                         <div>
-                            You'll only be offered trips you are legally
-                            qualified to fly.
+                            Draft messages are offered through Crew Notifications too.
                         </div>
                     </div>
                 </ng-container>
@@ -111,31 +111,70 @@
 </mat-card>
 <ng-container [ngSwitch]="sessionStatus">
     <ng-container *ngSwitchCase="status.LEVELING">
-        <div class="pd-tips-container">
-            <div class="primary-color" style="font-weight:600; line-height: 16px;">
-                Please rank the Draft Trips that you want to accept
+        <div *ngIf="!isSubmitted" class="pd-tips-container">
+            <div class="primary-color" style="font-weight:600; font-size: small;">
+                Please rank the Draft Trips that you want to accept.
             </div>
-            <div style="font-size: smaller; line-height: 16px;">
+            <div style="font-size: smaller;">
                 When the Response Collection period ends, trips will be assigned, and Crew Notifications will be posted.
+            </div>
+        </div>
+        <div *ngIf="isSubmitted" class="pd-tips-container">
+            <div class="primary-color" style="font-weight:600; font-size: large;">
+                Your preferences have been recorded!
+            </div>
+            <div class="primary-color" style="font-weight:500;">
+                When Response Collection ends, trips will be assigned, and Crew Notifications will be posted.
+            </div>
+            <div style="font-size: smaller;">
+                You can still make changes until the countdown finishes. Feel free to navigate away from this screen.
             </div>
         </div>
     </ng-container>
     <ng-container *ngSwitchCase="status.IMMEDIATE">
-        <div *ngIf="isAssigned" class="pd-tips-container primary-color" style="font-weight:600; line-height: 16px;">
+        <div *ngIf="!isAssigned && !isTripLeft" class="pd-tips-container primary-color" 
+            style="font-weight:bold; font-size: large;">
             Updates Below!
         </div>
-        <div *ngIf="!isAssigned" class="pd-tips-container">
-            <div class="primary-color" style="font-weight:600; line-height: 16px;">
-                There are still Trips left in this Session.
+        <div *ngIf="!isAssigned && isTripLeft" class="pd-tips-container">
+            <div class="primary-color" style="font-weight: 500;">
+                You were not assigned a trip based on your submitted preferences.
             </div>
-            <div style="font-size: smaller; line-height: 16px;">
-                Trip Assignment will occur immediately upon Acceptance.    
+            <div class="primary-color" style="font-weight:600; font-size: larger;">
+                There are still Trips left open in this Session.
+            </div>
+            <div style="font-size: smaller;">
+                Trip Assignment will be processed immediately upon Acceptance.    
+            </div>
+        </div>
+        <div *ngIf="isAssigned" class="pd-tips-container">
+            <div class="accent-color" style="font-weight: bold; font-size: large;">
+                You have been assigned Trip 1234!
+            </div>
+            <div style="font-size: larger;">
+                Please acknowledge the trip in your <a class="pd-outside-link">Crew Notifications.</a>
             </div>
         </div>
     </ng-container>
     <ng-container *ngSwitchCase="status.END">
-        <div class="pd-tips-container primary-color" style="font-weight:600; line-height: 16px;">
-            Draft Session {{ 123456 }} ended at {{ curTime.toISOString() | date : 'hh:mm ddMMMyy'}}
+        <div class="pd-tips-container">
+            <div class="primary-color" style="font-weight:600;">
+                Draft Session {{ 123456 }} ended at {{ curTime.toISOString() | date : 'hh:mm ddMMMyy'}}
+            </div>
+            <ng-container *ngIf="isAssigned else notAssigned">
+                <div class="accent-color" style="font-weight: bold; font-size: large;">
+                    You have been assigned Trip 1234!
+                </div>
+                <div style="font-size: larger;">
+                    Please acknowledge the trip in your <a class="pd-outside-link">Crew Notifications.</a>
+                </div>
+            </ng-container>
+            <ng-template #notAssigned>
+                <div class="primary-color" style="font-weight: bold;">
+                    No trips were assigned to you.
+                </div>
+            </ng-template>
         </div>
+        
     </ng-container>
 </ng-container>
