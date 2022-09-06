@@ -28,6 +28,7 @@ import { PdMissingRankChoiceDialogComponent } from './pilot-draft/dialogs/pd-mis
 import { PdConfirmSubmissionDialogComponent } from './pilot-draft/dialogs/pd-confirm-submission-dialog/pd-confirm-submission-dialog.component';
 import { PdConfirmTripAcceptanceDialogComponent } from './pilot-draft/dialogs/pd-confirm-trip-acceptance-dialog/pd-confirm-trip-acceptance-dialog.component';
 import { PdCountdownPipe } from './pilot-draft/pipes/pd-countdown.pipe';
+import { ZldatePipe } from './pilot-draft/pipes/zldate.pipe';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { PdCountdownPipe } from './pilot-draft/pipes/pd-countdown.pipe';
     PdMissingRankChoiceDialogComponent,
     PdConfirmSubmissionDialogComponent,
     PdConfirmTripAcceptanceDialogComponent,
-    PdCountdownPipe
+    PdCountdownPipe,
+    ZldatePipe
   ],
   imports: [
     BrowserModule,
