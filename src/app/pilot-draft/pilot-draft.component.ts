@@ -26,7 +26,7 @@ export class PilotDraftComponent implements OnInit, OnDestroy {
   isRankTouched: boolean = false;
   
   //Test
-  testSessionStatus = this.sessionStatusCode.LEVELING;
+  testSessionStatus = this.sessionStatusCode.IMMEDIATE;
   testTripsStatus = this.tripStatusCode.RANKING;
   testIsPilotAssigned = false;
   testIsRankSubmitted = false;
@@ -41,6 +41,8 @@ export class PilotDraftComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initData();
+    console.log(moment().toISOString());
+    
   }
 
   ngOnDestroy(): void {

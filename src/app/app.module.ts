@@ -29,6 +29,8 @@ import { PdConfirmSubmissionDialogComponent } from './pilot-draft/dialogs/pd-con
 import { PdConfirmTripAcceptanceDialogComponent } from './pilot-draft/dialogs/pd-confirm-trip-acceptance-dialog/pd-confirm-trip-acceptance-dialog.component';
 import { PdCountdownPipe } from './pilot-draft/pipes/pd-countdown.pipe';
 import { ZldatePipe } from './pilot-draft/pipes/zldate.pipe';
+import { UsbConnectionComponent } from './components/usb-connection/usb-connection.component';
+import { UsbPermissionDialogComponent } from './dialogs/usb-permission-dialog/usb-permission-dialog.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,9 @@ import { ZldatePipe } from './pilot-draft/pipes/zldate.pipe';
     PdConfirmSubmissionDialogComponent,
     PdConfirmTripAcceptanceDialogComponent,
     PdCountdownPipe,
-    ZldatePipe
+    ZldatePipe,
+    UsbConnectionComponent,
+    UsbPermissionDialogComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,24 @@
+<button mat-raised-button (click)="onApplyPermissionClick()">
+    Connect to the USB Device
+</button>
+<button mat-raised-button (click)="onDisconnectClick()" [disabled]="!port">
+    Close Connection
+</button>
+
+<button mat-raised-button (click)="onShowDeviceInfoClick()">
+    Show Device Info
+</button>
+<button mat-raised-button (click)="onReadClick()" [disabled]="!port">
+    Read
+</button>
+<button mat-raised-button (click)="onResetClick()" [disabled]="!port">
+    Reset
+</button>
+
+<div style="white-space: pre-wrap;">
+    {{ output }}
+</div>
+
+<div *ngIf="isAccess">
+    Access Granted!
+</div>
