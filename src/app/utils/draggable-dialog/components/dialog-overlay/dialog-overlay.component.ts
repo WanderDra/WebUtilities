@@ -1,0 +1,85 @@
+import { Component, ComponentRef, Injector, OnInit } from '@angular/core';
+import { DraggableDialogConfig } from '../../models/draggable-dialog-config';
+import { ComponentType } from '@angular/cdk/portal';
+import { DraggableDialogData } from '../../models/draggable-dialog-data';
+import { DraggableDialogService } from '../../services/draggable-dialog.service';
+import { CdkDragEnd } from '@angular/cdk/drag-drop';
+
+@Component({
+  selector: 'app-dialog-overlay',
+  templateUrl: './dialog-overlay.component.html',
+  styleUrls: ['./dialog-overlay.component.scss']
+})
+export class DialogOverlayComponent implements OnInit {
+
+  windowRef: Window;
+  layerId: number;
+  dialogs = new Map<
+    number, {
+      instance: ComponentType<any>, 
+      injector: Injector,
+      config: DraggableDialogConfig
+    }>();
+  dialogIndex: number = 0;
+
+  constructor(
+    private injector: Injector,
+    private draggableDialog: DraggableDialogService) { 
+    this.windowRef = window;
+  }
+
+  ngOnInit(): void {
+  }
+
+  assignLayerId(layerId: number): void {
+    this.layerId = layerId;
+  }
+
+  createDialog(component: ComponentType<any>, config?: DraggableDialogConfig): void {
+    if (!config) {
+      config = new DraggableDialogConfig();
+    }
+    const dialogData = new DraggableDialogData();
+    dialogData.id = this.dialogIndex;
+    dialogData.data = config.data;
+    dialogData.overlay = this;
+    const injector = Injector.create({providers: [{provide: DraggableDialogData, useValue: dialogData}], parent: this.injector});
+    this.dialogs.set(this.dialogIndex, {instance: component, injector: injector, config: config});
+    ++this.dialogIndex;
+  }
+
+  closeDialog(dialogId: number): void {
+    this.dialogs.delete(dialogId);
+    if (this.dialogs.size === 0) {
+      this.draggableDialog.removeLayer(this.layerId);
+    }
+  }
+
+  onDragEnded(event: CdkDragEnd, dialog: {instance: ComponentType<any>, injector: Injector, config?: DraggableDialogConfig}) {
+    const dialogHeight = event.source.getRootElement().offsetHeight;
+    const dialogWidth = event.source.getRootElement().offsetWidth;
+    const windowHeight = window.innerHeight;
+    const windowWidth = window.innerWidth;
+    const dialogPos = event.source.getFreeDragPosition();
+    const restrictedPos = {...dialogPos};
+
+    const leftBorder = 0 - dialogWidth * 0.9;
+    const rightBorder = windowWidth - dialogWidth * 0.2;
+    const topBorder = 100;
+    const bottomBorder = windowHeight - dialogHeight * 0.1;
+
+    if (dialogPos.x < leftBorder) {
+      restrictedPos.x = leftBorder;
+    }
+    if (dialogPos.x > rightBorder) {
+      restrictedPos.x = rightBorder;
+    }
+    if (dialogPos.y < topBorder) {
+      restrictedPos.y = topBorder;
+    }
+    if (dialogPos.y > bottomBorder) {
+      restrictedPos.y = bottomBorder;
+    }
+    dialog.config.position = restrictedPos;
+  }
+}

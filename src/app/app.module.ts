@@ -31,6 +31,9 @@ import { PdCountdownPipe } from './pilot-draft/pipes/pd-countdown.pipe';
 import { ZldatePipe } from './pilot-draft/pipes/zldate.pipe';
 import { UsbConnectionComponent } from './components/usb-connection/usb-connection.component';
 import { UsbPermissionDialogComponent } from './dialogs/usb-permission-dialog/usb-permission-dialog.component';
+import { DraggableDialogComponent } from './utils/draggable-dialog/draggable-dialog.component';
+import { DialogFrameComponent } from './utils/draggable-dialog/components/dialog-frame/dialog-frame.component';
+import { DialogOverlayComponent } from './utils/draggable-dialog/components/dialog-overlay/dialog-overlay.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +61,10 @@ import { UsbPermissionDialogComponent } from './dialogs/usb-permission-dialog/us
     PdCountdownPipe,
     ZldatePipe,
     UsbConnectionComponent,
-    UsbPermissionDialogComponent
+    UsbPermissionDialogComponent,
+    DraggableDialogComponent,
+    DialogFrameComponent,
+    DialogOverlayComponent
   ],
   imports: [
     BrowserModule,

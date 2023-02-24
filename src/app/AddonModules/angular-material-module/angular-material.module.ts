@@ -18,6 +18,7 @@ import { PortalModule } from '@angular/cdk/portal';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSortModule } from '@angular/material/sort';
+import { FullscreenOverlayContainer, OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { MatSortModule } from '@angular/material/sort';
   imports: [
     CommonModule
   ],
+  providers: [{provide: OverlayContainer, useClass: FullscreenOverlayContainer}],
   exports: [
     MatIconModule,
     MatDividerModule,
@@ -44,7 +46,8 @@ import { MatSortModule } from '@angular/material/sort';
     PortalModule,
     MatCheckboxModule,
     MatDialogModule,
-    MatSortModule
+    MatSortModule,
+    OverlayModule
   ]
 })
 export class AngularMaterialModule { }

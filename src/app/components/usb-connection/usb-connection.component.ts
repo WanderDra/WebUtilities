@@ -97,7 +97,6 @@ export class UsbConnectionComponent implements OnInit {
             break;
           }
           // Do something with |value|...
-          console.log(value);
           this.output += this.toHexString(value.buffer);
           if (value.length === 1 && value[0] === 48) {
             this.curOutput = this.output.split('\n').pop();
