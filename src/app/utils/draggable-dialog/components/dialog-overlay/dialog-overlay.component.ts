@@ -1,6 +1,6 @@
 import { Component, ComponentRef, Injector, OnInit } from '@angular/core';
-import { DraggableDialogConfig } from '../../models/draggable-dialog-config';
-import { ComponentType } from '@angular/cdk/portal';
+import { DraggableDialog, DraggableDialogConfig } from '../../models/draggable-dialog-config';
+import { CdkPortalOutletAttachedRef, ComponentPortal, ComponentType } from '@angular/cdk/portal';
 import { DraggableDialogData } from '../../models/draggable-dialog-data';
 import { DraggableDialogService } from '../../services/draggable-dialog.service';
 import { CdkDragEnd } from '@angular/cdk/drag-drop';
@@ -14,12 +14,7 @@ export class DialogOverlayComponent implements OnInit {
 
   windowRef: Window;
   layerId: number;
-  dialogs = new Map<
-    number, {
-      instance: ComponentType<any>, 
-      injector: Injector,
-      config: DraggableDialogConfig
-    }>();
+  dialogs = new Map<number, DraggableDialog>();
   dialogIndex: number = 0;
 
   constructor(
@@ -35,7 +30,7 @@ export class DialogOverlayComponent implements OnInit {
     this.layerId = layerId;
   }
 
-  createDialog(component: ComponentType<any>, config?: DraggableDialogConfig): void {
+  createDialog(component: ComponentType<any>, config?: DraggableDialogConfig): DraggableDialog {
     if (!config) {
       config = new DraggableDialogConfig();
     }
@@ -44,8 +39,13 @@ export class DialogOverlayComponent implements OnInit {
     dialogData.data = config.data;
     dialogData.overlay = this;
     const injector = Injector.create({providers: [{provide: DraggableDialogData, useValue: dialogData}], parent: this.injector});
-    this.dialogs.set(this.dialogIndex, {instance: component, injector: injector, config: config});
+    const componentPortal = new ComponentPortal(component, null, injector);
+    const dialog = new DraggableDialog();
+    dialog.componentPortal = componentPortal;
+    dialog.config = config;
+    this.dialogs.set(this.dialogIndex, dialog);
     ++this.dialogIndex;
+    return dialog;
   }
 
   closeDialog(dialogId: number): void {
@@ -55,7 +55,7 @@ export class DialogOverlayComponent implements OnInit {
     }
   }
 
-  onDragEnded(event: CdkDragEnd, dialog: {instance: ComponentType<any>, injector: Injector, config?: DraggableDialogConfig}) {
+  onDragEnded(event: CdkDragEnd, dialog: DraggableDialog) {
     const dialogHeight = event.source.getRootElement().offsetHeight;
     const dialogWidth = event.source.getRootElement().offsetWidth;
     const windowHeight = window.innerHeight;
@@ -81,5 +81,9 @@ export class DialogOverlayComponent implements OnInit {
       restrictedPos.y = bottomBorder;
     }
     dialog.config.position = restrictedPos;
+  }
+
+  onDialogAttached(ref: CdkPortalOutletAttachedRef, dialogId: number): void {
+    this.dialogs.get(dialogId).setComponentRef(ref as ComponentRef<any>);
   }
 }

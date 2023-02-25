@@ -2,7 +2,7 @@ import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal, ComponentType } from '@angular/cdk/portal';
 import { ComponentRef, Injectable } from '@angular/core';
 import { DialogFrameComponent } from '../components/dialog-frame/dialog-frame.component';
-import { DraggableDialogConfig } from '../models/draggable-dialog-config';
+import { DraggableDialog, DraggableDialogConfig } from '../models/draggable-dialog-config';
 import { DialogOverlayComponent } from '../components/dialog-overlay/dialog-overlay.component';
 
 @Injectable({
@@ -20,7 +20,7 @@ export class DraggableDialogService {
 
   constructor(private overlay: Overlay) { }
 
-  createDialog(component: ComponentType<any>, config?: DraggableDialogConfig): ComponentType<any> {
+  createDialog(component: ComponentType<any>, config?: DraggableDialogConfig): DraggableDialog {
     let curOverlay: OverlayRef | null = null;
     let curOverlayControl: ComponentRef<DialogOverlayComponent> | null = null;
     if (config?.newLayer || this.overlays.length === 0) {
@@ -31,8 +31,8 @@ export class DraggableDialogService {
       curOverlay = this.overlays[this.overlays.length-1].overlay;
       curOverlayControl = this.overlays[this.overlays.length-1].overlayControl;
     }
-    curOverlayControl.instance.createDialog(component, config)
-    return component;
+    const dialog = curOverlayControl.instance.createDialog(component, config)
+    return dialog;
   }
 
   closeDialog(dialogId: number): void {
