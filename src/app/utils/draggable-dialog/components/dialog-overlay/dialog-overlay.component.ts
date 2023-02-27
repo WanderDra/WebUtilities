@@ -3,7 +3,7 @@ import { DraggableDialog, DraggableDialogConfig } from '../../models/draggable-d
 import { CdkPortalOutletAttachedRef, ComponentPortal, ComponentType } from '@angular/cdk/portal';
 import { DraggableDialogData } from '../../models/draggable-dialog-data';
 import { DraggableDialogService } from '../../services/draggable-dialog.service';
-import { CdkDragEnd } from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragEnd } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-dialog-overlay',
@@ -84,6 +84,14 @@ export class DialogOverlayComponent implements OnInit {
   }
 
   onDialogAttached(ref: CdkPortalOutletAttachedRef, dialogId: number): void {
-    this.dialogs.get(dialogId).setComponentRef(ref as ComponentRef<any>);
+    const dialog = this.dialogs.get(dialogId);
+    dialog.setComponentRef(ref as ComponentRef<any>);
+    if (dialog.config.setCenter) {
+      const dialogRef = ref as ComponentRef<any>;
+      const dialogHeight = dialogRef.location.nativeElement.offsetHeight;
+      const dialogWidth = dialogRef.location.nativeElement.offsetWidth;
+      dialog.config.position.y = window.innerHeight * 0.5 - dialogHeight * 0.5;
+      dialog.config.position.x = window.innerWidth * 0.5 - dialogWidth * 0.5;
+    }
   }
 }

@@ -12,6 +12,8 @@ import { Observable } from "rxjs";
  * Received as an injector in dialog component.
  * 
  * position: Position of the dialog.
+ * 
+ * setCenter: Set the dialog to the center of the window
  */
 export class DraggableDialogConfig {
     /** Create the dialog on a new layer */
@@ -26,6 +28,8 @@ export class DraggableDialogConfig {
     dragHandlerHeight?: number;
     /** Hide handler icon */
     hideDragHandlerIcon?: boolean;
+    /** Put the dialog to the center of the window */
+    setCenter?: boolean;
 
     constructor() {
         this.newLayer = false;

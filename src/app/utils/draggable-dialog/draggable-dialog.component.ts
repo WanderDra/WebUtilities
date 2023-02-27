@@ -21,6 +21,7 @@ export class DraggableDialogComponent implements OnInit {
   onCreateDialogClick(): void {
     const dialogConfig = new DraggableDialogConfig();
     dialogConfig.data = 'TEST DATA';
+    dialogConfig.setCenter = true;
     const dialog: DraggableDialog = this.draggableDialog.createDialog(DialogFrameComponent, dialogConfig);
     dialog.getComponentRef().subscribe((ref: ComponentRef<DialogFrameComponent>) => {
       console.log(ref.instance.data);
