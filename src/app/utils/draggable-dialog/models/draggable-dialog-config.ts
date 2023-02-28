@@ -28,14 +28,12 @@ export class DraggableDialogConfig {
     dragHandlerHeight?: number;
     /** Hide handler icon */
     hideDragHandlerIcon?: boolean;
-    /** Put the dialog to the center of the window */
-    setCenter?: boolean;
 
     constructor() {
         this.newLayer = false;
         this.hideCloseButton = false;
         this.data = null;
-        this.position = {x: window.innerWidth * 0.5 * 0.7, y: window.innerHeight * 0.5 * 0.7};
+        this.position = {x: null, y: null};
         this.dragHandlerHeight = 20;
         this.hideDragHandlerIcon = false;
     }
@@ -52,7 +50,7 @@ export class DraggableDialog {
     private _componentRef: ComponentRef<any> = null;
     config: DraggableDialogConfig;
 
-    /** Get dialog component reference. */
+    /** Get dialog component reference. Return ref in subscription async*/
     getComponentRef(): Observable<ComponentRef<any>> {
         return new Observable<ComponentRef<any>>(subscriber => {
             try {

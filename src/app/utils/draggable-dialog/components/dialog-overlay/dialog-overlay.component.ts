@@ -3,7 +3,7 @@ import { DraggableDialog, DraggableDialogConfig } from '../../models/draggable-d
 import { CdkPortalOutletAttachedRef, ComponentPortal, ComponentType } from '@angular/cdk/portal';
 import { DraggableDialogData } from '../../models/draggable-dialog-data';
 import { DraggableDialogService } from '../../services/draggable-dialog.service';
-import { CdkDrag, CdkDragEnd } from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragEnd, Point } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-dialog-overlay',
@@ -15,7 +15,7 @@ export class DialogOverlayComponent implements OnInit {
   windowRef: Window;
   layerId: number;
   dialogs = new Map<number, DraggableDialog>();
-  dialogIndex: number = 0;
+  trackById = (dialog) => dialog.key;
 
   constructor(
     private injector: Injector,
@@ -30,12 +30,14 @@ export class DialogOverlayComponent implements OnInit {
     this.layerId = layerId;
   }
 
-  createDialog(component: ComponentType<any>, config?: DraggableDialogConfig): DraggableDialog {
-    if (!config) {
-      config = new DraggableDialogConfig();
+  createDialog(component: ComponentType<any>, dialogIndex: number, config?: DraggableDialogConfig): DraggableDialog {
+    let dialogConfig = new DraggableDialogConfig();
+    if (config) {
+      dialogConfig = { ...dialogConfig, ...config };
     }
+    config = dialogConfig;
     const dialogData = new DraggableDialogData();
-    dialogData.id = this.dialogIndex;
+    dialogData.id = dialogIndex;
     dialogData.data = config.data;
     dialogData.overlay = this;
     const injector = Injector.create({providers: [{provide: DraggableDialogData, useValue: dialogData}], parent: this.injector});
@@ -43,8 +45,7 @@ export class DialogOverlayComponent implements OnInit {
     const dialog = new DraggableDialog();
     dialog.componentPortal = componentPortal;
     dialog.config = config;
-    this.dialogs.set(this.dialogIndex, dialog);
-    ++this.dialogIndex;
+    this.dialogs.set(dialogIndex, dialog);
     return dialog;
   }
 
@@ -86,12 +87,20 @@ export class DialogOverlayComponent implements OnInit {
   onDialogAttached(ref: CdkPortalOutletAttachedRef, dialogId: number): void {
     const dialog = this.dialogs.get(dialogId);
     dialog.setComponentRef(ref as ComponentRef<any>);
-    if (dialog.config.setCenter) {
-      const dialogRef = ref as ComponentRef<any>;
-      const dialogHeight = dialogRef.location.nativeElement.offsetHeight;
-      const dialogWidth = dialogRef.location.nativeElement.offsetWidth;
-      dialog.config.position.y = window.innerHeight * 0.5 - dialogHeight * 0.5;
-      dialog.config.position.x = window.innerWidth * 0.5 - dialogWidth * 0.5;
+    if (!dialog.config.position.x) {
+      dialog.getComponentRef().subscribe(
+        ref => {
+          const centerPos = this._getCenterPosition(ref);
+          dialog.config.position = {...centerPos};
+        }
+      );
     }
+  }
+
+  private _getCenterPosition(ref: CdkPortalOutletAttachedRef): Point {
+    const dialogRef = ref as ComponentRef<any>;
+    const dialogHeight = dialogRef.location.nativeElement.offsetHeight;
+    const dialogWidth = dialogRef.location.nativeElement.offsetWidth;
+    return {x: window.innerWidth * 0.5 - dialogWidth * 0.5, y: window.innerHeight * 0.5 - dialogHeight * 0.5};
   }
 }

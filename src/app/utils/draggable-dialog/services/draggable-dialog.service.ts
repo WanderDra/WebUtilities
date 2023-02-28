@@ -11,6 +11,7 @@ import { DialogOverlayComponent } from '../components/dialog-overlay/dialog-over
 export class DraggableDialogService {
   
   private _layerIndex: number = 0;
+  private _dialogIndex: number = 0;
 
   overlays: {
     id: number,
@@ -31,7 +32,8 @@ export class DraggableDialogService {
       curOverlay = this.overlays[this.overlays.length-1].overlay;
       curOverlayControl = this.overlays[this.overlays.length-1].overlayControl;
     }
-    const dialog = curOverlayControl.instance.createDialog(component, config)
+    const dialog = curOverlayControl.instance.createDialog(component, this._dialogIndex, config);
+    ++this._dialogIndex;
     return dialog;
   }
 
@@ -70,5 +72,9 @@ export class DraggableDialogService {
 
   getCurrentLayerIndex(): number {
     return this._layerIndex;
+  }
+
+  getCurrentDialogIndex(): number {
+    return this._dialogIndex;
   }
 }
