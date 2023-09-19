@@ -28,6 +28,8 @@ export class DraggableDialogConfig {
     dragHandlerHeight?: number;
     /** Hide handler icon */
     hideDragHandlerIcon?: boolean;
+    afterCloseCallback?: (dialogId: number) => any | null;
+    panelClass?: string | string[];
 
     constructor() {
         this.newLayer = false;
@@ -36,6 +38,8 @@ export class DraggableDialogConfig {
         this.position = {x: null, y: null};
         this.dragHandlerHeight = 20;
         this.hideDragHandlerIcon = false;
+        this.panelClass = '';
+        this.afterCloseCallback = null;
     }
 }
 
@@ -62,6 +66,10 @@ export class DraggableDialog {
                 subscriber.error(err);
             }
         });
+    }
+
+    afterClose(afterCloseCB: (dialogId: number) => any): void {
+        this.config.afterCloseCallback = afterCloseCB;
     }
 
     setComponentRef(componentRef: ComponentRef<any>): void {

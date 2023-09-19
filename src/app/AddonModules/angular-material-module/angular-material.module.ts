@@ -19,6 +19,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSortModule } from '@angular/material/sort';
 import { FullscreenOverlayContainer, OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { FullscreenOverlayContainer, OverlayContainer, OverlayModule } from '@an
     MatCheckboxModule,
     MatDialogModule,
     MatSortModule,
-    OverlayModule
+    OverlayModule,
+    ClipboardModule
   ]
 })
 export class AngularMaterialModule { }

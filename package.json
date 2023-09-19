@@ -23,6 +23,7 @@
     "@types/w3c-web-serial": "^1.0.3",
     "array-buffer-to-hex": "^1.0.0",
     "moment": "^2.29.3",
+    "ngx-capture": "^0.12.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

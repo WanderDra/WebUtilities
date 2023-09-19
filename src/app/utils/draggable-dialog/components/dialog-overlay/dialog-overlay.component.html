@@ -6,6 +6,7 @@
         cdkDrag
         [cdkDragFreeDragPosition]="dialog.value.config.position"
         (cdkDragEnded)="onDragEnded($event, dialog.value)"
+        [ngClass]="dialog.value.config.panelClass"
         class="dialog-container">
         <div class="drag-handle" cdkDragHandle style="padding: 5px;"
             [style.height.px]="dialog.value.config.dragHandlerHeight">

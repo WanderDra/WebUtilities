@@ -34,6 +34,8 @@ import { UsbPermissionDialogComponent } from './dialogs/usb-permission-dialog/us
 import { DraggableDialogComponent } from './utils/draggable-dialog/draggable-dialog.component';
 import { DialogFrameComponent } from './utils/draggable-dialog/components/dialog-frame/dialog-frame.component';
 import { DialogOverlayComponent } from './utils/draggable-dialog/components/dialog-overlay/dialog-overlay.component';
+import { NgCaptureComponent } from './components/ng-capture/ng-capture.component';
+import { NgxCaptureModule } from 'ngx-capture';
 
 @NgModule({
   declarations: [
@@ -64,7 +66,8 @@ import { DialogOverlayComponent } from './utils/draggable-dialog/components/dial
     UsbPermissionDialogComponent,
     DraggableDialogComponent,
     DialogFrameComponent,
-    DialogOverlayComponent
+    DialogOverlayComponent,
+    NgCaptureComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +75,8 @@ import { DialogOverlayComponent } from './utils/draggable-dialog/components/dial
     BrowserAnimationsModule,
     AngularMaterialModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxCaptureModule
   ],
   providers: [],
   bootstrap: [AppComponent]

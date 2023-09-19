@@ -24,6 +24,8 @@
     width: fit-content;
     height: fit-content;
     overflow: visible;
+    animation-name: show-up;
+    animation-duration: 0.3s;
 }
 
 .close-btn {
@@ -31,4 +33,10 @@
     z-index: 10;
     top: 10px;
     right: 10px;
+}
+
+@keyframes show-up {
+    0% { opacity: 0; }
+    15% { opacity: 0; }
+    100% { opacity: 1; }
 }

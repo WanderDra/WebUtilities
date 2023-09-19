@@ -1,4 +1,4 @@
-import { Component, ComponentRef, Injector, OnInit } from '@angular/core';
+import { Component, ComponentRef, Injector, OnInit, ViewEncapsulation } from '@angular/core';
 import { DraggableDialog, DraggableDialogConfig } from '../../models/draggable-dialog-config';
 import { CdkPortalOutletAttachedRef, ComponentPortal, ComponentType } from '@angular/cdk/portal';
 import { DraggableDialogData } from '../../models/draggable-dialog-data';
@@ -8,7 +8,8 @@ import { CdkDrag, CdkDragEnd, Point } from '@angular/cdk/drag-drop';
 @Component({
   selector: 'app-dialog-overlay',
   templateUrl: './dialog-overlay.component.html',
-  styleUrls: ['./dialog-overlay.component.scss']
+  styleUrls: ['./dialog-overlay.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class DialogOverlayComponent implements OnInit {
 
@@ -50,9 +51,13 @@ export class DialogOverlayComponent implements OnInit {
   }
 
   closeDialog(dialogId: number): void {
+    const afterCloseCB = this.dialogs.get(dialogId).config.afterCloseCallback;
     this.dialogs.delete(dialogId);
     if (this.dialogs.size === 0) {
       this.draggableDialog.removeLayer(this.layerId);
+    }
+    if (afterCloseCB) {
+      afterCloseCB(dialogId);
     }
   }
 
