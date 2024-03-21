@@ -3,7 +3,7 @@ import { NgxCaptureService } from 'ngx-capture';
 import { tap } from 'rxjs/operators';
 // import { Clipboard } from '@angular/cdk/clipboard';
 import { Observable, Observer, Subscription } from 'rxjs';
-import { ConsoleRecord } from './model';
+import { LogRecord } from './model';
 import * as moment from 'moment';
 /// <reference path="clipboard.d.ts" />
 
@@ -18,7 +18,7 @@ export class NgCaptureComponent implements OnInit {
   @ViewChild('captureScreen', {static: true}) screen: ElementRef; 
 
   subscriptions = new Subscription();
-  consoleRecord = new ConsoleRecord();
+  consoleRecord: LogRecord[] = [];
 
   constructor(private captureService: NgxCaptureService) { }
 
@@ -44,7 +44,7 @@ export class NgCaptureComponent implements OnInit {
     console.log('testtest');
     const logElement = document.createElement('div');
     document.body.append(logElement);
-    this.consoleRecord.allLog.forEach(
+    this.consoleRecord.forEach(
       log => {
         const record = document.createElement('div');
         record.append(JSON.stringify(log));
@@ -70,7 +70,7 @@ export class NgCaptureComponent implements OnInit {
       return moment().utc().toISOString();
     }
     window.onerror = (error, url, line) => {
-      this.consoleRecord.allLog.push({
+      this.consoleRecord.push({
         type: "exception",
         timeStamp: TS(),
         value: { error, url, line }
@@ -78,7 +78,7 @@ export class NgCaptureComponent implements OnInit {
       return false;
     }
     window.onunhandledrejection = (e) => {
-      this.consoleRecord.allLog.push({
+      this.consoleRecord.push({
         type: "promiseRejection",
         timeStamp: TS(),
         value: e.reason
@@ -90,9 +90,9 @@ export class NgCaptureComponent implements OnInit {
      
       return function() {
         if (!global.consoleRecord) {
-          global.consoleRecord = new ConsoleRecord();
+          global.consoleRecord = [];
         }
-        global.consoleRecord.allLog.push({ 
+        global.consoleRecord.push({ 
           type: logType, 
           timeStamp: TS(), 
           value: [...arguments] 

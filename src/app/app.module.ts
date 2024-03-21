@@ -36,6 +36,7 @@ import { DialogFrameComponent } from './utils/draggable-dialog/components/dialog
 import { DialogOverlayComponent } from './utils/draggable-dialog/components/dialog-overlay/dialog-overlay.component';
 import { NgCaptureComponent } from './components/ng-capture/ng-capture.component';
 import { NgxCaptureModule } from 'ngx-capture';
+import { SpringTestPageComponent } from './components/spring-test-page/spring-test-page.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { NgxCaptureModule } from 'ngx-capture';
     DraggableDialogComponent,
     DialogFrameComponent,
     DialogOverlayComponent,
-    NgCaptureComponent
+    NgCaptureComponent,
+    SpringTestPageComponent
   ],
   imports: [
     BrowserModule,
