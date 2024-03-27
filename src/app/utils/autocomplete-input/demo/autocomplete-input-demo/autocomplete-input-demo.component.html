@@ -1,0 +1,10 @@
+<crew-nav-autocomplete-input 
+    label="Test Autocomplete"
+    [options]="testOptions" 
+    [inputControl]="testControl"
+    [errorMsgsMap]="testErrorsMap"
+    (onSelect)="onTestFieldSelect($event)">
+</crew-nav-autocomplete-input>
+<div>
+    Select: {{ testSelect }}
+</div>

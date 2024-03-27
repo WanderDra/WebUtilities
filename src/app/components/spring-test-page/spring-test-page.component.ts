@@ -26,6 +26,14 @@ export class SpringTestPageComponent implements OnInit, OnDestroy {
   }
 
   initData(): void {
+    this.initWebSocketHello();
+  }
+
+  onStopClick(): void {
+    console.log('stop');
+  }
+
+  initSSEHello(): void {
     const requestSub = this.springService.getSSEHelloWorld().pipe(
       tap(response => {
         this.ngZone.run(() => {
@@ -44,8 +52,23 @@ export class SpringTestPageComponent implements OnInit, OnDestroy {
     this.subscriptions.add(requestSub);
   }
 
-  onStopClick(): void {
-    console.log('stop');
+  initWebSocketHello(): void {
+    const requestSub = this.springService.getWebsocketHello().pipe(
+      tap(response => {
+        this.ngZone.run(() => {
+          this.textList$.next([...this.textList$.value, response]);
+        });
+      })
+    ).subscribe(response => {
+    },
+      error => {
+        console.error(error);
+        requestSub.unsubscribe();
+        this.ngZone.run(() => {
+          this.textList$.next([...this.textList$.value, 'WebSocket unsubscribed.']);
+        })
+    })
+    this.subscriptions.add(requestSub);
   }
 
 }

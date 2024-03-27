@@ -1,0 +1,63 @@
+.ra-search-expand-icon {
+    animation-name: collapse-rotate;
+    animation-duration: 0.2s;
+    transform: rotate(180deg);
+}
+
+.ra-search-expanded {
+    animation-name: expand-rotate;
+    animation-duration: 0.2s;
+    transform: rotate(0deg);
+}
+
+.ra-search-expand-button {
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    margin: 0.5em;
+}
+
+@keyframes expand-rotate {
+    from { transform: rotate(180deg); }
+    to { transform: rotate(0deg); }
+}
+
+@keyframes collapse-rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(180deg); }
+}
+
+.ra-search-panel-sub-container {
+    display: flex;
+    gap: 2em;
+    align-items: center;
+}
+
+.ra-search-panel-container {
+    margin: 0.5em;
+}
+
+.ra-search-panel-options-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.ra-search-panel-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+    align-items: center;
+}
+
+:host ::ng-deep .mat-form-field-infix {
+    display: flex;
+    width: 5em;
+}
+
+:host ::ng-deep .ra-rsv-prd-option .mat-form-field-infix {
+    display: flex;
+    width: 9em;
+}
+

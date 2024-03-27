@@ -37,6 +37,11 @@ import { DialogOverlayComponent } from './utils/draggable-dialog/components/dial
 import { NgCaptureComponent } from './components/ng-capture/ng-capture.component';
 import { NgxCaptureModule } from 'ngx-capture';
 import { SpringTestPageComponent } from './components/spring-test-page/spring-test-page.component';
+import { ReserveAllocationComponent } from './components/reserve-allocation/reserve-allocation.component';
+import { AutocompleteInputDirective } from './directives/autocomplete-input.directive';
+import { AutocompleteInputComponent } from './utils/autocomplete-input/autocomplete-input.component';
+import { AutocompleteInputDemoComponent } from './utils/autocomplete-input/demo/autocomplete-input-demo/autocomplete-input-demo.component';
+import { RaSearchPanelComponent } from './components/reserve-allocation/components/ra-search-panel/ra-search-panel.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +74,12 @@ import { SpringTestPageComponent } from './components/spring-test-page/spring-te
     DialogFrameComponent,
     DialogOverlayComponent,
     NgCaptureComponent,
-    SpringTestPageComponent
+    SpringTestPageComponent,
+    ReserveAllocationComponent,
+    AutocompleteInputDirective,
+    AutocompleteInputComponent,
+    AutocompleteInputDemoComponent,
+    RaSearchPanelComponent
   ],
   imports: [
     BrowserModule,

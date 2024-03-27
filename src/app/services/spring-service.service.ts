@@ -24,5 +24,15 @@ export class SpringService {
     //   })
     // );
   }
+  
+  getWebsocketHello(): Observable<string> {
+    const url = 'ws://localhost:8080/websocketHello';
+    const ws = new WebSocket(url);
+    return new Observable<string>(observer => {
+      ws.onmessage = (msg) => observer.next(msg.data);
+      ws.onerror = (error) => observer.error(error);
+      return () => ws.close();
+    });
+  }
 
 }

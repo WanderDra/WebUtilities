@@ -20,6 +20,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSortModule } from '@angular/material/sort';
 import { FullscreenOverlayContainer, OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
     MatDialogModule,
     MatSortModule,
     OverlayModule,
+    MatAutocompleteModule,
     ClipboardModule
   ]
 })

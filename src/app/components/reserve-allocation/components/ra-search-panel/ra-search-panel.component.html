@@ -1,0 +1,99 @@
+<div class="ra-search-expand-button" (click)="onRaSearchExpandClick()">
+    Search
+    <mat-icon 
+        class="ra-search-expand-icon"
+        [ngClass]="{'ra-search-expanded': isSearchExpanded}">
+        expand_more
+    </mat-icon>
+</div>
+<!-- Search panel -->
+<div [hidden]="!isSearchExpanded" class="ra-search-panel-container">
+    <mat-card>
+        <form [formGroup]="searchCriteriaForm" class="ra-search-panel-sub-container" (submit)="onSearchCriteriaSubmit()">
+            <div class="ra-search-panel-options-container">
+                <div class="ra-search-panel-form">
+                    <!-- Bid Month -->
+                    <mat-form-field>
+                        <mat-label>Bid Month</mat-label>
+                        <input matInput 
+                            placeholder="MMMDD"
+                            [matDatepicker]="bidMonthPicker" 
+                            [min]="searchCriteriaConfigs$.value.minBidMonth"
+                            [formControlName]="controlNames.BID_MONTH" 
+                            (click)="[bidMonthPicker.open(), selectAllText($event)]">
+                        <!-- <mat-datepicker-toggle matIconSuffix [for]="bidMonthPicker"></mat-datepicker-toggle> -->
+                        <mat-datepicker #bidMonthPicker></mat-datepicker>
+                    </mat-form-field><!-- Bid Month -->
+                    <!-- Base -->
+                    <crew-nav-autocomplete-input
+                        [forFormGroup]="searchCriteriaForm"
+                        [inputControlName]="controlNames.BASE"
+                        [options]="searchCriteriaConfigs$.value.baseOptions"
+                        label="Base">
+                    </crew-nav-autocomplete-input><!-- Base -->
+                    <!-- Equipment -->
+                    <crew-nav-autocomplete-input
+                        [forFormGroup]="searchCriteriaForm"
+                        [inputControlName]="controlNames.EQUIPMENT"
+                        [options]="searchCriteriaConfigs$.value.equipmentOptions"
+                        label="Equipment">
+                    </crew-nav-autocomplete-input><!-- Equipment -->
+                    <!-- Seat -->
+                    <crew-nav-autocomplete-input
+                        [forFormGroup]="searchCriteriaForm"
+                        [inputControlName]="controlNames.SEAT"
+                        [options]="searchCriteriaConfigs$.value.seatOptions"
+                        label="Seat">
+                    </crew-nav-autocomplete-input><!-- Seat -->
+                    <!-- View As -->
+                    <crew-nav-autocomplete-input
+                        *ngIf="searchCriteriaConfigs$.value.userType === userType.ADMIN"
+                        [forFormGroup]="searchCriteriaForm"
+                        [inputControlName]="controlNames.VIEW_AS"
+                        [options]="searchCriteriaConfigs$.value.viewAsOptions"
+                        [optionValueMap]="viewAsOptionMap"
+                        (onSelect)="onViewAsSelect($event)"
+                        label="View As">
+                    </crew-nav-autocomplete-input><!-- View As -->
+                    <!-- RSV Period -->
+                    <crew-nav-autocomplete-input
+                        class="ra-rsv-prd-option"
+                        [forFormGroup]="searchCriteriaForm"
+                        [inputControlName]="controlNames.RSV_PRD"
+                        [options]="searchCriteriaConfigs$.value.rsvPrdOptions"
+                        label="RSV PRD">
+                    </crew-nav-autocomplete-input><!-- RSV Period -->
+                    <!-- SIBA -->
+                    <crew-nav-autocomplete-input
+                        [forFormGroup]="searchCriteriaForm"
+                        [inputControlName]="controlNames.SIBA"
+                        [options]="searchCriteriaConfigs$.value.sibaOptions"
+                        label="SIBA">
+                    </crew-nav-autocomplete-input><!-- SIBA -->
+                </div>
+                <div class="ra-search-panel-form" 
+                    *ngIf="searchCriteriaConfigs$.value.userType === userType.ADMIN && isViewAsAdmin$.value">
+                    <!-- Open Time -->
+                    <mat-checkbox color="primary" [formControlName]="controlNames.OPEN_TIME_CHECK">
+                        Open Time
+                    </mat-checkbox> <!-- Open Time -->
+                    <!-- Open Time Standbys -->
+                    <mat-checkbox color="primary" [formControlName]="controlNames.OPEN_TIME_STANDBYS_CHECK">
+                        Open Time Standbys
+                    </mat-checkbox> <!-- Open Time Standbys -->
+                    <!-- Projected Open Time -->
+                    <mat-checkbox color="primary" [formControlName]="controlNames.PROJECTED_OPEN_TIME_CHECK">
+                        Projected Open Time
+                    </mat-checkbox> <!-- Projected Open Time -->
+                    <!-- Forecast -->
+                    <mat-checkbox color="primary" [formControlName]="controlNames.FORECAST_CHECK">
+                        Forecast
+                    </mat-checkbox> <!-- Forecast -->
+                </div>
+            </div>
+            <button mat-flat-button type="submit" color="primary">
+                SUBMIT
+            </button>
+        </form>
+    </mat-card>
+</div><!-- Search panel -->
