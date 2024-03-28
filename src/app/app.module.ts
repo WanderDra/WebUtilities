@@ -42,6 +42,7 @@ import { AutocompleteInputDirective } from './directives/autocomplete-input.dire
 import { AutocompleteInputComponent } from './utils/autocomplete-input/autocomplete-input.component';
 import { AutocompleteInputDemoComponent } from './utils/autocomplete-input/demo/autocomplete-input-demo/autocomplete-input-demo.component';
 import { RaSearchPanelComponent } from './components/reserve-allocation/components/ra-search-panel/ra-search-panel.component';
+import { RaReportHeaderComponent } from './components/reserve-allocation/components/ra-report-header/ra-report-header.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { RaSearchPanelComponent } from './components/reserve-allocation/componen
     AutocompleteInputDirective,
     AutocompleteInputComponent,
     AutocompleteInputDemoComponent,
-    RaSearchPanelComponent
+    RaSearchPanelComponent,
+    RaReportHeaderComponent
   ],
   imports: [
     BrowserModule,

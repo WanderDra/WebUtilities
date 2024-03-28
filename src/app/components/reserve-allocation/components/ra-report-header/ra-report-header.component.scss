@@ -1,0 +1,55 @@
+@import "../../ra-styles.scss";
+
+.ra-header-title {
+    font-weight: 500;
+    margin-bottom: 0.1em;
+    font-size: larger;
+}
+
+.ra-header-basic-info {
+    font-size: large;
+}
+
+.ra-header-update-time {
+    font-size: small;
+}
+
+.ra-header-warn-txt {
+    color: $warn-color;
+}
+
+.ra-header-pilot-info {
+    margin-top: 2em;
+}
+
+.ra-header-subtitle {
+}
+
+.ra-header-container {
+    margin: 2em;
+    margin-top: 0;
+}
+
+.ra-header-summary-line {
+    color: $fedex-blue;
+    font-size: large;
+    font-weight: 500;
+    margin-top: 0.3em;
+}
+
+.ra-header-additional-line {
+    margin-top: 2em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6em;
+    div {
+        display: flex;
+        align-items: center;
+    }
+}
+
+.ra-header-additional-line-excluded-icon {
+    width: 1.8em;
+    height: 1.8em;
+    margin-right: 0.4em;
+}

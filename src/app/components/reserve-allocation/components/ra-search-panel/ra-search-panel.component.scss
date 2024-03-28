@@ -1,13 +1,15 @@
+@import "../../ra-styles.scss";
+
 .ra-search-expand-icon {
     animation-name: collapse-rotate;
     animation-duration: 0.2s;
-    transform: rotate(180deg);
+    transform: rotate(0deg);
 }
 
 .ra-search-expanded {
     animation-name: expand-rotate;
     animation-duration: 0.2s;
-    transform: rotate(0deg);
+    transform: rotate(180deg);
 }
 
 .ra-search-expand-button {
@@ -17,16 +19,17 @@
     display: flex;
     align-items: center;
     margin: 0.5em;
+    color: $primary-color;
 }
 
 @keyframes expand-rotate {
-    from { transform: rotate(180deg); }
-    to { transform: rotate(0deg); }
+    from { transform: rotate(0deg); }
+    to { transform: rotate(180deg); }
 }
 
 @keyframes collapse-rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(180deg); }
+    from { transform: rotate(180deg); }
+    to { transform: rotate(0deg); }
 }
 
 .ra-search-panel-sub-container {
@@ -37,6 +40,8 @@
 
 .ra-search-panel-container {
     margin: 0.5em;
+    margin-top: 0;
+    margin-bottom: 2em;
 }
 
 .ra-search-panel-options-container {
@@ -49,6 +54,19 @@
     flex-wrap: wrap;
     gap: 1em;
     align-items: center;
+}
+
+.ra-search-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.5em;
+    margin-bottom: 0;
+}
+
+.ra-tools-container {
+    display: flex;
+    gap: 2em;
 }
 
 :host ::ng-deep .mat-form-field-infix {

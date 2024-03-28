@@ -1,0 +1,19 @@
+.ra-no-data-container {
+    display: flex;
+    justify-content: center;
+    margin: 1em;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+}
+
+.ra-page-loading {
+    color: red;
+}
+
+.ra-center {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    vertical-align: middle;
+}

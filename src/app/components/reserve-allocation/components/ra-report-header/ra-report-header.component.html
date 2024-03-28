@@ -1,0 +1,31 @@
+<div class="ra-header-container">
+    <h3 class="ra-header-title">Reserve Allocation Summary</h3>
+    <div class="ra-header-subtitle">
+        <span class="ra-header-basic-info">
+            {{ uiParams.bidMonthDisplay }} {{ uiParams.base + uiParams.equipment }} {{ uiParams.seat + ',' }}
+        </span>
+        <span *ngIf="uiParams.rsvPrd" class="ra-header-basic-info ra-header-warn-txt">
+            {{ uiParams.rsvPrd + ','}}
+        </span>
+        <span *ngIf="uiParams.siba" class="ra-header-basic-info ra-header-warn-txt">
+            {{ uiParams.siba + ',' }}
+        </span>
+        <span class="ra-header-update-time">
+            updated {{ uiParams.updateTime }}
+        </span>
+    </div>
+    <div class="ra-header-pilot-info" *ngIf="uiParams.userType === raUserType.PILOT">
+        {{ uiParams.pilotInfo.pilotId }} - {{ uiParams.pilotInfo.firstName + ', ' + uiParams.pilotInfo.lastName }} 
+        ({{ uiParams.pilotInfo.base + uiParams.pilotInfo.equipment + ' ' + uiParams.pilotInfo.seat }})
+    </div>
+    <div class="ra-header-summary-line" *ngIf="uiParams.userType === raUserType.ADMIN">
+        Uncovered Requirements: {{ uiParams.uncoveredTripsAmount }} Trips, {{ uiParams.uncoveredTripsDays }} Days
+    </div>
+    <div class="ra-header-additional-line" *ngIf="uiParams.userType === raUserType.ADMIN">
+        <div *ngIf="uiParams.includedChecks">Included: {{ uiParams.includedChecks }}</div>
+        <div *ngIf="uiParams.excludedChecks">
+            <mat-icon svgIcon="error" color="warn" class="ra-header-additional-line-excluded-icon"></mat-icon>
+            Excluded: {{ uiParams.excludedChecks }}
+        </div>
+    </div>
+</div>

@@ -1,2 +1,26 @@
-<crew-nav-ra-search-panel>
-</crew-nav-ra-search-panel>
+<ng-container *ngIf="!isPageInitiating else pageInitiating">
+    <crew-nav-ra-search-panel
+        [config]="searchCriteriaConfigs$"
+        (onSubmit)="onRaSearchSubmit($event)">
+    </crew-nav-ra-search-panel>
+    <div *ngIf="raData$.value else noRAData">
+        <crew-nav-ra-report-header
+            [zulu]="isZulu"
+            [raData]="raData$">
+        </crew-nav-ra-report-header>
+    </div>
+</ng-container>
+
+
+<ng-template #noRAData>
+    <div class="ra-no-data-container">
+        <mat-spinner *ngIf="isRADataLoading" color="primary" diameter="30" strokeWidth="5"></mat-spinner>
+    </div>
+</ng-template>
+
+<ng-template #pageInitiating>
+    <div class="ra-no-data-container ra-center">
+        <mat-spinner color="primary" diameter="30" strokeWidth="5"></mat-spinner>
+        <mat-label class="ra-page-loading">{{ loadingError ? loadingError : 'Loading...' }}</mat-label>
+    </div>
+</ng-template>

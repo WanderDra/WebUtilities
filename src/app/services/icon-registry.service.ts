@@ -38,5 +38,13 @@ export class IconRegistryService {
       'texting',
       this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/texting_logo.svg')
     );
+    this.matIconRegistry.addSvgIcon(
+      'info',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/info_FILL0_wght400_GRAD0_opsz24.svg')
+    );
+    this.matIconRegistry.addSvgIcon(
+      'error',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/svg/error_FILL0_wght400_GRAD0_opsz24.svg')
+    );
   }
 }

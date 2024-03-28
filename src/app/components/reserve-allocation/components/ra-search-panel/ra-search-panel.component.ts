@@ -5,9 +5,10 @@ import { Moment } from 'moment';
 import { RA_DATE_FORMAT, RAUserType } from '../../constants/ra-general-constants';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { SearchCriteriaConfigs, SearchCriteriaControls, SearchCriteriaForm } from './ra-model';
+import { SearchCriteriaControls } from './ra-search-panel.model';
 import { RA_BASES_TEST, RA_EQ_TEST, RA_SEAT_TEST, RA_RSV_PRD_TEST, RA_SIBA_TEST, RA_VIEW_AS_TEST } from '../../constants/ra-test-constants';
 import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
+import { ISearchCriteriaConfigs, ISearchCriteriaForm } from './ra-search-panel.interfaces';
 
 @Component({
   selector: 'crew-nav-ra-search-panel',
@@ -20,16 +21,16 @@ import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
 })
 export class RaSearchPanelComponent implements OnInit, OnDestroy {
 
-  @Input('config') searchCriteriaConfigs$: BehaviorSubject<SearchCriteriaConfigs>; 
+  @Input('config') searchCriteriaConfigs$: BehaviorSubject<ISearchCriteriaConfigs>; 
 
-  @Output('onSubmit') searchSubmitEvent = new EventEmitter<FormGroup>();
+  @Output('onSubmit') searchSubmitEvent = new EventEmitter<ISearchCriteriaForm>();
 
   isSearchExpanded: boolean = true;
   isViewAsAdmin$ = new BehaviorSubject<boolean>(false);
 
   searchCriteriaForm: FormGroup;
 
-  optionsCache: SearchCriteriaForm;
+  optionsCache: ISearchCriteriaForm;
 
   selectAllText = (event: MouseEvent) => (event.target as HTMLInputElement).select();
   controlNames = SearchCriteriaControls;
@@ -42,7 +43,6 @@ export class RaSearchPanelComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.initSearchCriteriaConfigs();
     const searchConfigSub = this.searchCriteriaConfigs$.subscribe(
       config => {
         this.initForm(config);
@@ -55,7 +55,7 @@ export class RaSearchPanelComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  initForm(config: SearchCriteriaConfigs): void {
+  initForm(config: ISearchCriteriaConfigs): void {
     this.searchCriteriaForm = this.fb.group({
       [this.controlNames.BID_MONTH]: [moment().utc().toISOString(), [Validators.required]],
       [this.controlNames.BASE]: ['', Validators.required],
@@ -98,31 +98,13 @@ export class RaSearchPanelComponent implements OnInit, OnDestroy {
     this.subscriptions.add(searchCriteriaUpdateSub);
   }
 
-  // Test
-  initSearchCriteriaConfigs(): void {
-    if (this.searchCriteriaConfigs$) {
-      return;
-    }
-    const searchCriteriaConfigs = new SearchCriteriaConfigs();
-    searchCriteriaConfigs.baseOptions = RA_BASES_TEST;
-    searchCriteriaConfigs.minBidMonth = moment().utc().toISOString();
-    searchCriteriaConfigs.equipmentOptions = RA_EQ_TEST;
-    searchCriteriaConfigs.seatOptions = RA_SEAT_TEST;
-    searchCriteriaConfigs.rsvPrdOptions = RA_RSV_PRD_TEST;
-    searchCriteriaConfigs.sibaOptions = RA_SIBA_TEST;
-    searchCriteriaConfigs.userType = RAUserType.ADMIN;
-    searchCriteriaConfigs.viewAsOptions = RA_VIEW_AS_TEST
-    
-    this.searchCriteriaConfigs$ = new BehaviorSubject(searchCriteriaConfigs);
-  }
-
   onRaSearchExpandClick(): void {
     this.isSearchExpanded = !this.isSearchExpanded;
   }
 
   onSearchCriteriaSubmit(): void {
     if (this.checkSearchFormValidation(this.searchCriteriaForm)) {
-      this.searchSubmitEvent.emit(this.searchCriteriaForm);
+      this.searchSubmitEvent.emit(this.searchCriteriaForm.value);
       console.log(this.searchCriteriaForm);
     }
   }

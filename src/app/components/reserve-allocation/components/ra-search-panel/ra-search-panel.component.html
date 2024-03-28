@@ -1,10 +1,24 @@
-<div class="ra-search-expand-button" (click)="onRaSearchExpandClick()">
-    Search
-    <mat-icon 
-        class="ra-search-expand-icon"
-        [ngClass]="{'ra-search-expanded': isSearchExpanded}">
-        expand_more
-    </mat-icon>
+<div class="ra-search-panel-header">
+    <!-- Search expand button -->
+    <div>
+        <div class="ra-search-expand-button" (click)="onRaSearchExpandClick()">
+            SEARCH
+            <mat-icon 
+                class="ra-search-expand-icon"
+                [ngClass]="{'ra-search-expanded': isSearchExpanded}">
+                expand_more
+            </mat-icon>
+        </div>
+    </div><!-- Search expand button -->
+    <!-- Tools -->
+    <div class="ra-tools-container">
+        <button mat-icon-button color="primary">
+            <mat-icon>link</mat-icon>
+        </button>
+        <button mat-icon-button color="primary">
+            <mat-icon>print</mat-icon>
+        </button>
+    </div><!-- Tools -->
 </div>
 <!-- Search panel -->
 <div [hidden]="!isSearchExpanded" class="ra-search-panel-container">
