@@ -5,7 +5,7 @@ import { Moment } from 'moment';
 import { RA_DATE_FORMAT, RAUserType } from '../../constants/ra-general-constants';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { SearchCriteriaControls } from './ra-search-panel.model';
+import { SearchCriteriaControls, ViewAsOption } from './ra-search-panel.model';
 import { RA_BASES_TEST, RA_EQ_TEST, RA_SEAT_TEST, RA_RSV_PRD_TEST, RA_SIBA_TEST, RA_VIEW_AS_TEST } from '../../constants/ra-test-constants';
 import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
 import { ISearchCriteriaConfigs, ISearchCriteriaForm } from './ra-search-panel.interfaces';
@@ -134,9 +134,9 @@ export class RaSearchPanelComponent implements OnInit, OnDestroy {
 
   viewAsOptionMap = (option) => {
     switch (option) {
-      case RA_VIEW_AS_TEST[0]:
+      case ViewAsOption.ADMIN:
         return this.userType.ADMIN;
-      case RA_VIEW_AS_TEST[1]:
+      case ViewAsOption.PILOT:
         return this.userType.PILOT;
       default:
         return this.userType.PILOT;

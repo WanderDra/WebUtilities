@@ -43,6 +43,7 @@ import { AutocompleteInputComponent } from './utils/autocomplete-input/autocompl
 import { AutocompleteInputDemoComponent } from './utils/autocomplete-input/demo/autocomplete-input-demo/autocomplete-input-demo.component';
 import { RaSearchPanelComponent } from './components/reserve-allocation/components/ra-search-panel/ra-search-panel.component';
 import { RaReportHeaderComponent } from './components/reserve-allocation/components/ra-report-header/ra-report-header.component';
+import { RaForecastCoverageChartComponent } from './components/reserve-allocation/components/ra-forecast-coverage-chart/ra-forecast-coverage-chart.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import { RaReportHeaderComponent } from './components/reserve-allocation/compone
     AutocompleteInputComponent,
     AutocompleteInputDemoComponent,
     RaSearchPanelComponent,
-    RaReportHeaderComponent
+    RaReportHeaderComponent,
+    RaForecastCoverageChartComponent
   ],
   imports: [
     BrowserModule,

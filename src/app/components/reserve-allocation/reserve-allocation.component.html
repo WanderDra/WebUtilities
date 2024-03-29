@@ -1,14 +1,21 @@
 <ng-container *ngIf="!isPageInitiating else pageInitiating">
+    <!-- Search -->
     <crew-nav-ra-search-panel
         [config]="searchCriteriaConfigs$"
         (onSubmit)="onRaSearchSubmit($event)">
-    </crew-nav-ra-search-panel>
+    </crew-nav-ra-search-panel><!-- Search -->
+    <!-- Content -->
     <div *ngIf="raData$.value else noRAData">
+        <!-- Report header -->
         <crew-nav-ra-report-header
             [zulu]="isZulu"
             [raData]="raData$">
-        </crew-nav-ra-report-header>
-    </div>
+        </crew-nav-ra-report-header><!-- Report header -->
+        <!-- Forecast coverage -->
+        <crew-nav-ra-forecast-coverage-chart
+            [raData]="raData$">
+        </crew-nav-ra-forecast-coverage-chart><!-- Forecast coverage -->
+    </div><!-- Content -->
 </ng-container>
 
 

@@ -3,6 +3,7 @@ import { RAUserType } from "./constants/ra-general-constants";
 
 export class RAData {
     searchCriteria: ISearchCriteriaForm;
+    userType: RAUserType;
     currentPilot: PilotInfo | null;
     uncoveredTripsAmount: number;
     uncoveredTripsDays: number;

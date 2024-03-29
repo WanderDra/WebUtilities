@@ -37,16 +37,17 @@ export class ReserveAllocationComponent implements OnInit, OnDestroy {
 
   initData(): void {
     this.isPageInitiating = true;
-    forkJoin(
-      [this.getSearchCriteriaConfigs()]
-    ).pipe(retry(3)).subscribe(results => {
+    const initSub = forkJoin([
+      this.getSearchCriteriaConfigs()
+    ]).pipe(retry(3)).subscribe(results => {
       const configs: ISearchCriteriaConfigs = results[0].searchConfigs;
       this.initSearchCriteriaConfig(configs);
       this.isPageInitiating = false;
     }, error => {
       this.loadingError = error;
       console.error(error);
-    })
+    });
+    this.subscriptions.add(initSub);
   }
 
   // WIP
@@ -75,6 +76,7 @@ export class ReserveAllocationComponent implements OnInit, OnDestroy {
         data.currentPilot = response.pilotInfo;
         data.uncoveredTripsAmount = response.uncoveredTripsAmount;
         data.uncoveredTripsDays = response.uncoveredTripsDays;
+        data.userType = this.userType;
         this.raData$.next(data);
         this.isRADataLoading = false;
       },

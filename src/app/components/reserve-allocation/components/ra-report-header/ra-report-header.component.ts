@@ -77,18 +77,13 @@ export class RaReportHeaderComponent implements OnInit, OnDestroy {
       case ViewAsOption.PILOT:
         return RAUserType.PILOT;
       default:
-        return null;
+        return RAUserType.PILOT;
     }
   }
 
   getIncludedAndExcludedChecks(searchCriteria: ISearchCriteriaForm): {included: string, excluded: string} {
     let included: string[] = [];
     let excluded: string[] = [];
-    if (searchCriteria.is_forecast) {
-      included.push('Forecast');
-    } else {
-      excluded.push('Forecast');
-    }
     if (searchCriteria.is_open_time) {
       included.push('Open Time');
     } else {
@@ -103,6 +98,11 @@ export class RaReportHeaderComponent implements OnInit, OnDestroy {
       included.push('Projected Open Time');
     } else {
       excluded.push('Projected Open Time');
+    }
+    if (searchCriteria.is_forecast) {
+      included.push('Forecast');
+    } else {
+      excluded.push('Forecast');
     }
     return {
       included: included.join(', '),

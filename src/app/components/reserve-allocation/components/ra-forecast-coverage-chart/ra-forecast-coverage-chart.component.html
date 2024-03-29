@@ -1,0 +1,60 @@
+<div class="ra-forecast-container" *ngIf="raData$.value">
+    <mat-divider></mat-divider>
+    <div class="ra-forecast-title">Forecast Reserve Coverage</div>
+    <!-- Legend -->
+    <ng-container [ngSwitch]="uiParams$.value.chartUserType">
+        <!-- Admin -->
+        <ng-container *ngSwitchCase="raUserType.ADMIN">
+            <div class="ra-forecast-legend-container-admin">
+                <!-- Requirement Count -->
+                <div class="ra-forecast-legend-list">
+                    <div>Requirement Count</div>
+                    <div *ngFor="let legend of uiParams$.value.requirementCountLegends" class="ra-forecast-legend">
+                        <div class="ra-forecast-legend-cell">
+                            <ng-container *ngTemplateOutlet="cell; context: {cellObj: legend}">
+                            </ng-container>
+                        </div>
+                        <div class="ra-forecast-legend-discription">{{ legend.discription }}</div>
+                    </div>
+                </div><!-- Requirement Count -->
+                <!-- Coverage Differences -->
+                <div class="ra-forecast-legend-list">
+                    <div>Coverage Differences</div>
+                    <div *ngFor="let legend of uiParams$.value.coverageDifferencesLegends" class="ra-forecast-legend">
+                        <div class="ra-forecast-legend-cell">
+                            <ng-container *ngTemplateOutlet="cell; context: {cellObj: legend}">
+                            </ng-container>
+                        </div>
+                        <div class="ra-forecast-legend-discription">{{ legend.discription }}</div>
+                    </div>
+                </div><!-- Coverage Differences -->
+            </div>
+        </ng-container><!-- Admin -->
+        <!-- Pilot -->
+        <ng-container *ngSwitchCase="raUserType.PILOT">
+            <div class="ra-forecast-legend-container-pilot">
+                <div *ngFor="let legend of uiParams$.value.pilotLegends" class="ra-forecast-legend">
+                    <div class="ra-forecast-legend-cell">
+                        <ng-container *ngTemplateOutlet="cell; context: {cellObj: legend}">
+                        </ng-container>
+                    </div>
+                    <div class="ra-forecast-legend-discription">{{ legend.discription }}</div>
+                </div>
+            </div>
+        </ng-container><!-- Pilot -->
+    </ng-container>
+    <!-- Legend -->
+    <!-- Chart -->
+    
+    <!-- Chart -->
+</div>
+
+<!-- Cell -->
+<ng-template #cell
+    let-cellObj="cellObj">
+    <div [ngClass]="[cellObj.cellClass, cellObj.cellContentClass]">
+        <div *ngIf="!cellObj.hideContent">
+            {{ cellObj.cellContent }}
+        </div>
+    </div>
+</ng-template><!-- Cell -->
