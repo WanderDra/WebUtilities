@@ -26,7 +26,8 @@ export class RaAPIService {
         pilotId: '123456'
       },
       uncoveredTripsAmount: 6,
-      uncoveredTripsDays: 7
+      uncoveredTripsDays: 7,
+      forecastCoverage: []
     }).pipe(delay(this.TEST_DELAY))
   }
 

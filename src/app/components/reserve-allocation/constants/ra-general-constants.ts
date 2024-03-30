@@ -24,3 +24,5 @@ export enum RAForecastCellType {
   ONLY_FORECAST,
   NO_FORECAST_REQUIREMENT
 }
+
+export const RA_MAX_TRIP_LENGTH = 17;

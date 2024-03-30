@@ -1,3 +1,4 @@
+import { MatTableDataSource } from "@angular/material/table";
 import { RAForecastCellType, RAUserType } from "../../constants/ra-general-constants";
 import { IRACellConfig } from "./ra-forecast-coverage-chart.interfaces";
 
@@ -63,9 +64,18 @@ export class RAForecastChartCell {
     }
   }
 
-  export class RAForecastCoverageChartUIParam {
-    chartUserType: RAUserType;
-    requirementCountLegends: RAForecastChartCell[];
-    coverageDifferencesLegends: RAForecastChartCell[];
-    pilotLegends: RAForecastChartCell[];
+export class RAForecastCoverageChartUIParam {
+  chartUserType: RAUserType;
+  requirementCountLegends: RAForecastChartCell[];
+  coverageDifferencesLegends: RAForecastChartCell[];
+  pilotLegends: RAForecastChartCell[];
+  fcChartData: MatTableDataSource<ForecastCoverageUIData>;
+  fcChartHeaderColumns: string[];
+  fcChartDateHeaderColumns: string[];
+  fcChartCellColumns: string[]
+}
+
+export class ForecastCoverageUIData {
+  date: string;
+  tripDateCells: RAForecastChartCell[];
 }

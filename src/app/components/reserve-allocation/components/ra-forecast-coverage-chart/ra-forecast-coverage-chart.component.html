@@ -45,14 +45,66 @@
     </ng-container>
     <!-- Legend -->
     <!-- Chart -->
-    
-    <!-- Chart -->
+    <div class="ra-forecast-coverage-chart-container">
+        <table mat-table [dataSource]="uiParams$.value.fcChartData" [trackBy]="fcChartTrackBy" class="ra-forecast-coverage-table">
+            <!-- Date -->
+            <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef [attr.rowspan]="2">
+                    <div class="ra-forecast-coverage-chart-date-header">
+                        <span>Date</span> 
+                        <span style="font-style: italic;"># Reqs<br>Cvg Dif</span>
+                    </div> 
+                </th>
+                <td mat-cell *matCellDef="let element; let i = index"
+                    class="ra-fc-date-col"
+                    [attr.rowspan]="4" 
+                    [style.display]="i % 4 === 0 ? '' : 'none'">
+                    {{ element.date }}
+                </td>
+            </ng-container><!-- Date -->
+            <!-- RSV PRD -->
+            <ng-container matColumnDef="rsvPrd">
+                <th mat-header-cell *matHeaderCellDef [attr.rowspan]="2">
+                    <span>RSV<br>PRD</span> 
+                </th>
+                <td mat-cell *matCellDef="let element; let i = index" 
+                    [attr.rowspan]="2" 
+                    [style.display]="i % 2 === 0 ? '' : 'none'">
+                    {{ i % 4 === 0 ? 'RA' : '' }}
+                    {{ i % 4 === 2 ? 'RB' : '' }}
+                </td>
+            </ng-container><!-- RSV PRD -->
+            <!-- Count Header -->
+            <ng-container matColumnDef="tripLengthHeader">
+                <th mat-header-cell *matHeaderCellDef [attr.colspan]="raData$.value.maxTripLength">
+                    Count, grouped by Trip Length (in days)
+                </th>
+                <td mat-cell *matCellDef="let element"> </td>
+            </ng-container><!-- Count Header -->
+            <!-- RSV PRD -->
+            <ng-container *ngFor="let e of [].constructor(raData$.value.maxTripLength + 1); let i = index" 
+                [matColumnDef]="'count' + i">
+                <th mat-header-cell *matHeaderCellDef class="ra-fc-count-cell-header">
+                    {{ i }}
+                </th>
+                <td mat-cell *matCellDef="let element" class="ra-fc-count-cell-content">
+                    <div class="ra-fc-count-cell-container">
+                        <ng-container *ngTemplateOutlet="cell; context: {cellObj: element.tripDateCells[i]}">
+                        </ng-container>
+                    </div>
+                </td>
+            </ng-container><!-- RSV PRD -->
+            <tr mat-header-row *matHeaderRowDef="uiParams$.value.fcChartHeaderColumns"></tr>
+            <tr mat-header-row *matHeaderRowDef="uiParams$.value.fcChartDateHeaderColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: uiParams$.value.fcChartCellColumns;"></tr>
+        </table>
+    </div><!-- Chart -->
 </div>
 
 <!-- Cell -->
 <ng-template #cell
     let-cellObj="cellObj">
-    <div [ngClass]="[cellObj.cellClass, cellObj.cellContentClass]">
+    <div *ngIf="cellObj" [ngClass]="[cellObj.cellClass, cellObj.cellContentClass]">
         <div *ngIf="!cellObj.hideContent">
             {{ cellObj.cellContent }}
         </div>

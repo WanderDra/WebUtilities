@@ -4,6 +4,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 import { RAForecastCellType, RAUserType } from '../../constants/ra-general-constants';
 import { RAForecastChartCell, RAForecastCoverageChartUIParam } from './ra-forecast-coverage-chart.model';
 import { ViewAsOption } from '../ra-search-panel/ra-search-panel.model';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'crew-nav-ra-forecast-coverage-chart',
@@ -46,6 +47,8 @@ export class RaForecastCoverageChartComponent implements OnInit, OnDestroy {
     const uiInitData = new RAForecastCoverageChartUIParam();
     this.initLegends(uiInitData);
     uiInitData.chartUserType = this.getChartUserType(raData);
+    uiInitData.fcChartData = new MatTableDataSource(raData.forecastCoverageUIData);
+    this.initChartColumn(uiInitData, raData);
     this.uiParams$.next(uiInitData);
   }
 
@@ -98,6 +101,30 @@ export class RaForecastCoverageChartComponent implements OnInit, OnDestroy {
       hideContent: true
     }));
     uiParams.pilotLegends = pilotLegends;
+  }
+
+  initChartColumn(uiData: RAForecastCoverageChartUIParam, raData: RAData): void{ 
+    const initHeaderColumn = [
+      'date',
+      'rsvPrd',
+      'tripLengthHeader'
+    ]
+    const initTripDateColumn = []
+    for (let i = 1; i <= raData.maxTripLength; ++i) {
+      initTripDateColumn.push('count' + i);
+    }
+    const initCellColumns = [
+      'date',
+      'rsvPrd',
+      ...initTripDateColumn
+    ]
+    uiData.fcChartHeaderColumns = initHeaderColumn;
+    uiData.fcChartDateHeaderColumns = initTripDateColumn;
+    uiData.fcChartCellColumns = initCellColumns;
+  }
+
+  fcChartTrackBy = () => {
+
   }
 
   getChartUserType(raData: RAData): RAUserType {
