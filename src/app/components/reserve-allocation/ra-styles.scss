@@ -6,3 +6,45 @@ $forecast-short: #E53935;
 $forecast-equal: #F7B118;
 $forecast-exceed: #6FA86F;
 $forecast-open-time: #B4E6F9;
+
+$forecast-trip: #FAE4D6;
+$projected-opentime: #F0DDE7;
+
+.ra-cell-content-forecast {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ra-cell-forecast-exceed {
+    background-color: $forecast-exceed;
+    font-weight: bold;
+}
+
+.ra-cell-forecast-equal {
+    background-color: $forecast-equal;
+}
+
+.ra-cell-forecast-short {
+    background-color: $forecast-short;
+    font-weight: bold;
+    color: white;
+}
+
+.ra-cell-open-time-count-included {
+    background-image: repeating-linear-gradient(340deg, $forecast-open-time 0%, $forecast-open-time 12.5%, rgba(white, 0) 0%, rgba(white, 0) 25%);
+}
+
+.ra-cell-open-time-count-over-forecast {
+    background-color: $forecast-open-time;
+}
+
+.ra-cell-only-forecast {
+    
+}
+
+.ra-no-forecast-requirement {
+
+}

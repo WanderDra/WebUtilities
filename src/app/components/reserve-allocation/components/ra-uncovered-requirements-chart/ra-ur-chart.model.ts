@@ -1,8 +1,10 @@
 import { MatTableDataSource } from "@angular/material/table";
-import { IRACellConfig } from "../../interfaces/ra-config.interfaces";
+import { RATypeOfRequirement } from "../../constants/ra-general-constants";
+import { RAForecastChartCell } from "../../models/ra-forecast-cell";
 
 export class RAURChartUIParam {
-    urChartData: MatTableDataSource<URChartRecord>;
+    urChartData: MatTableDataSource<URChartRecordUI>;
+    urChartHeaderColumns: string[];
 }
 
 export class URChartRecord {
@@ -11,5 +13,14 @@ export class URChartRecord {
     days: number;
     rsvPrd: string;
     typeOfRequirement: string;
-    cvg: IRACellConfig;
+    cvg: RAForecastChartCell;
+}
+
+export class URChartRecordUI extends URChartRecord {
+    constructor(urChartRecord: URChartRecord) {
+        super();
+        Object.assign(this, urChartRecord);
+    }
+    typeOfRequirementType: RATypeOfRequirement;
+    cellClass: string[];
 }

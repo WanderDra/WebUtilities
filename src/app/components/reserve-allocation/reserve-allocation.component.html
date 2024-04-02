@@ -16,9 +16,14 @@
             <crew-nav-ra-forecast-coverage-chart
                 [raData]="raData$">
             </crew-nav-ra-forecast-coverage-chart><!-- Forecast coverage -->
-            <crew-nav-ra-uncovered-requirements-chart>
+            <crew-nav-ra-uncovered-requirements-chart 
+                *ngIf="displayUserType$.value === raUserType.ADMIN"
+                class="ra-sticky"
+                [raData]="raData$">
             </crew-nav-ra-uncovered-requirements-chart>
         </div>
+        <crew-nav-ra-reserve-pilot-calendar>
+        </crew-nav-ra-reserve-pilot-calendar>
     </div><!-- Content -->
 </ng-container>
 

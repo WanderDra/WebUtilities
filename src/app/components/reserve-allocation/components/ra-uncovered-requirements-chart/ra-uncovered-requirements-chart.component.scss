@@ -1,3 +1,5 @@
+@import '../../ra-styles.scss';
+
 .ra-ur-container {
     display: flex;
     flex-direction: column;
@@ -10,4 +12,54 @@
     font-size: large;
     font-weight: 500;
     margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.ra-ur-cvg-cell-container {
+    height: 2em;
+    width: 2em;
+}
+
+.ra-ur-cvg-cell {
+    padding: 0 !important;
+}
+
+.ra-ur-table-container {
+    overflow-y: auto;
+}
+
+.ra-ur-table {
+    border-collapse: separate;
+    border: 2px solid rgba($color: #000000, $alpha: 0.12);
+    th {
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+        border-right: 1.5px solid rgba($color: #000000, $alpha: 0.12);
+        border-bottom: 3px solid rgba($color: #000000, $alpha: 0.12);
+        text-align: center;
+    }
+    th:last-child {
+        border-right: 0;
+    }
+    tr {
+        height: 1.8em;
+    }
+    td {
+        text-align: center;
+        border-right: 1.5px solid rgba($color: #000000, $alpha: 0.12);
+        padding-right: 0.5em;
+        padding-left: 0.5em;
+    }
+}
+
+.ra-ur-opentime {
+    background-color: $forecast-open-time;
+}
+
+.ra-ur-forecast-trip {
+    background-color: $forecast-trip;
+}
+
+.ra-ur-projected-opentime {
+    background-color: $projected-opentime;
 }

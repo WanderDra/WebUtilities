@@ -26,3 +26,9 @@ export enum RAForecastCellType {
 }
 
 export const RA_MAX_TRIP_LENGTH = 17;
+
+export enum RATypeOfRequirement {
+  OPEN_TIME,
+  PROJECTED_OPEN_TIME,
+  FORECAST_TRIP
+}

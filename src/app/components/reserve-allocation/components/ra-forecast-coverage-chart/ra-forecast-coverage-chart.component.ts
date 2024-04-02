@@ -1,11 +1,11 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { RAData } from '../../reserve-allocation.model';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { RAForecastCellType, RAUserType } from '../../constants/ra-general-constants';
 import { RAForecastCoverageChartUIParam } from './ra-fc-chart.model';
 import { ViewAsOption } from '../ra-search-panel/ra-search-panel.model';
 import { MatTableDataSource } from '@angular/material/table';
 import { RAForecastChartCell } from '../../models/ra-forecast-cell';
+import { RAData } from '../../models/ra-data';
 
 @Component({
   selector: 'crew-nav-ra-forecast-coverage-chart',
@@ -18,7 +18,7 @@ export class RaForecastCoverageChartComponent implements OnInit, OnDestroy {
 
   raUserType = RAUserType;
 
-  uiParams$ = new BehaviorSubject<RAForecastCoverageChartUIParam | null>(null);
+  readonly uiParams$ = new BehaviorSubject<RAForecastCoverageChartUIParam | null>(null);
 
   subscriptions = new Subscription();
 
@@ -48,7 +48,7 @@ export class RaForecastCoverageChartComponent implements OnInit, OnDestroy {
     const uiInitData = new RAForecastCoverageChartUIParam();
     this.initLegends(uiInitData);
     uiInitData.chartUserType = this.getChartUserType(raData);
-    uiInitData.fcChartData = new MatTableDataSource(raData.forecastCoverageUIData);
+    uiInitData.fcChartData = new MatTableDataSource(raData.forecastCoverageRecords);
     this.initChartColumn(uiInitData, raData);
     this.uiParams$.next(uiInitData);
   }

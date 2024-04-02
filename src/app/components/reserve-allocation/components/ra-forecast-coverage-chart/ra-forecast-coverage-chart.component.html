@@ -95,9 +95,9 @@
                 </td>
             </ng-container><!-- RSV PRD -->
             <tr mat-header-row *matHeaderRowDef="uiParams$.value.fcChartHeaderColumns; sticky: true" 
-                [attr.background-color]="raData$.value.raBackgroundColor"></tr>
+                [attr.background-color]="raData$.value.backgroundColor"></tr>
             <tr mat-header-row *matHeaderRowDef="uiParams$.value.fcChartDateHeaderColumns; sticky: true" 
-                [attr.background-color]="raData$.value.raBackgroundColor"></tr>
+                [attr.background-color]="raData$.value.backgroundColor"></tr>
             <tr mat-row *matRowDef="let row; columns: uiParams$.value.fcChartCellColumns;"></tr>
         </table>
     </div><!-- Chart -->

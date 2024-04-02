@@ -27,7 +27,8 @@ export class RaAPIService {
       },
       uncoveredTripsAmount: 6,
       uncoveredTripsDays: 7,
-      forecastCoverage: []
+      forecastCoverage: [],
+      uncoveredRequirements: []
     }).pipe(delay(this.TEST_DELAY))
   }
 

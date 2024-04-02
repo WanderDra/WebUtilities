@@ -1,12 +1,12 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import * as moment from 'moment';
-import { RAData } from '../../reserve-allocation.model';
 import { RA_RSV_PRD_TEST, RA_SIBA_TEST } from '../../constants/ra-test-constants';
 import { RAUserType } from '../../constants/ra-general-constants';
 import { RAReportHeaderUIParams } from './ra-report-header.model';
 import { ViewAsOption } from '../ra-search-panel/ra-search-panel.model';
 import { ISearchCriteriaForm } from '../ra-search-panel/ra-search-panel.interfaces';
+import { RAData } from '../../models/ra-data';
 
 @Component({
   selector: 'crew-nav-ra-report-header',

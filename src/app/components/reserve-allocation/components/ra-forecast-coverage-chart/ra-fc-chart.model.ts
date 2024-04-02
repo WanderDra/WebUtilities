@@ -7,13 +7,13 @@ export class RAForecastCoverageChartUIParam {
   requirementCountLegends: RAForecastChartCell[];
   coverageDifferencesLegends: RAForecastChartCell[];
   pilotLegends: RAForecastChartCell[];
-  fcChartData: MatTableDataSource<ForecastCoverageUIData>;
+  fcChartData: MatTableDataSource<FCChartRecord>;
   fcChartHeaderColumns: string[];
   fcChartDateHeaderColumns: string[];
   fcChartCellColumns: string[]
 }
 
-export class ForecastCoverageUIData {
+export class FCChartRecord {
   date: string;
   tripDateCells: RAForecastChartCell[];
 }
