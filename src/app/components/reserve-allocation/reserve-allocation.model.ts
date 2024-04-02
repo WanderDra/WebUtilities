@@ -1,4 +1,4 @@
-import { ForecastCoverageUIData } from "./components/ra-forecast-coverage-chart/ra-forecast-coverage-chart.model";
+import { ForecastCoverageUIData } from "./components/ra-forecast-coverage-chart/ra-fc-chart.model";
 import { ISearchCriteriaForm } from "./components/ra-search-panel/ra-search-panel.interfaces";
 import { RAUserType } from "./constants/ra-general-constants";
 
@@ -10,6 +10,7 @@ export class RAData {
     uncoveredTripsDays: number;
     forecastCoverageUIData: ForecastCoverageUIData[];
     maxTripLength: number;
+    raBackgroundColor: string;
 }
 
 export class PilotInfo {

@@ -49,7 +49,7 @@
         <table mat-table [dataSource]="uiParams$.value.fcChartData" [trackBy]="fcChartTrackBy" class="ra-forecast-coverage-table">
             <!-- Date -->
             <ng-container matColumnDef="date">
-                <th mat-header-cell *matHeaderCellDef [attr.rowspan]="2">
+                <th mat-header-cell *matHeaderCellDef [attr.rowspan]="2" class="ra-forecast-table-header">
                     <div class="ra-forecast-coverage-chart-date-header">
                         <span>Date</span> 
                         <span style="font-style: italic;"># Reqs<br>Cvg Dif</span>
@@ -64,7 +64,7 @@
             </ng-container><!-- Date -->
             <!-- RSV PRD -->
             <ng-container matColumnDef="rsvPrd">
-                <th mat-header-cell *matHeaderCellDef [attr.rowspan]="2">
+                <th mat-header-cell *matHeaderCellDef [attr.rowspan]="2" class="ra-forecast-table-header">
                     <span>RSV<br>PRD</span> 
                 </th>
                 <td mat-cell *matCellDef="let element; let i = index" 
@@ -84,7 +84,7 @@
             <!-- RSV PRD -->
             <ng-container *ngFor="let e of [].constructor(raData$.value.maxTripLength + 1); let i = index" 
                 [matColumnDef]="'count' + i">
-                <th mat-header-cell *matHeaderCellDef class="ra-fc-count-cell-header">
+                <th mat-header-cell *matHeaderCellDef class="ra-fc-count-cell-header ra-forecast-table-header">
                     {{ i }}
                 </th>
                 <td mat-cell *matCellDef="let element" class="ra-fc-count-cell-content">
@@ -94,8 +94,10 @@
                     </div>
                 </td>
             </ng-container><!-- RSV PRD -->
-            <tr mat-header-row *matHeaderRowDef="uiParams$.value.fcChartHeaderColumns"></tr>
-            <tr mat-header-row *matHeaderRowDef="uiParams$.value.fcChartDateHeaderColumns"></tr>
+            <tr mat-header-row *matHeaderRowDef="uiParams$.value.fcChartHeaderColumns; sticky: true" 
+                [attr.background-color]="raData$.value.raBackgroundColor"></tr>
+            <tr mat-header-row *matHeaderRowDef="uiParams$.value.fcChartDateHeaderColumns; sticky: true" 
+                [attr.background-color]="raData$.value.raBackgroundColor"></tr>
             <tr mat-row *matRowDef="let row; columns: uiParams$.value.fcChartCellColumns;"></tr>
         </table>
     </div><!-- Chart -->

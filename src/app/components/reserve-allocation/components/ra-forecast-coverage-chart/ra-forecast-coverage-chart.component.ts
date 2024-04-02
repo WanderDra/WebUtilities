@@ -2,9 +2,10 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { RAData } from '../../reserve-allocation.model';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { RAForecastCellType, RAUserType } from '../../constants/ra-general-constants';
-import { RAForecastChartCell, RAForecastCoverageChartUIParam } from './ra-forecast-coverage-chart.model';
+import { RAForecastCoverageChartUIParam } from './ra-fc-chart.model';
 import { ViewAsOption } from '../ra-search-panel/ra-search-panel.model';
 import { MatTableDataSource } from '@angular/material/table';
+import { RAForecastChartCell } from '../../models/ra-forecast-cell';
 
 @Component({
   selector: 'crew-nav-ra-forecast-coverage-chart',

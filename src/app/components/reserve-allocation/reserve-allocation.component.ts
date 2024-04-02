@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { RAData } from './reserve-allocation.model';
 import { BehaviorSubject, forkJoin, Observable, Subscription } from 'rxjs';
 import { ISearchCriteriaConfigs, ISearchCriteriaForm } from './components/ra-search-panel/ra-search-panel.interfaces';
@@ -6,9 +6,10 @@ import { RaAPIService } from './services/ra-api.service';
 import { RA_MAX_TRIP_LENGTH, RAForecastCellType, RAUserType } from './constants/ra-general-constants';
 import { retry } from 'rxjs/operators';
 import { ForecastCoverageData } from './models/ra-forecast-coverage';
-import { ForecastCoverageUIData, RAForecastChartCell } from './components/ra-forecast-coverage-chart/ra-forecast-coverage-chart.model';
+import { ForecastCoverageUIData, RAForecastChartCell } from './components/ra-forecast-coverage-chart/ra-fc-chart.model';
 import * as moment from 'moment';
 import { IRACellConfig } from './components/ra-forecast-coverage-chart/ra-forecast-coverage-chart.interfaces';
+import { IRAConfig } from './interfaces/ra-config.interfaces';
 
 @Component({
   selector: 'crew-nav-reserve-allocation',
@@ -16,6 +17,8 @@ import { IRACellConfig } from './components/ra-forecast-coverage-chart/ra-foreca
   styleUrls: ['./reserve-allocation.component.scss']
 })
 export class ReserveAllocationComponent implements OnInit, OnDestroy {
+
+  @Input('config') raConfig: IRAConfig
 
   readonly raData$ = new BehaviorSubject<RAData | null>(null);
   readonly searchCriteriaConfigs$ = new BehaviorSubject<ISearchCriteriaConfigs>(null);
@@ -83,6 +86,7 @@ export class ReserveAllocationComponent implements OnInit, OnDestroy {
         data.userType = this.userType;
         data.forecastCoverageUIData = this.generateForecastCoverageUIData(response.forecastCoverage);
         data.maxTripLength = RA_MAX_TRIP_LENGTH;
+        data.raBackgroundColor = this.raConfig?.backgroundColor ?? 'white';
         this.raData$.next(data);
         this.isRADataLoading = false;
       },
@@ -104,7 +108,7 @@ export class ReserveAllocationComponent implements OnInit, OnDestroy {
     const uiData: ForecastCoverageUIData[] = [];
     // Test
     let dateCounter = 0;
-    for (let i = 0; i < 16; i++) {
+    for (let i = 0; i < 60; i++) {
       const testData = new ForecastCoverageUIData();
       testData.date = moment().add(dateCounter, 'day').utc().format('DDMMM');
       if (i % 4 === 0) {

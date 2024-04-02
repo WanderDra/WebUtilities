@@ -12,9 +12,13 @@
             [raData]="raData$">
         </crew-nav-ra-report-header><!-- Report header -->
         <!-- Forecast coverage -->
-        <crew-nav-ra-forecast-coverage-chart
-            [raData]="raData$">
-        </crew-nav-ra-forecast-coverage-chart><!-- Forecast coverage -->
+        <div class="ra-chart-container">
+            <crew-nav-ra-forecast-coverage-chart
+                [raData]="raData$">
+            </crew-nav-ra-forecast-coverage-chart><!-- Forecast coverage -->
+            <crew-nav-ra-uncovered-requirements-chart>
+            </crew-nav-ra-uncovered-requirements-chart>
+        </div>
     </div><!-- Content -->
 </ng-container>
 

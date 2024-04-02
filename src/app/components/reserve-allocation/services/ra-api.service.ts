@@ -10,7 +10,7 @@ import { RAUserType } from '../constants/ra-general-constants';
 })
 export class RaAPIService {
 
-  readonly TEST_DELAY = 1000;
+  readonly TEST_DELAY = 0;
 
   constructor() { }
 

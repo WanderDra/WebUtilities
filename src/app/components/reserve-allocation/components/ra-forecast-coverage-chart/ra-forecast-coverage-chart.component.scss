@@ -100,30 +100,39 @@ $cell-height: 2em;
 }
 
 .ra-forecast-coverage-table {
-    border-collapse: collapse;
-    background-color: rgba($color: #000000, $alpha: 0);
+    border-collapse: separate;
     border: 2px solid rgba($color: #000000, $alpha: 0.12);
     th {
         padding-left: 0.5em;
         padding-right: 0.5em;
-        border-right: 1px solid rgba($color: #000000, $alpha: 0.12);
+        border-right: 1.5px solid rgba($color: #000000, $alpha: 0.12);
+    }
+    th:last-child {
+        border-right: 0;
     }
     tr {
         height: $cell-height;
     }
     td {
-        border-right: 1px solid rgba($color: #000000, $alpha: 0.12);
+        border-right: 1.5px solid rgba($color: #000000, $alpha: 0.12);
+        border-bottom: 1.5px solid rgba($color: #000000, $alpha: 0.12);
         text-align: center;
     }
     tr:nth-child(8n + 1) {
-        border-top: 2px solid rgba(#000000, 0.12);
+        td {
+            border-top: 1.5px solid rgba(#000000, 0.12);
+        }
     }
     tr:nth-child(8n + 4) {
-        border-bottom: 2px solid rgba(#000000, 0.12);
+        td {
+            border-bottom: 1.5px solid rgba(#000000, 0.12);
+        }
     }
     tr:nth-child(8n + 5) {
+        td {
+            border-top: 1.5px solid rgba(#000000, 0.12);
+        }
         background-color: rgba(#000000, 0.05);
-        border-top: 2px solid rgba(#000000, 0.12);
     }
     tr:nth-child(8n + 6) {
         background-color: rgba(#000000, 0.05);
@@ -133,7 +142,9 @@ $cell-height: 2em;
     }
     tr:nth-child(8n + 8) {
         background-color: rgba(#000000, 0.05);
-        border-bottom: 2px solid rgba(#000000, 0.12);
+        td {
+            border-bottom: 1.5px solid rgba(#000000, 0.12);
+        }
     }
     .ra-fc-date-col {
         padding-left: 0;
@@ -143,6 +154,7 @@ $cell-height: 2em;
 .ra-fc-count-cell-header {
     width: 1.5em;
     text-align: center;
+    top: $cell-height + $cell-height * 0.325 !important;
 }
 
 .ra-fc-count-cell-content {
@@ -159,4 +171,8 @@ $cell-height: 2em;
 .ra-fc-count-cell-container {
     width: $cell-width + 0.2em;
     height: $cell-height + 0.2em;
+}
+
+.ra-forecast-table-header {
+    border-bottom: 3px solid rgba(black, 0.12);
 }
