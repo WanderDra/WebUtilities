@@ -18,6 +18,7 @@ import { MatDatepicker } from '@angular/material/datepicker';
   providers: [
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]},
     {provide: MAT_DATE_FORMATS, useValue: RA_DATE_FORMAT},
+    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } }
   ]
 })
 export class RaSearchPanelComponent implements OnInit, OnDestroy {
@@ -58,7 +59,7 @@ export class RaSearchPanelComponent implements OnInit, OnDestroy {
 
   initForm(config: ISearchCriteriaConfigs): void {
     this.searchCriteriaForm = this.fb.group({
-      [this.controlNames.BID_MONTH]: [moment().utc().toISOString(), [Validators.required]],
+      [this.controlNames.BID_MONTH]: [moment().utc().startOf('month').toISOString(), [Validators.required]],
       [this.controlNames.BASE]: ['', Validators.required],
       [this.controlNames.EQUIPMENT]: ['', Validators.required],
       [this.controlNames.SEAT]: ['', Validators.required],
@@ -123,7 +124,7 @@ export class RaSearchPanelComponent implements OnInit, OnDestroy {
   }
 
   setMonthAndYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>): void {
-    this.searchCriteriaForm.get(this.controlNames.BID_MONTH).setValue(normalizedMonthAndYear.utc().toISOString())
+    this.searchCriteriaForm.get(this.controlNames.BID_MONTH).setValue(normalizedMonthAndYear.utc().startOf('month').toISOString())
     datepicker.close();
   }
 

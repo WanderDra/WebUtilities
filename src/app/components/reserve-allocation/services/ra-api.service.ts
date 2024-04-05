@@ -37,7 +37,7 @@ export class RaAPIService {
     return of({
       searchConfigs: {
         baseOptions: RA_BASES_TEST,
-        minBidMonth: moment().startOf('month').utc().toISOString(),
+        minBidMonth: moment().utc().startOf('month').toISOString(),
         equipmentOptions: RA_EQ_TEST,
         seatOptions: RA_SEAT_TEST,
         rsvPrdOptions: RA_RSV_PRD_TEST,
