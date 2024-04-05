@@ -38,6 +38,7 @@
 .ra-rpc-table {
     border-collapse: separate;
     border: 2px solid rgba($color: #000000, $alpha: 0.25);
+    border-left: 0;
     th {
         width: 4em;
         height: 2em;
@@ -110,4 +111,9 @@
 
 :host ::ng-deep .mat-sort-header-container {
     justify-content: center;
+}
+
+.ra-rpc-sticky-column {
+    z-index: 200 !important;
+    border-left: 2px solid rgba(#000000, 0.25);
 }

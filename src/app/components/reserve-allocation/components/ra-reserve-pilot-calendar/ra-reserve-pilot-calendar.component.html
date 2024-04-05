@@ -21,11 +21,11 @@
                 [trackBy]="rpcChartTrackBy" 
                 class="ra-rpc-table">
                 <!-- Pilot -->
-                <ng-container matColumnDef="pilot">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                <ng-container matColumnDef="pilot" [sticky]="true">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="ra-rpc-sticky-column">
                         Pilot
                     </th>
-                    <td mat-cell *matCellDef="let element">
+                    <td mat-cell *matCellDef="let element" class="ra-rpc-sticky-column">
                         {{ element.pilotId }}
                     </td>
                 </ng-container><!-- Pilot -->

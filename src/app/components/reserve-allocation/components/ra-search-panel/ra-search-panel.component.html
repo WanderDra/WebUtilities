@@ -30,13 +30,16 @@
                     <mat-form-field>
                         <mat-label>Bid Month</mat-label>
                         <input matInput 
-                            placeholder="MMMDD"
+                            placeholder="MMMYY"
                             [matDatepicker]="bidMonthPicker" 
                             [min]="searchCriteriaConfigs$.value.minBidMonth"
                             [formControlName]="controlNames.BID_MONTH" 
                             (click)="[bidMonthPicker.open(), selectAllText($event)]">
                         <!-- <mat-datepicker-toggle matIconSuffix [for]="bidMonthPicker"></mat-datepicker-toggle> -->
-                        <mat-datepicker #bidMonthPicker></mat-datepicker>
+                        <mat-datepicker #bidMonthPicker
+                            startView="multi-year"
+                            (monthSelected)="setMonthAndYear($event, bidMonthPicker)"
+                        ></mat-datepicker>
                     </mat-form-field><!-- Bid Month -->
                     <!-- Base -->
                     <crew-nav-autocomplete-input

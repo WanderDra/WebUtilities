@@ -5,13 +5,13 @@ export enum RAUserType {
 
 export const RA_DATE_FORMAT = {
     parse: {
-      dateInput: 'MMMDD',
+      dateInput: 'MMMYY',
     },
     display: {
-      dateInput: 'MMMDD',
-      monthYearLabel: 'MMMDD',
-      dateA11yLabel: 'MMMDD',
-      monthYearA11yLabel: 'MMMDD',
+      dateInput: 'MMMYY',
+      monthYearLabel: 'MMMYY',
+      dateA11yLabel: 'MMMYY',
+      monthYearA11yLabel: 'MMMYY',
     },
 };
 

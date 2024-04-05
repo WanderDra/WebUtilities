@@ -9,6 +9,7 @@ import { SearchCriteriaControls, ViewAsOption } from './ra-search-panel.model';
 import { RA_BASES_TEST, RA_EQ_TEST, RA_SEAT_TEST, RA_RSV_PRD_TEST, RA_SIBA_TEST, RA_VIEW_AS_TEST } from '../../constants/ra-test-constants';
 import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
 import { ISearchCriteriaConfigs, ISearchCriteriaForm } from './ra-search-panel.interfaces';
+import { MatDatepicker } from '@angular/material/datepicker';
 
 @Component({
   selector: 'crew-nav-ra-search-panel',
@@ -119,6 +120,11 @@ export class RaSearchPanelComponent implements OnInit, OnDestroy {
         this.isViewAsAdmin$.next(false);
       });
     }
+  }
+
+  setMonthAndYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>): void {
+    this.searchCriteriaForm.get(this.controlNames.BID_MONTH).setValue(normalizedMonthAndYear.utc().toISOString())
+    datepicker.close();
   }
 
   checkSearchFormValidation(searchForm: FormGroup): boolean {

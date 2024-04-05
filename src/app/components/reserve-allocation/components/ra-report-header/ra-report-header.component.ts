@@ -53,7 +53,7 @@ export class RaReportHeaderComponent implements OnInit, OnDestroy {
     this.uiParams.equipment = raData.searchCriteria.equipment;
     this.uiParams.seat = raData.searchCriteria.seat;
     this.uiParams.bidMonth = raData.searchCriteria.bid_month;
-    this.uiParams.bidMonthDisplay = moment(this.uiParams.bidMonth).utc().format('MMMDD');
+    this.uiParams.bidMonthDisplay = moment(this.uiParams.bidMonth).utc().format('MMMYY');
     if (this.isZulu) {
       this.uiParams.updateTime = moment().utc().format('DDMMMYY HH:mm[Z]');
     } else {
