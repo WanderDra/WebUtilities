@@ -2,17 +2,19 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, forkJoin, Observable, Subscription } from 'rxjs';
 import { ISearchCriteriaConfigs, ISearchCriteriaForm } from './components/ra-search-panel/ra-search-panel.interfaces';
 import { RaAPIService } from './services/ra-api.service';
-import { RA_MAX_TRIP_LENGTH, RAForecastCellType, RAUserType } from './constants/ra-general-constants';
+import { RA_MAX_TRIP_LENGTH, RACellType, RAUserType } from './constants/ra-general-constants';
 import { retry } from 'rxjs/operators';
 import { ForecastCoverageData } from './models/ra-forecast-coverage';
 import { FCChartRecord } from './components/ra-forecast-coverage-chart/ra-fc-chart.model';
 import * as moment from 'moment';
 import { IRACellConfig, IRAConfig } from './interfaces/ra-config.interfaces';
-import { RAForecastChartCell } from './models/ra-forecast-cell';
+import { RAChartCell } from './models/ra-forecast-cell';
 import { ViewAsOption } from './components/ra-search-panel/ra-search-panel.model';
 import { RAData } from './models/ra-data';
 import { UncoveredRequirementsData } from './models/ra-uncovered-requirements';
 import { URChartRecord } from './components/ra-uncovered-requirements-chart/ra-ur-chart.model';
+import { ReservePilotCalendarData } from './models/ra-reserve-pilot-calendar';
+import { RPCChartCell, RPCChartRecord, Trip } from './components/ra-reserve-pilot-calendar/ra-rpc-model';
 
 @Component({
   selector: 'crew-nav-reserve-allocation',
@@ -95,7 +97,11 @@ export class ReserveAllocationComponent implements OnInit, OnDestroy {
         data.uncoveredTripsDays = response.uncoveredTripsDays;
         data.userType = this.userType;
         data.forecastCoverageRecords = this.generateFCChartRecords(response.forecastCoverage);
-        data.uncoveredRequirementsRecords = this.generateURChartRecords(response.uncoveredRequirements)
+        data.uncoveredRequirementsRecords = this.generateURChartRecords(response.uncoveredRequirements);
+        data.reservePilotCalendarRecords = this.generateRPCChartRecords(response.reservePilotCalendar);
+        data.rpcBidMonthEndDates = this.generateBidMonthEndDates();
+        data.rpcStartDate = moment().add(-10, 'day').toISOString();
+        data.rpcEndDate = moment().add(30, 'day').toISOString();
         data.maxTripLength = RA_MAX_TRIP_LENGTH;
         data.backgroundColor = this.raConfig?.backgroundColor ?? 'white';
         this.raData$.next(data);
@@ -125,25 +131,25 @@ export class ReserveAllocationComponent implements OnInit, OnDestroy {
       if (i % 4 === 0) {
         ++dateCounter;
       }
-      const testCells: RAForecastChartCell[] = [];
-      const testCells2: RAForecastChartCell[] = [];
+      const testCells: RAChartCell[] = [];
+      const testCells2: RAChartCell[] = [];
       for (let j = 0; j < i; j++) {
         testCells.push(null)
       }
       for (let k = 14 - i; k >= 0; k--) {
         testCells2.push(null);
       }
-      Object.values(RAForecastCellType).forEach((value, i) => {
-        if (i < 6) {
+      Object.values(RACellType).forEach((value, i) => {
+        if (i < 12 || i > 18) {
           return
         }
         const testCellConfig: IRACellConfig = {
-          cellType: value as RAForecastCellType,
+          cellType: value as RACellType,
           cellContent: 'X',
-          hideContent: value == RAForecastCellType.FORECAST_EQUAL
+          hideContent: value == RACellType.FORECAST_EQUAL
         }
-        testCells.push(new RAForecastChartCell(testCellConfig));
-        testCells2.push(new RAForecastChartCell(testCellConfig));
+        testCells.push(new RAChartCell(testCellConfig));
+        testCells2.push(new RAChartCell(testCellConfig));
       });
       testData.tripDateCells = [
         ...testCells
@@ -167,13 +173,74 @@ export class ReserveAllocationComponent implements OnInit, OnDestroy {
       testRecord.typeOfRequirement = 'Projected Open Time';
       testRecord.rsvPrd = 'RA';
       const testCVG: IRACellConfig = {
-        cellType: RAForecastCellType.FORECAST_SHORT,
+        cellType: RACellType.FORECAST_SHORT,
         cellContent: '-2'
       }
-      testRecord.cvg = new RAForecastChartCell(testCVG);
+      testRecord.cvg = new RAChartCell(testCVG);
       urChartRecord.push(testRecord);
     }
     return urChartRecord;
+  }
+
+  generateRPCChartRecords(rpcData: ReservePilotCalendarData): RPCChartRecord[] {
+    const rpcRecords: RPCChartRecord[] = [];
+    for (let i = 0; i < 20; ++i) {
+      const testRecord = new RPCChartRecord();
+      testRecord.pilotId = '00000' + i;
+      testRecord.cells = [];
+      for (let d = 0; d < 40; ++d) {
+        const emptyDay = new RPCChartCell();
+        const emptyCell = new RAChartCell({
+          cellType: RACellType.NO_TRIP_ASSIGNMENT,
+          cellContent: ''
+        });
+        emptyDay.cell = emptyCell;
+        const trip = new Trip();
+        trip.length = (d + i) % 5;
+        trip.tripNbr = '' + i;
+        trip.tripType = 'RA';
+        emptyDay.trip = trip;
+        
+        const openTripDay = new RPCChartCell(); 
+        const openTimeTripCell = new RAChartCell({
+          cellType: RACellType.OPENTIME_TRIP,
+          cellContent: trip.tripNbr
+        });
+        openTripDay.cell = openTimeTripCell;
+        openTripDay.trip = trip;
+
+        const projectedOpenTripDay = new RPCChartCell();
+        const projectedOpenTripCell = new RAChartCell({
+          cellType: RACellType.PROJECTED_OPEN_TRIP,
+          cellContent: 'RA'
+        });
+        projectedOpenTripDay.cell = projectedOpenTripCell;
+        projectedOpenTripDay.trip = trip;
+
+        if (d % 3 === 0) {
+          testRecord.cells.push(openTripDay);
+        } else if (d % 3 === 1) {
+          testRecord.cells.push(projectedOpenTripDay);
+        } else {
+          testRecord.cells.push(emptyDay);
+        }
+      }
+      rpcRecords.push(testRecord);
+    }
+    return rpcRecords;
+  }
+
+  generateBidMonthEndDates(): string[] {
+    const bidMonthEndDates: string[] = [];
+
+    const testEndDate = this.setBidMonthEndDate('20240331');
+    bidMonthEndDates.push(testEndDate);
+
+    return bidMonthEndDates;
+  }
+
+  setBidMonthEndDate(endDate: string): string {
+    return moment(endDate).utc().startOf('day').toISOString();
   }
 
   getUserTypeFromViewAs(viewAs: string): RAUserType {

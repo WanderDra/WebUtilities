@@ -1,10 +1,10 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { RAForecastCellType, RAUserType } from '../../constants/ra-general-constants';
+import { RACellType, RAUserType } from '../../constants/ra-general-constants';
 import { RAForecastCoverageChartUIParam } from './ra-fc-chart.model';
 import { ViewAsOption } from '../ra-search-panel/ra-search-panel.model';
 import { MatTableDataSource } from '@angular/material/table';
-import { RAForecastChartCell } from '../../models/ra-forecast-cell';
+import { RAChartCell } from '../../models/ra-forecast-cell';
 import { RAData } from '../../models/ra-data';
 
 @Component({
@@ -55,50 +55,50 @@ export class RaForecastCoverageChartComponent implements OnInit, OnDestroy {
 
   initLegends(uiParams: RAForecastCoverageChartUIParam): void {
     // Admin
-    const rcLegends: RAForecastChartCell[] = [];
-    rcLegends.push(new RAForecastChartCell({
-      cellType: RAForecastCellType.ONLY_FORECAST,
+    const rcLegends: RAChartCell[] = [];
+    rcLegends.push(new RAChartCell({
+      cellType: RACellType.ONLY_FORECAST,
       cellContent: '#'
     }));
-    rcLegends.push(new RAForecastChartCell({
-      cellType: RAForecastCellType.OPENTIME_COUNT_INCLUDED,
+    rcLegends.push(new RAChartCell({
+      cellType: RACellType.OPENTIME_COUNT_INCLUDED,
       hideContent: true
     }));
-    rcLegends.push(new RAForecastChartCell({
-      cellType: RAForecastCellType.OPENTIME_COUNT_OVER_FORECAST,
+    rcLegends.push(new RAChartCell({
+      cellType: RACellType.OPENTIME_COUNT_OVER_FORECAST,
       hideContent: true
     }));
     uiParams.requirementCountLegends = rcLegends;
-    const cdLegends: RAForecastChartCell[] = [];
-    cdLegends.push(new RAForecastChartCell({
-      cellType: RAForecastCellType.FORECAST_EXCEED,
+    const cdLegends: RAChartCell[] = [];
+    cdLegends.push(new RAChartCell({
+      cellType: RACellType.FORECAST_EXCEED,
       hideContent: true
     }));
-    cdLegends.push(new RAForecastChartCell({
-      cellType: RAForecastCellType.FORECAST_EQUAL,
+    cdLegends.push(new RAChartCell({
+      cellType: RACellType.FORECAST_EQUAL,
       hideContent: true
     }));
-    cdLegends.push(new RAForecastChartCell({
-      cellType: RAForecastCellType.FORECAST_SHORT,
+    cdLegends.push(new RAChartCell({
+      cellType: RACellType.FORECAST_SHORT,
       hideContent: true
     }));
     uiParams.coverageDifferencesLegends = cdLegends;
     // Pilot
-    const pilotLegends: RAForecastChartCell[] = [];
-    pilotLegends.push(new RAForecastChartCell({
-      cellType: RAForecastCellType.NO_FORECAST_REQUIREMENT,
+    const pilotLegends: RAChartCell[] = [];
+    pilotLegends.push(new RAChartCell({
+      cellType: RACellType.NO_FORECAST_REQUIREMENT,
       hideContent: true
     }));
-    pilotLegends.push(new RAForecastChartCell({
-      cellType: RAForecastCellType.FORECAST_EXCEED,
+    pilotLegends.push(new RAChartCell({
+      cellType: RACellType.FORECAST_EXCEED,
       hideContent: true
     }));
-    pilotLegends.push(new RAForecastChartCell({
-      cellType: RAForecastCellType.FORECAST_SHORT,
+    pilotLegends.push(new RAChartCell({
+      cellType: RACellType.FORECAST_SHORT,
       hideContent: true
     }));
-    pilotLegends.push(new RAForecastChartCell({
-      cellType: RAForecastCellType.FORECAST_EQUAL,
+    pilotLegends.push(new RAChartCell({
+      cellType: RACellType.FORECAST_EQUAL,
       hideContent: true
     }));
     uiParams.pilotLegends = pilotLegends;

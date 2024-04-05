@@ -1,4 +1,4 @@
-<ng-container *ngIf="!isPageInitiating else pageInitiating">
+<div *ngIf="!isPageInitiating else pageInitiating">
     <!-- Search -->
     <crew-nav-ra-search-panel
         [config]="searchCriteriaConfigs$"
@@ -22,10 +22,12 @@
                 [raData]="raData$">
             </crew-nav-ra-uncovered-requirements-chart>
         </div>
-        <crew-nav-ra-reserve-pilot-calendar>
+        <crew-nav-ra-reserve-pilot-calendar
+            *ngIf="displayUserType$.value === raUserType.ADMIN"
+            [raData]="raData$">
         </crew-nav-ra-reserve-pilot-calendar>
     </div><!-- Content -->
-</ng-container>
+</div>
 
 
 <ng-template #noRAData>

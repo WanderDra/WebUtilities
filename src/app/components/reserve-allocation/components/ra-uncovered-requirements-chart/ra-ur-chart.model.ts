@@ -1,6 +1,6 @@
 import { MatTableDataSource } from "@angular/material/table";
 import { RATypeOfRequirement } from "../../constants/ra-general-constants";
-import { RAForecastChartCell } from "../../models/ra-forecast-cell";
+import { RAChartCell } from "../../models/ra-forecast-cell";
 
 export class RAURChartUIParam {
     urChartData: MatTableDataSource<URChartRecordUI>;
@@ -13,7 +13,7 @@ export class URChartRecord {
     days: number;
     rsvPrd: string;
     typeOfRequirement: string;
-    cvg: RAForecastChartCell;
+    cvg: RAChartCell;
 }
 
 export class URChartRecordUI extends URChartRecord {

@@ -1,3 +1,71 @@
 <div class="ra-rpc-container">
-    
+    <mat-divider></mat-divider>
+    <div class="ra-rpc-title">Reserve Pilot Calendar</div>
+    <!-- Legends -->
+    <div class="ra-rpc-legend-container">
+        <div class="ra-rpc-legend" *ngFor="let legend of uiParams$.value.legends">
+            <div class="ra-rpc-legend-icon">
+                <ng-container *ngTemplateOutlet="cell; context: {cellObj: legend}">
+                </ng-container>
+            </div>
+            <div>
+                {{ legend.discription }}
+            </div>
+        </div>
+    </div><!-- Legends -->
+    <div class="ra-rpc-table-container">
+        <div #rpcTableRef class="ra-rpc-table-ref">
+            <table mat-table 
+                matSort 
+                [dataSource]="uiParams$.value.rpcChartData" 
+                [trackBy]="rpcChartTrackBy" 
+                class="ra-rpc-table">
+                <!-- Pilot -->
+                <ng-container matColumnDef="pilot">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Pilot
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                        {{ element.pilotId }}
+                    </td>
+                </ng-container><!-- Pilot -->
+                <!-- Days -->
+                <ng-container *ngFor="let d of [].constructor(uiParams$.value.dateHeaderArray.length); let i = index" 
+                    [matColumnDef]="'date' + i">
+                    <th mat-header-cell *matHeaderCellDef>
+                        <div class="ra-rpc-header-container">
+                            {{ uiParams$.value.dateHeaderArray[i] | date : 'EEE' : 'UTC'}}<br>
+                            {{ uiParams$.value.dateHeaderArray[i] | date : 'dMMM' : 'UTC'}}
+                            <div *ngIf="uiParams$.value.bidMonthEndDates.includes(uiParams$.value.dateHeaderArray[i])" 
+                                class="ra-rpc-bid-divider" 
+                                [style.height.px]="rpcTableHeight">
+                            </div>
+                        </div>
+
+                    </th>
+                    <td mat-cell *matCellDef="let element" [attr.colspan]="element.cells[i].trip.length" 
+                        [ngClass]="{'ra-rpc-cell-hide': element.cells[i].mergedByPreviousCell}">
+                        <div class="ra-rpc-cell-container">
+                            <ng-container *ngTemplateOutlet="cell; context: {cellObj: element.cells[i].cell}">
+                            </ng-container>
+                        </div>
+                    </td>
+                </ng-container><!-- Days -->
+                <tr mat-header-row *matHeaderRowDef="uiParams$.value.rpcChartColumns; sticky: true" 
+                    [attr.background-color]="raData$.value.backgroundColor"></tr>
+                <tr mat-row *matRowDef="let row; columns: uiParams$.value.rpcChartColumns;"></tr>
+            </table>
+        </div>
+    </div>
 </div>
+
+<!-- Cell -->
+<ng-template #cell
+    let-cellObj="cellObj">
+    <div *ngIf="cellObj" [ngClass]="[cellObj.cellClass, cellObj.cellContentClass]" 
+        style="justify-content: flex-start;">
+        <div *ngIf="!cellObj.hideContent" style="margin-left: 1em;">
+            {{ cellObj.cellContent }}
+        </div>
+    </div>
+</ng-template><!-- Cell -->

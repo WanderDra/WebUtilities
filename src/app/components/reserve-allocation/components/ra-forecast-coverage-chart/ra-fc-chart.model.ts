@@ -1,12 +1,12 @@
 import { MatTableDataSource } from "@angular/material/table";
 import { RAUserType } from "../../constants/ra-general-constants";
-import { RAForecastChartCell } from "../../models/ra-forecast-cell";
+import { RAChartCell } from "../../models/ra-forecast-cell";
 
 export class RAForecastCoverageChartUIParam {
   chartUserType: RAUserType;
-  requirementCountLegends: RAForecastChartCell[];
-  coverageDifferencesLegends: RAForecastChartCell[];
-  pilotLegends: RAForecastChartCell[];
+  requirementCountLegends: RAChartCell[];
+  coverageDifferencesLegends: RAChartCell[];
+  pilotLegends: RAChartCell[];
   fcChartData: MatTableDataSource<FCChartRecord>;
   fcChartHeaderColumns: string[];
   fcChartDateHeaderColumns: string[];
@@ -15,5 +15,5 @@ export class RAForecastCoverageChartUIParam {
 
 export class FCChartRecord {
   date: string;
-  tripDateCells: RAForecastChartCell[];
+  tripDateCells: RAChartCell[];
 }

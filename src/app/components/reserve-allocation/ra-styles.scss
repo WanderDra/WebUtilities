@@ -9,6 +9,8 @@ $forecast-open-time: #B4E6F9;
 
 $forecast-trip: #FAE4D6;
 $projected-opentime: #F0DDE7;
+$assigned-trip: #B7BBE3;
+$pilot-unavailable: #E53935;
 
 .ra-cell-content-forecast {
     width: 100%;
@@ -47,4 +49,28 @@ $projected-opentime: #F0DDE7;
 
 .ra-no-forecast-requirement {
 
+}
+
+.ra-forecast-trip {
+    background-color: $forecast-trip;
+}
+
+.ra-opentime-trip {
+    background-color: $forecast-open-time;
+}
+
+.ra-projected-open-trip {
+    background-color: $projected-opentime;
+}
+
+.ra-assigned-trip {
+    background-color: $assigned-trip;
+}
+
+.ra-no-trip-assignment {
+    
+}
+
+.ra-pilot-unavailable {
+    background-color: $pilot-unavailable;
 }

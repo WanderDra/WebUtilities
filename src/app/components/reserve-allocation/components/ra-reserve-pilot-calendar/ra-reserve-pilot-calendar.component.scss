@@ -1,3 +1,113 @@
+@import '../../ra-styles.scss';
+
 .ra-rpc-container {
-    height: 500px;
+    padding: 1em;
+}
+
+.ra-rpc-title {
+    font-size: large;
+    font-weight: 500;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.ra-rpc-legend-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2em;
+    justify-content: flex-start;
+    margin-left: 2em;
+    margin-right: 2em;
+    margin-bottom: 2em;
+}
+
+.ra-rpc-legend {
+    width: 12em;
+    height: 2em;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.ra-rpc-legend-icon {
+    width: 1.5em;
+    height: 1.5em;
+    border: 2px solid rgba(#000000, 0.12);
+}
+
+.ra-rpc-table {
+    border-collapse: separate;
+    border: 2px solid rgba($color: #000000, $alpha: 0.25);
+    th {
+        width: 4em;
+        height: 2em;
+        min-width: 4em;
+        border-right: 1.5px solid rgba($color: #000000, $alpha: 0.25);
+        border-bottom: 3px solid rgba($color: #000000, $alpha: 0.25);
+        text-align: center;
+    }
+    th:last-child {
+        padding: 0;
+        border-right: 0;
+    }
+    th:first-child {
+        padding: 0;
+    }
+    tr {
+        height: 1.8em;
+    }
+    td {
+        text-align: center;
+        border-right: 1.5px solid rgba($color: #000000, $alpha: 0.25);
+        border-bottom: 1.5px solid rgba($color: #000000, $alpha: 0.25);
+        width: 4em;
+        // min-width: 4em;
+        height: 2em;
+    }
+    td:first-child {
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+    }
+    td:last-child {
+        padding: 0;
+        border-right: 0;
+    }
+}
+
+.ra-rpc-cell-container {
+    width: 100%;
+    height: 100%;
+} 
+
+.ra-rpc-cell-hide {
+    display: none;
+}
+
+.ra-rpc-table-container {
+    width: 60%;
+    overflow-x: auto;
+}
+
+.ra-rpc-header-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.ra-rpc-bid-divider {
+    position: absolute;
+    right: -2px;
+    top: 0;
+    z-index: 100;
+    width: 3px;
+    background-color: rgba(#000000, 0.4);
+}
+
+.ra-rpc-table-ref {
+    padding: 0;
+    margin: 0;
+}
+
+:host ::ng-deep .mat-sort-header-container {
+    justify-content: center;
 }
