@@ -1,0 +1,7 @@
+<mat-card class="ra-popup-container">
+    <ng-content></ng-content>
+    <div class="ra-popup-pointer" [ngClass]="{
+        'ra-popup-pointer-left': pointerSide === 'left',
+        'ra-popup-pointer-right': pointerSide === 'right'
+    }"></div>
+</mat-card>

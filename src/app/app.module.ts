@@ -46,6 +46,8 @@ import { RaReportHeaderComponent } from './components/reserve-allocation/compone
 import { RaForecastCoverageChartComponent } from './components/reserve-allocation/components/ra-forecast-coverage-chart/ra-forecast-coverage-chart.component';
 import { RaUncoveredRequirementsChartComponent } from './components/reserve-allocation/components/ra-uncovered-requirements-chart/ra-uncovered-requirements-chart.component';
 import { RaReservePilotCalendarComponent } from './components/reserve-allocation/components/ra-reserve-pilot-calendar/ra-reserve-pilot-calendar.component';
+import { RaPopupFrameComponent } from './components/reserve-allocation/popups/ra-popup-frame/ra-popup-frame.component';
+import { RaCoverageDetailPopupComponent } from './components/reserve-allocation/popups/ra-coverage-detail-popup/ra-coverage-detail-popup.component';
 
 @NgModule({
   declarations: [
@@ -87,7 +89,9 @@ import { RaReservePilotCalendarComponent } from './components/reserve-allocation
     RaReportHeaderComponent,
     RaForecastCoverageChartComponent,
     RaUncoveredRequirementsChartComponent,
-    RaReservePilotCalendarComponent
+    RaReservePilotCalendarComponent,
+    RaPopupFrameComponent,
+    RaCoverageDetailPopupComponent
   ],
   imports: [
     BrowserModule,

@@ -8,6 +8,8 @@ export class RAChartCell {
     cellContentClass: string = '';
     discription: string = '';
     hideContent: boolean = false;
+    showDetailsPopup: boolean;
+    selectedCell: boolean;
   
     // WIP
     constructor(config: IRACellConfig) {

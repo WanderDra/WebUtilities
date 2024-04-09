@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { RACellType, RAUserType } from '../../constants/ra-general-constants';
 import { RAForecastCoverageChartUIParam } from './ra-fc-chart.model';
@@ -19,6 +19,8 @@ export class RaForecastCoverageChartComponent implements OnInit, OnDestroy {
   raUserType = RAUserType;
 
   readonly uiParams$ = new BehaviorSubject<RAForecastCoverageChartUIParam | null>(null);
+
+  private _previousSelectedCell: RAChartCell | null = null;
 
   subscriptions = new Subscription();
 
@@ -144,6 +146,25 @@ export class RaForecastCoverageChartComponent implements OnInit, OnDestroy {
         return RAUserType.PILOT;
       default:
         return RAUserType.PILOT;
+    }
+  }
+  
+  onCellClick(cell: RAChartCell): void {
+    if (!cell) {
+      return;
+    }
+    if (this.uiParams$.value.chartUserType === this.raUserType.ADMIN) {
+      setTimeout(() => {
+        cell.showDetailsPopup = true;
+        this._previousSelectedCell = cell;
+      });
+    }
+  }
+
+  @HostListener('document:click', ['$event'])
+  public documentClick(event: Event): void {
+    if (this._previousSelectedCell) {
+      this._previousSelectedCell.showDetailsPopup = false;
     }
   }
 }

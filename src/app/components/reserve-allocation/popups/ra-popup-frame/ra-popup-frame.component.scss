@@ -1,0 +1,30 @@
+@import "../../ra-styles.scss";
+
+.ra-popup-container {
+    position: relative;
+    box-shadow: 0px 3px 8px 0px rgba(0, 0, 0, 0.4);
+}
+
+.ra-popup-pointer {
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 16px;
+    z-index: 180;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+}
+
+.ra-popup-pointer-left {
+    left: -20px;
+    border-right: 20px solid $back-ground;
+    -webkit-filter: drop-shadow(-4px 1px 2px rgba(0, 0, 0, 0.2));
+    filter: drop-shadow(-4px 1px 2px rgba(0, 0, 0, 0.2));
+}
+
+.ra-popup-pointer-right {
+    right: -20px;
+    border-left: 20px solid $back-ground;
+    -webkit-filter: drop-shadow(4px 1px 2px rgba(0, 0, 0, 0.2));
+    filter: drop-shadow(4px 1px 2px rgba(0, 0, 0, 0.2));
+}
