@@ -2,19 +2,20 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, forkJoin, Observable, Subscription } from 'rxjs';
 import { ISearchCriteriaConfigs, ISearchCriteriaForm } from './components/ra-search-panel/ra-search-panel.interfaces';
 import { RaAPIService } from './services/ra-api.service';
-import { RA_MAX_TRIP_LENGTH, RACellType, RAUserType } from './constants/ra-general-constants';
+import { RA_MAX_TRIP_LENGTH, RACellType, RATypeOfRequirement, RAUserType } from './constants/ra-general-constants';
 import { retry } from 'rxjs/operators';
 import { ForecastCoverageData } from './models/ra-forecast-coverage';
 import { FCChartRecord } from './components/ra-forecast-coverage-chart/ra-fc-chart.model';
 import * as moment from 'moment';
-import { IRACellConfig, IRAConfig } from './interfaces/ra-config.interfaces';
-import { RAChartCell } from './models/ra-forecast-cell';
+import { IRACellConfig, IRAConfig, IRAForecastCoverageConfig } from './interfaces/ra-config.interfaces';
+import { RAChartCell, RAForecastCoverageCell } from './models/ra-forecast-cell';
 import { ViewAsOption } from './components/ra-search-panel/ra-search-panel.model';
 import { RAData } from './models/ra-data';
 import { UncoveredRequirementsData } from './models/ra-uncovered-requirements';
 import { URChartRecord } from './components/ra-uncovered-requirements-chart/ra-ur-chart.model';
 import { ReservePilotCalendarData } from './models/ra-reserve-pilot-calendar';
 import { RPCChartCell, RPCChartRecord, Trip } from './components/ra-reserve-pilot-calendar/ra-rpc-model';
+import { IRACoverageDetail } from './popups/ra-coverage-detail-popup/ra-cd.interface';
 
 @Component({
   selector: 'crew-nav-reserve-allocation',
@@ -37,6 +38,7 @@ export class ReserveAllocationComponent implements OnInit, OnDestroy {
   
   loadingError: string = '';
   raUserType = RAUserType;
+  raTripType = RATypeOfRequirement;
 
   subscriptions = new Subscription();
 
@@ -131,8 +133,8 @@ export class ReserveAllocationComponent implements OnInit, OnDestroy {
       if (i % 4 === 0) {
         ++dateCounter;
       }
-      const testCells: RAChartCell[] = [];
-      const testCells2: RAChartCell[] = [];
+      const testCells: RAForecastCoverageCell[] = [];
+      const testCells2: RAForecastCoverageCell[] = [];
       for (let j = 0; j < i; j++) {
         testCells.push(null)
       }
@@ -143,13 +145,14 @@ export class ReserveAllocationComponent implements OnInit, OnDestroy {
         if (i < 12 || i > 18) {
           return
         }
-        const testCellConfig: IRACellConfig = {
+        const testCellConfig: IRAForecastCoverageConfig = {
           cellType: value as RACellType,
           cellContent: 'X',
-          hideContent: value == RACellType.FORECAST_EQUAL
+          hideContent: value == RACellType.FORECAST_EQUAL,
+          raCoverageDetail: this.getCoverageDetail()
         }
-        testCells.push(new RAChartCell(testCellConfig));
-        testCells2.push(new RAChartCell(testCellConfig));
+        testCells.push(new RAForecastCoverageCell(testCellConfig));
+        testCells2.push(new RAForecastCoverageCell(testCellConfig));
       });
       testData.tripDateCells = [
         ...testCells
@@ -251,6 +254,58 @@ export class ReserveAllocationComponent implements OnInit, OnDestroy {
         return RAUserType.PILOT;
       default:
         return RAUserType.PILOT;
+    }
+  }
+
+  private getCoverageDetail(): IRACoverageDetail {
+    return {
+      totalTrips: 3,
+      openStandbyTrips: 1,
+      openTimeTrips: 0,
+      projectedTrips: 1,
+      forecast: 1,
+      totalForecast: 3,
+      trips: [
+        {
+          tripName: 'S309',
+          pilot: {
+            pilotId: '87654321',
+            pilotName: 'Smallenburg, Alexander',
+            pilotType: 'RA'
+          },
+          tripType: this.raTripType.OPEN_TIME
+        },
+        {
+          tripName: '1234 (projected)',
+          pilot: {
+            pilotId: '1234678',
+            pilotName: ' Wilson, Brian',
+            pilotType: 'RA'
+          },
+          tripType: this.raTripType.PROJECTED_OPEN_TIME
+        },
+        {
+          tripName: 'S309',
+          pilot: {
+            pilotId: '87654321',
+            pilotName: 'Smallenburg, Alexander',
+            pilotType: 'RA'
+          },
+          tripType: this.raTripType.OPEN_TIME
+        }
+      ],
+      pilots: [
+        {
+          pilotId: '100001',
+          pilotName: 'Davis, Betty',
+          pilotType: 'RA'
+        },
+        {
+          pilotId: '200002',
+          pilotName: 'Jones, Rumpelstilskin ',
+          pilotType: 'R24'
+        }
+      ]
     }
   }
 }

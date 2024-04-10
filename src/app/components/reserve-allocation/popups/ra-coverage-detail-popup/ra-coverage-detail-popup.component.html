@@ -1,1 +1,49 @@
-<p>ra-coverage-detail-popup works!</p>
+<div class="ra-cd-container">
+    <!-- Trip Count Breakdown -->
+    <div class="ra-cd-trip-count-breakdown">
+        <div style="opacity: 0.6; white-space: nowrap;">
+            {{ totalTrips }} Trips:
+        </div>
+        <div style="text-align: left; line-height: 1.5em;">
+            {{ breakdownStr }}
+        </div>
+    </div><!-- Trip Count Breakdown -->
+    <mat-divider></mat-divider>
+    <div class="ra-cd-detail-container">
+        <div class="ra-cd-trips-info">
+            <!-- Trips -->
+            <table class="ra-cd-trips-info-table">
+                <tr>
+                    <td style="opacity: 0.6;">Trip</td>
+                </tr>
+                <tr *ngFor="let trip of trips"
+                    [ngClass]="{
+                        'ra-cd-trip-type-opentime': trip.tripType === raTripType.OPEN_TIME,
+                        'ra-cd-trip-type-projected': trip.tripType === raTripType.PROJECTED_OPEN_TIME,
+                        'ra-cd-trip-type-forecast': trip.tripType === raTripType.FORECAST_TRIP
+                    }">
+                    <td [ngClass]="{
+                        'ra-cd-trip-nbr': trip.tripType === raTripType.OPEN_TIME,
+                        'ra-cd-projected-trip-nbr': trip.tripType === raTripType.PROJECTED_OPEN_TIME
+                    }">
+                        {{ trip.tripName }}
+                    </td>
+                    <td class="ra-cd-pilot-name">
+                        {{ trip.pilot.pilotId + ' - ' + trip.pilot.pilotName }}
+                    </td>
+                </tr><!-- Trips -->
+            <mat-divider></mat-divider>
+            <!-- Excess Pilots -->
+                <tr>
+                    <td style="opacity: 0.6;">
+                        Excess Pilots
+                    </td>
+                </tr>
+                <tr *ngFor="let pilot of pilots">
+                    <td>{{ pilot.pilotType + ' Pilot'}}</td>
+                    <td class="ra-cd-pilot-name">{{ pilot.pilotId + ' - ' + pilot.pilotName }}</td>
+                </tr>
+            </table><!-- Excess Pilots -->
+        </div>
+    </div>
+</div>

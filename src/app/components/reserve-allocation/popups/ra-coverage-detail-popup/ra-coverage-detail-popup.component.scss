@@ -1,0 +1,80 @@
+@import "../../ra-styles.scss";
+
+.ra-cd-container {
+    display: flex;
+    flex-direction: column;
+    min-width: 25em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+.ra-cd-trip-count-breakdown {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    margin-bottom: 1.5em;
+    gap: 0.5em;
+    padding-left: 2em;
+    padding-right: 2em;
+}
+
+.ra-cd-detail-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.ra-cd-trips-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.ra-cd-trips-info-table {
+    border-collapse: separate;
+    border-spacing: 0;
+    td {
+        text-align: left;
+        white-space: nowrap;
+        line-height: 1.8em;
+    }
+    td:first-child {
+        padding-left: 2em;
+    }
+    td:last-child {
+        padding-right: 2em;
+    }
+}
+
+:host ::ng-deep .mat-divider-horizontal {
+    position: unset;
+}
+
+.ra-cd-trip-type-opentime {
+    background-color: rgba($forecast-open-time, 0.5);
+}
+
+.ra-cd-trip-type-projected {
+    background-color: $projected-opentime;
+}
+
+.ra-cd-trip-type-forecast {
+    background-color: $forecast-trip;
+}
+
+.ra-cd-pilot-name {
+    color: $primary-color;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.ra-cd-trip-nbr {
+    color: $primary-color;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.ra-cd-projected-trip-nbr {
+    color: $primary-color;
+    text-decoration: underline;
+    cursor: pointer;
+    font-style: italic;
+}

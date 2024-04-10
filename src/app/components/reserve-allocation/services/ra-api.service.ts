@@ -29,7 +29,7 @@ export class RaAPIService {
       uncoveredTripsDays: 7,
       forecastCoverage: [],
       uncoveredRequirements: [],
-      reservePilotCalendar: []
+      reservePilotCalendar: [],
     }).pipe(delay(this.TEST_DELAY))
   }
 

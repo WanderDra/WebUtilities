@@ -98,17 +98,19 @@
                             [ngClass]="{
                                 'ra-fc-selected-cell-upper': row % 2 === 0 && element.tripDateCells[i]?.showDetailsPopup,
                                 'ra-fc-selected-cell-lower': row % 2 === 1 && element.tripDateCells[i]?.showDetailsPopup}">
-                            <crew-nav-ra-popup-frame class="ra-popup-frame" 
+                            <div #popupRef class="ra-popup-frame"
                                 [ngClass]="{
                                     'ra-popup-frame-left': i <= (raData$.value.maxTripLength / 2),
                                     'ra-popup-frame-right': i > (raData$.value.maxTripLength / 2)
-                                }"
-                                *ngIf="element.tripDateCells[i]?.showDetailsPopup"
-                                [pointer-side]="i > (raData$.value.maxTripLength / 2)? 'right' : 'left'">
-                                <div class="test">
-                                    Something in the dialog...
-                                </div>
-                            </crew-nav-ra-popup-frame>
+                                }">
+                                <crew-nav-ra-popup-frame
+                                    *ngIf="element.tripDateCells[i]?.showDetailsPopup"
+                                    [pointer-side]="i > (raData$.value.maxTripLength / 2)? 'right' : 'left'">
+                                    <crew-nav-ra-coverage-detail-popup
+                                        [data]="element.tripDateCells[i]?.raCoverageDetail">
+                                    </crew-nav-ra-coverage-detail-popup>
+                                </crew-nav-ra-popup-frame>
+                            </div>
                         </div><!-- Coverage Detail -->
                     </div>
                 </td>

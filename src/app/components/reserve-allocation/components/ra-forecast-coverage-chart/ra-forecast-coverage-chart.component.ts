@@ -1,10 +1,10 @@
-import { Component, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { RACellType, RAUserType } from '../../constants/ra-general-constants';
 import { RAForecastCoverageChartUIParam } from './ra-fc-chart.model';
 import { ViewAsOption } from '../ra-search-panel/ra-search-panel.model';
 import { MatTableDataSource } from '@angular/material/table';
-import { RAChartCell } from '../../models/ra-forecast-cell';
+import { RAChartCell, RAForecastCoverageCell } from '../../models/ra-forecast-cell';
 import { RAData } from '../../models/ra-data';
 
 @Component({
@@ -20,9 +20,11 @@ export class RaForecastCoverageChartComponent implements OnInit, OnDestroy {
 
   readonly uiParams$ = new BehaviorSubject<RAForecastCoverageChartUIParam | null>(null);
 
-  private _previousSelectedCell: RAChartCell | null = null;
+  private _previousSelectedCell: RAForecastCoverageCell | null = null;
 
   subscriptions = new Subscription();
+
+  @ViewChild('popupRef') popupRef: ElementRef;
 
   constructor() { }
 
@@ -149,7 +151,7 @@ export class RaForecastCoverageChartComponent implements OnInit, OnDestroy {
     }
   }
   
-  onCellClick(cell: RAChartCell): void {
+  onCellClick(cell: RAForecastCoverageCell): void {
     if (!cell) {
       return;
     }
@@ -163,9 +165,12 @@ export class RaForecastCoverageChartComponent implements OnInit, OnDestroy {
 
   @HostListener('document:click', ['$event'])
   public documentClick(event: Event): void {
-    if (this._previousSelectedCell) {
-      this._previousSelectedCell.showDetailsPopup = false;
+    if (!this.popupRef?.nativeElement?.contains(event.target)) {
+      if (this._previousSelectedCell) {
+        this._previousSelectedCell.showDetailsPopup = false;
+      }
     }
+
   }
 }
 
