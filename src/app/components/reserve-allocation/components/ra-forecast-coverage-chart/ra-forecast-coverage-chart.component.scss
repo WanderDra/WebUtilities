@@ -173,3 +173,8 @@ $cell-height: 2em;
     height: calc(#{$cell-height + 0.2em} * 2);
     width: calc(#{$cell-width + 0.2em});
 }
+
+.ra-forecast-rsv-prd-cell {
+    padding-left: 0.25em;
+    padding-right: 0.25em;
+}

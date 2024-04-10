@@ -29,7 +29,12 @@
                         {{ trip.tripName }}
                     </td>
                     <td class="ra-cd-pilot-name">
-                        {{ trip.pilot.pilotId + ' - ' + trip.pilot.pilotName }}
+                        <ng-container *ngIf="trip.pilot else noPilot">
+                            {{ trip.pilot.pilotId + ' - ' + trip.pilot.pilotName }}
+                        </ng-container>
+                        <ng-template #noPilot>
+                            <span class="ra-cd-no-pilot">No Reserve Pilot</span>
+                        </ng-template>
                     </td>
                 </tr><!-- Trips -->
             <mat-divider></mat-divider>

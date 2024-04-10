@@ -15,5 +15,6 @@ export class RAForecastCoverageChartUIParam {
 
 export class FCChartRecord {
   date: string;
+  type: string;
   tripDateCells: RAForecastCoverageCell[];
 }

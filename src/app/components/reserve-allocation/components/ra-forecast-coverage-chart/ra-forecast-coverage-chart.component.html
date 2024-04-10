@@ -68,10 +68,10 @@
                     <span>RSV<br>PRD</span> 
                 </th>
                 <td mat-cell *matCellDef="let element; let i = index" 
+                    class="ra-forecast-rsv-prd-cell"
                     [attr.rowspan]="2" 
                     [style.display]="i % 2 === 0 ? '' : 'none'">
-                    {{ i % 4 === 0 ? 'RA' : '' }}
-                    {{ i % 4 === 2 ? 'RB' : '' }}
+                    {{ element.type }}
                 </td>
             </ng-container><!-- RSV PRD -->
             <!-- Count Header -->

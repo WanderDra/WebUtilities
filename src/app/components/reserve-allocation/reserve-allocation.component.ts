@@ -4,7 +4,6 @@ import { ISearchCriteriaConfigs, ISearchCriteriaForm } from './components/ra-sea
 import { RaAPIService } from './services/ra-api.service';
 import { RA_MAX_TRIP_LENGTH, RACellType, RATypeOfRequirement, RAUserType } from './constants/ra-general-constants';
 import { retry } from 'rxjs/operators';
-import { ForecastCoverageData } from './models/ra-forecast-coverage';
 import { FCChartRecord } from './components/ra-forecast-coverage-chart/ra-fc-chart.model';
 import * as moment from 'moment';
 import { IRACellConfig, IRAConfig, IRAForecastCoverageConfig } from './interfaces/ra-config.interfaces';
@@ -123,13 +122,14 @@ export class ReserveAllocationComponent implements OnInit, OnDestroy {
     this.raData$.next(newData);
   }
 
-  generateFCChartRecords(forecastCoverageData: ForecastCoverageData): FCChartRecord[] {
+  generateFCChartRecords(forecastCoverageData: FCChartRecord[]): FCChartRecord[] {
     const fcChartRecords: FCChartRecord[] = [];
     // Test
     let dateCounter = 0;
     for (let i = 0; i < 60; i++) {
       const testData = new FCChartRecord();
       testData.date = moment().add(dateCounter, 'day').utc().format('DDMMM');
+      testData.type = i % 4 < 2 ? 'RA/24' : 'RB';
       if (i % 4 === 0) {
         ++dateCounter;
       }
