@@ -170,7 +170,6 @@ export class RaForecastCoverageChartComponent implements OnInit, OnDestroy {
         this._previousSelectedCell.showDetailsPopup = false;
       }
     }
-
   }
 }
 

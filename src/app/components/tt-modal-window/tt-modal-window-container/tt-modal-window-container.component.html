@@ -1,0 +1,157 @@
+<div class="tt-container" #containerRef>
+    <div class="tt-title">
+        Trip Trade Auto Processing
+    </div>
+    <!-- Header Infos -->
+    <div class="tt-header">
+        <div class="tt-header-left">
+            <div>
+                Total Trades: 
+                <span style="font-weight: bold;">
+                    {{ tripTradeData$.value.totalTrades | number }}
+                </span>
+            </div>
+            <div style="display: flex; gap: 1em; align-items: center;">
+                <button mat-stroked-button color="primary" class="tt-inqueue-btn">
+                    IN QUEUE
+                </button>
+                <!-- Add Button -->
+                <button mat-icon-button color="primary" class="tt-add-btn" (click)="onAddClick()">
+                    <mat-icon>
+                        add
+                    </mat-icon>
+                </button><!-- Add Button -->
+            </div>
+        </div>
+        <div class="tt-header-right">
+            <!-- Refresh Button -->
+            <button mat-mini-fab color="primary" class="tt-refresh-btn">
+                <mat-icon>refresh</mat-icon>
+            </button><!-- Refresh Button -->
+            <div>
+                Refresh in {{ 30 }} sec
+            </div>
+        </div>
+    </div><!-- Header Infos -->
+    <ng-container *ngIf="isAddPanelShowing" [ngTemplateOutlet]="addPositionPanel">
+    </ng-container>
+    <!-- Currently Monitoring -->
+    <mat-card class="tt-current-monitoring-container">
+        <div 
+            style="
+                display: flex; 
+                justify-content: space-between; 
+                align-items: center; 
+                cursor: pointer; 
+                user-select: none;" 
+            (click)="onMonitoringClick()">
+            <div style="
+                font-size: x-small; 
+                font-weight: 500; 
+                white-space: nowrap; 
+                display: flex; 
+                align-items: center; 
+                gap: 10px;">
+                Currently Monitoring ({{ tripTradeData$.value.positionsMonitoring?.length }})
+                <div *ngIf="stoppedPositionAmount" class="tt-stopped-position-counter">
+                    <span>{{ stoppedPositionAmount }}</span>
+                </div>
+            </div>
+            <mat-icon [ngClass]="{
+                'tt-monitor-expanded': isMonitorExpanded,
+                'tt-monitor-collapsed': !isMonitorExpanded
+                }">
+                arrow_drop_down
+            </mat-icon>
+        </div>
+        <div *ngIf="isMonitorExpanded" class="tt-positions-container">
+            <ng-container *ngFor="let posItem of tripTradeData$.value.positionsMonitoring" >
+                <ng-container
+                    *ngTemplateOutlet="positionItem; context: {'positionItem': posItem}">
+                </ng-container>
+            </ng-container>
+        </div>
+    </mat-card><!-- Currently Monitoring -->
+</div>
+
+<!-- Add Position Selections -->
+<ng-template #addPositionPanel>
+    <mat-card class="tt-add-position-container">
+        <div class="tt-add-position-label">
+            ADD position to monitor
+        </div>
+        <div class="tt-add-position-row" *ngFor="let selectionRow of availablePositionList">
+            <div class="tt-add-postion-selection" *ngFor="let position of selectionRow">
+                <div style="text-align: right; width: 60px;">
+                    {{ position.base }} {{ position.equipment + position.seat }}
+                </div>
+                <mat-checkbox color="primary" [(ngModel)]="position.isSelected" 
+                    [disabled]="isPositionInList(tripTradeData$.value.positionsPreference, position)">
+                </mat-checkbox>
+            </div>
+        </div>
+        <div class="tt-add-position-btn-container">
+            <button mat-button color="primary" (click)="onAddClose()">CLOSE</button>
+            <button mat-flat-button color="primary" (click)="onAddApply()">APPLY</button>
+        </div>
+    </mat-card>
+</ng-template><!-- Add Position Selections -->
+
+<!-- Position Status Template -->
+<ng-template #positionItem let-positionItem="positionItem">
+    <div class="tt-position-status"
+        [ngClass]="{
+            'tt-position-status-processing': positionItem.status === ttPositionStatus.PROCESSING,
+            'tt-position-status-stopped': 
+                positionItem.status === ttPositionStatus.STOPPED || 
+                positionItem.status === ttPositionStatus.PAUSED
+        }">
+        <div class="tt-position-beq">
+            <div class="tt-position-beq-text">
+                {{ positionItem.base }} {{ positionItem.equipment + positionItem.seat }}
+           </div> 
+            <ng-container [ngSwitch]="positionItem.status">
+                <ng-container *ngSwitchCase="ttPositionStatus.PROCESSING">
+                    <div style="width: 30px; display: flex; justify-content: center; align-items: center;">
+                        <div class="tt-position-status-icon-processing"></div>
+                    </div>
+                </ng-container>
+                <ng-container *ngSwitchCase="ttPositionStatus.PAUSED">
+                    <mat-icon class="tt-position-status-icon-paused">
+                        pause_circle
+                    </mat-icon>
+                </ng-container>
+                <ng-container *ngSwitchCase="ttPositionStatus.STOPPED">
+                    <mat-icon class="tt-position-status-icon-stopped">
+                        cancel
+                    </mat-icon>
+                </ng-container>
+            </ng-container>
+        </div>
+        <ng-container *ngIf="
+            positionItem.status === ttPositionStatus.STOPPED || 
+            positionItem.status === ttPositionStatus.PAUSED">
+            <button mat-flat-button *ngIf="!positionItem.isProcessingByOther else isProcessingByOther" 
+                color="primary"
+                class="tt-process-btn">
+                PROCESS
+            </button>
+        </ng-container>
+        <ng-template #isProcessingByOther>
+            <div class="tt-error-icon-btn" (click)="onErrorIconClick(positionItem)">
+                <mat-icon svgIcon="error" class="tt-error-icon"></mat-icon>
+                <!-- Error Detail Popup -->
+                <div #errorDetailPopupRef 
+                    *ngIf="positionItem.isShowingErrorDetail" 
+                    class="tt-error-detail-container">
+                    <mat-icon svgIcon="error" class="tt-error-icon" style="cursor: default;"></mat-icon>
+                    <div class="tt-error-msg">
+                        A scheduler is currently processing this position.
+                        Return to In Queue to override.
+                    </div>
+                    <div class="tt-arrow-down"></div>
+                </div><!-- Error Detail Popup -->
+            </div>
+        </ng-template>
+    </div>
+</ng-template><!-- Position Status Template -->

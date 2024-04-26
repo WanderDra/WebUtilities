@@ -10,7 +10,7 @@ import { AngularMaterialModule } from './AddonModules/angular-material-module/an
 import { HttpClientModule } from '@angular/common/http';
 import { SessionResultListComponent } from './components/session-result-list/session-result-list.component';
 import { SessionListFilterComponent } from './components/session-list-filter/session-list-filter.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DynamicQueryFormComponent } from './components/dynamic-query-form/dynamic-query-form.component';
 import { AutoDraftPanelComponent } from './containers/auto-draft-panel/auto-draft-panel.component';
 import { DraggablePopupComponent } from './components/draggable-popup/draggable-popup.component';
@@ -48,6 +48,8 @@ import { RaUncoveredRequirementsChartComponent } from './components/reserve-allo
 import { RaReservePilotCalendarComponent } from './components/reserve-allocation/components/ra-reserve-pilot-calendar/ra-reserve-pilot-calendar.component';
 import { RaPopupFrameComponent } from './components/reserve-allocation/popups/ra-popup-frame/ra-popup-frame.component';
 import { RaCoverageDetailPopupComponent } from './components/reserve-allocation/popups/ra-coverage-detail-popup/ra-coverage-detail-popup.component';
+import { TtModalWindowComponent } from './components/tt-modal-window/tt-modal-window.component';
+import { TtModalWindowContainerComponent } from './components/tt-modal-window/tt-modal-window-container/tt-modal-window-container.component';
 
 @NgModule({
   declarations: [
@@ -91,7 +93,9 @@ import { RaCoverageDetailPopupComponent } from './components/reserve-allocation/
     RaUncoveredRequirementsChartComponent,
     RaReservePilotCalendarComponent,
     RaPopupFrameComponent,
-    RaCoverageDetailPopupComponent
+    RaCoverageDetailPopupComponent,
+    TtModalWindowComponent,
+    TtModalWindowContainerComponent
   ],
   imports: [
     BrowserModule,
@@ -100,6 +104,7 @@ import { RaCoverageDetailPopupComponent } from './components/reserve-allocation/
     AngularMaterialModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
     NgxCaptureModule
   ],
   providers: [],

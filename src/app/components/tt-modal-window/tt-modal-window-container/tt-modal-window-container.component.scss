@@ -1,0 +1,314 @@
+@import './../tt-style.scss';
+
+* {
+    box-sizing: border-box;
+}
+
+.tt-container {
+    width: 270px;
+    height: fit-content;
+    max-height: 700px;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.tt-title {
+    width: 100%;
+    background-color: $primary-color;
+    color: white;
+    font-size: medium;
+    padding: 5px;
+    white-space: nowrap;
+    height: 35px;
+    line-height: 25px;
+    font-weight: 500;
+}
+
+.tt-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: x-small;
+    padding: 0.5em;
+}
+
+.tt-header-left {
+    padding: 1em;
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+.tt-header-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.3em;
+    color: $primary-color;
+    padding: 1em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+.tt-inqueue-btn {
+    height: 34px;
+    width: 80px;
+    font-size: small;
+    line-height: 2.4em;
+    text-align: center;
+    padding: 0;
+}
+
+.tt-add-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 0;
+    line-height: 30px;
+}
+
+.tt-refresh-btn {
+    box-shadow: none;
+    mat-icon {
+        font-size: 31px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+:host ::ng-deep mat-button-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tt-current-monitoring-container {
+    margin: 10px;
+    padding: 10px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.tt-add-position-container {
+    margin: 10px;
+    padding: 10px;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.tt-positions-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.tt-position-status {
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tt-position-status-processing {
+    background-color: rgba($position-processing, 0.1);
+}
+
+.tt-position-status-stopped {
+    background-color: rgba($position-stopped, 0.1);
+}
+
+.tt-position-beq {
+    display: flex;
+    white-space: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 110px;
+    min-width: 110px;
+    margin: 10px;
+}
+
+.tt-position-beq-text {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: large;
+}
+
+.tt-position-status-icon-processing {
+    background-color: $position-processing;
+    width: 9px;
+    height: 9px;
+    border-radius: 100%;
+}
+
+.tt-position-status-icon-paused {
+    color: $position-stopped;
+    font-size: 20px;
+    line-height: 24px;
+}
+
+.tt-position-status-icon-stopped {
+    color: $position-stopped;
+    font-size: 20px;
+    line-height: 24px;
+}
+
+.tt-monitor-expanded {
+    animation-name: monitor-expanded;
+    animation-duration: 0.2s;
+    transform: rotate(180deg);
+}
+
+.tt-monitor-collapsed {
+    animation-name: monitor-collapse;
+    animation-duration: 0.2s;
+    transform: rotate(0deg);
+}
+
+@keyframes monitor-expanded {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(180deg);
+    }
+}
+
+@keyframes monitor-collapse {
+    from {
+        transform: rotate(180deg);
+    }
+    to {
+        transform: rotate(0deg);
+    }
+}
+
+.tt-error-icon-btn {
+    width: 20px;
+    height: 20px;
+    margin: 10px;
+    cursor: pointer;
+    position: relative;
+}
+
+.tt-error-icon {
+    color: $position-stopped;
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    min-height: 20px;
+}
+
+.tt-process-btn {
+    width: 80px;
+    height: 32px;
+    font-size: small;
+    padding: 0;
+    line-height: 32px;
+    margin: 10px;
+    font-weight: normal;
+}
+
+.tt-stopped-position-counter {
+    background-color: $position-stopped;
+    color: white;
+    border-radius: 100%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tt-error-detail-container {
+    height: 80px;
+    width: 255px;
+    border: 1px solid rgba(black, 0.12);
+    position: absolute;
+    bottom: 40px;
+    right: -20px;
+    background-color: white;
+    display: flex;
+    gap: 10px;
+    padding: 15px;
+    cursor: default;
+}
+
+.tt-error-msg {
+    color: $position-stopped;
+    font-size: small;
+    cursor: default;
+}
+
+.tt-arrow-down {
+    width: 0;
+    height: 0;
+    border-left: 13px solid transparent;
+    border-right: 13px solid transparent;
+    border-top: 21px solid rgba(black, 0.12);
+    position: absolute;
+    bottom: -21px;
+    right: 17px;
+}
+
+.tt-arrow-down::after {
+    content: "";
+    width: 0;
+    height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 20px solid white;
+    position: absolute;
+    top: -21px;
+    left: -12px;
+}
+
+.tt-add-position-label {
+    font-size: x-small; 
+    font-weight: 500; 
+    white-space: nowrap; 
+    display: flex; 
+    align-items: center; 
+    gap: 10px;
+    border-bottom: 1px solid black;
+    padding-bottom: 5px;
+}
+
+.tt-add-position-row {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(black, 0.12);
+    font-size: small;
+
+    .tt-add-postion-selection {
+        display: flex;
+        justify-content: space-between;
+        width: 95px;
+        height: 32px;
+        align-items: center;
+    }
+}
+
+.tt-add-position-row:nth-last-child(2) {
+    border-bottom: none;
+}
+
+.tt-add-position-btn-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 10px;
+    align-items: center;
+    button {
+        height: 31px;
+        width: 40px;
+        line-height: 31px;
+        font-size: small;
+        font-weight: normal;
+        padding: 0;
+    }
+}
